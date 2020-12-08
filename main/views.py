@@ -19,7 +19,7 @@ def home (request):
     #return_random function
     #session user info
     """
-    return render(request,'shop-category-full.html')
+    return render(request,'shop-category-left.html')
 
 def login(request):
     pass
