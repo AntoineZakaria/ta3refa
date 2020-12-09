@@ -1,4 +1,6 @@
 {% load static %}
+{% static "img" as baseUrl %}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -258,15 +260,17 @@
             <div class="col-md-9">
               <p class="text-muted lead">In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.</p>
               <div class="row products products-big">
+                {%for prod in prods %}
                 <div class="col-lg-4 col-md-6">
                   <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="{% static 'img/product1.jpg' %}" alt="" class="img-fluid image1"></a></div>
+                    <div class="image"><a href="shop-detail.html"><img src="{{baseUrl}}/{{prod.img}}" alt="" class="img-fluid image1"></a></div>
                     <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">Fur coat with very but very very long name</a></h3>
-                      <p class="price">$143.00</p>
+                      <h3 class="h5"><a href="shop-detail.html">{{prod.name}}</a></h3>
+                      <p class="price">{{prod.price}}</p>
                     </div>
                   </div>
                 </div>
+                {% endfor %}
                 <div class="col-lg-4 col-md-6">
                   <div class="product">
                     <div class="image"><a href="shop-detail.html"><img src="{% static 'img/product2.jpg' %}" alt="" class="img-fluid image1"></a></div>

@@ -1,6 +1,7 @@
 from django.shortcuts import render ,redirect
 from django.contrib.auth.models import User , auth
-
+from .models import Product
+from . import views
 
 def return_offers():
     pass
@@ -19,7 +20,9 @@ def home (request):
     #return_random function
     #session user info
     """
-    return render(request,'shop-category-left.html')
+    prods = Product.objects.all()
+
+    return render(request,'shop-category-left.html',{'prods':prods})
 
 def login(request):
     pass
@@ -27,4 +30,9 @@ def logout(request):
     pass
 def return_offer():
     pass
+
+
+def signup(request):
+    return render(request,'customer-register.html')
+
 
