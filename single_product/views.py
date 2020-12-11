@@ -6,6 +6,6 @@ def get_product(request,id):
     
 
 
-    return render(request,'shop-detail.html',{'product':product)
+   pass
 
     
