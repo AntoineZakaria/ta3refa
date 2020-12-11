@@ -10,6 +10,11 @@ def return_html_dashboard(request):
 def return_edit_product(request):
     return render(request,'try_edit_product.html')
 
+############
+def return_edit_shop(request):
+    return render(request,'try_edit_shop.html')
+############
+
 def add_product(request):
     if request.method=='POST':
         name=request.POST['name']
@@ -37,6 +42,14 @@ def edit_product(request, id):
         edit_product.save()
         return redirect('/')
 
+def delete_product(request,id):
+    Product.objects.filter(pk=id).delete()
+    return redirect('/')
+
+def delete_shop(request,id):
+    Shop.objects.filter(pk=id).delete()
+    return redirect('/')
+
 
 def add_shop(request):
     if request.method=='POST':
@@ -60,5 +73,18 @@ def add_shop(request):
          method_of_received_money=method_of_received_money)
         new_shop.save()
         return redirect('/')
-        
+
+def edit_shop(request, id):
+    edit_shop = Shop.objects.get(pk=id)
+    if request.method=='POST':
+        edit_shop.shop_name=request.POST['shop_name']
+        edit_shop.facebook_seller=request.POST['facebook_seller']
+        edit_shop.gmail_seller=request.POST['gmail_seller']
+        edit_shop.website_seller=request.POST['website_seller']
+        edit_shop.phonenumber=request.POST['phonenumber']
+        edit_shop.addrress=request.POST['addrress']
+        edit_shop.method_of_received_money=request.POST['method_of_received_money']
+        edit_shop.save()
+        return redirect('/')
+
 

@@ -40,8 +40,8 @@
   <body>
     
       <!-- Top bar-->
-      <div style = "text-align:center" class ="top-bar">
-        <div class="container">
+      <div class="top-bar">
+        <div style="text-align:center;"class="container">
           <div class="row d-flex align-items-center">
             <div class="col-md-10 d-md-block d-none">
               <p>Contact us on +420 777 555 333 or hello@universal.com.</p>
@@ -74,7 +74,7 @@
               <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-              <form action="/dashboard/edit_product/1" method="get">
+              <form action="/dashboard/edit_shop/1" method="get">
                 <div class="form-group">
                   <input id="email_modal" type="text" placeholder="email" class="form-control">
                 </div>
@@ -92,42 +92,44 @@
         </div>
       </div>
 
-                <form style="width: 50%; text-align: center;margin-left:450px; margin-right:450px; position:center;" action="/dashboard/edit_product/1" method="POST" >
-
-                  {% csrf_token %}
-                  
-                  <div class="form-group">
-                    <label for="name"> Product Name</label>
-                    <input name="name" type="text" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="category">Category</label>
-                    <input name="category" type="text" class="form-control">
-                  </div>                  
-                  <div class="form-group">
-                    <label for="description">Product Descriprion</label>
-                    <input name="descrription" type="text" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="price">Product Price</label>
-                    <input name="price" type="number" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="offer">Offer% (if not put 0)</label>
-                    <input name="offer" type="number" class="form-control" placeholder="0">
-                  </div>
-                  <div class="form-group">
-                    <label for="quantity">Quantity</label>
-                    <input name="quantity" type="number" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="img">Upload Product Image</label>
-                    <input type="file" id= "img" name = "img" >
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-lg btn-success"></i>Edit Product</button>
-                  </div>
-                </form>
+      <form style="width: 50%;  text-align: center;margin-left:400px;margin-right:400px; position:center;" action="/dashboard/edit_shop/1" method="POST" >
+        {% csrf_token %}
+        
+        <div class="form-group">
+          <label for="shop_name"> Shop Name</label>
+          <input name="shop_name" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="facebook_seller">Seller facebook page</label>
+          <input name="facebook_seller" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="gmail_seller">Gmail account</label>
+          <input name="gmail_seller" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="website_seller">Seller website</label>
+          <input name="website_seller" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="phonenumber">Phone number</label>
+          <input name="phonenumber" type="number" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="addrress">Addrress</label>
+          <input name="addrress" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="method_of_received_money">Method of receiving money</label>
+          <input name="method_of_received_money" type="text" class="form-control">
+        </div>                  
+        
+        
+        
+        <div class="text-center">
+          <button type="submit" class="btn btn-lg btn-success"></i>EDIT shop</button>
+        </div>
+      </form>
               </div>
             </div>
        

@@ -90,11 +90,13 @@
                   <input name="password" type="password" placeholder="password" class="form-control">
                 </div>
                 <p class="text-center">
+                  
                   <button class="btn btn-template-outlined"><i class="fa fa-sign-in"></i> Log in</button>
                 </p>
               </form>
               <p class="text-center text-muted">Not registered yet?</p>
               <p class="text-center text-muted"><a href="customer-register.html"><strong>Register now</strong></a>! It is easy and done in 1 minute and gives you access to special discounts and much more!</p>
+              
             </div>
           </div>
         </div>
@@ -269,7 +271,7 @@
                 {%for prod in prods %}
                 <div class="col-lg-4 col-md-6">
                   <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
+                    <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
                     <div class="text">
                       <h3 class="h5"><a href="/single_product/show_product/{{prod.pk}}">{{prod.name}}</a></h3>
                       <p class="price">{{prod.price}}</p>

@@ -92,6 +92,9 @@ DATABASES = {
         'NAME': 'Ecommerce',
         'USER': 'postgres' ,
         'PASSWORD' :'1234' ,       
+
+               
+
         'HOST' :'localhost' 
     }
 }
