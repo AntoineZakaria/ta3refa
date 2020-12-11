@@ -11,7 +11,7 @@ def add_product(request):
     if request.method=='POST':
         name=request.POST['name']
         category=request.POST['category']
-        description=request.POST['discription']
+        description=request.POST['descrription']
         price=request.POST['price']
         quantity=request.POST['quantity']
         img=request.POST['img']
