@@ -2,12 +2,8 @@ from django.shortcuts import render , redirect
 from main.models import Product
 
 # Create your views here.
-<<<<<<< HEAD
 def return_html_dashboard(request):
     return render(request,'dashboard_form.html')
-=======
-def return_dashboard(request):
-    return render(request,'dashboard form.html')
 
 
 
@@ -27,4 +23,3 @@ def add_product(request):
 
         
 
->>>>>>> 6d8a6ffbc4a658040d3a9bf508d36347bac503ee

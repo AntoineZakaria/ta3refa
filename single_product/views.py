@@ -4,6 +4,7 @@ from main.models import Product
 
 def return_html_product(request):
     return render(request,'shop-detail.html')
+    
 def get_product(request,id):
     product = Product.objects.get(pk=id)
     
