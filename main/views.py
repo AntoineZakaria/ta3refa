@@ -12,7 +12,7 @@ def return_random():
 
 
 
-def home (request):
+def return_html_home (request):
     """
     all that functions will be passed to front end
     #return_offers function
@@ -20,9 +20,9 @@ def home (request):
     #return_random function
     #session user info
     """
-    prods = Product.objects.all()
+    # prods = Product.objects.all()
 
-    return render(request,'shop-category-left.html',{'prods':prods})
+    return render(request,'shop-category-left.html')
 
 def login(request):
     pass
