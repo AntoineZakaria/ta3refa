@@ -8,7 +8,7 @@ class Shop(models.Model):
     gmail_seller = models.CharField(max_length=100)
     website_seller = models.CharField(max_length=100)
     mainshop_owner = models.IntegerField()
-    phonenumber =models.IntegerField()
+    phonenumber =models.CharField(max_length=100)
     admins= ArrayField(models.IntegerField())
     products= ArrayField(models.IntegerField())
     addrress =models.CharField(max_length=100)
