@@ -7,7 +7,8 @@ from .models import Shop
 def return_html_dashboard(request):
     return render(request,'dashboard_form.html')
 
-
+def return_edit_product(request):
+    return render(request,'try_edit_product.html')
 
 def add_product(request):
     if request.method=='POST':
@@ -22,6 +23,21 @@ def add_product(request):
         new_product.save()
         return redirect('/')
         
+
+def edit_product(request, id):
+    edit_product = Product.objects.get(pk=id)
+    if request.method == 'POST':
+        edit_product.name=request.POST['name']
+        edit_product.category=request.POST['category']
+        edit_product.description=request.POST['descrription']
+        edit_product.price=request.POST['price']
+        edit_product.quantity=request.POST['quantity']
+        edit_product.img=request.POST['img']
+        edit_product.offer=request.POST['offer']
+        edit_product.save()
+        return redirect('/')
+
+
 def add_shop(request):
     if request.method=='POST':
         shop_name=request.POST['shop_name']
