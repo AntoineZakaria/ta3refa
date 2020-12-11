@@ -3,17 +3,20 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 # Create your models here.
 class comment :
-    pass
+    person_name=models.CharField(max_length=100)
+    content = models.TextField()
+    produc_id=models.CharField(max_length=100)
 
 class Product(models.Model) :
     name = models.CharField(max_length=100)
-    discrriptio = models.TextField() 
+    description = models.TextField() 
     price = models.FloatField()
     quantity = models.IntegerField()
     rate = models.IntegerField() 
     offer =  models.FloatField()
-    comments :comment
+    comment=ArrayField(models.CharField(max_length=100))
     img =models.ImageField(upload_to= 'pics' )
+    shop_id = models.CharField(max_length=100)
 
 
 
