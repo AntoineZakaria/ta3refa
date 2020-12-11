@@ -1,15 +1,16 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+
 # Create your models here.
 class Shop(models.Model):
-    name = models.CharField(max_length=100)
+    shop_name = models.CharField(max_length=100)
     facebook_seller = models.CharField(max_length=100)
     gmail_seller = models.CharField(max_length=100)
     website_seller = models.CharField(max_length=100)
     mainshop_owner = models.IntegerField()
-    phonenumber = ArrayField(models.IntegerField(), default=None)
-    admins = ArrayField(models.IntegerField(), default =None)
-    products = ArrayField(models.IntegerField(), default=None)
-    addrress = ArrayField(models.CharField(), default= None)
+    phonenumber =models.IntegerField()
+    admins= ArrayField(models.IntegerField())
+    products= ArrayField(models.IntegerField())
+    addrress =models.CharField(max_length=100)
     shop_money = models.FloatField()
     method_of_received_money = models.CharField(max_length=100)

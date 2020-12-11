@@ -2,7 +2,7 @@ from django.db import models
 
 from django.contrib.postgres.fields import ArrayField
 # Create your models here.
-class comment :
+class comment(models.Model) :
     person_name=models.CharField(max_length=100)
     content = models.TextField()
     produc_id=models.CharField(max_length=100)
