@@ -269,7 +269,7 @@
                 {%for prod in prods %}
                 <div class="col-lg-4 col-md-6">
                   <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
+                    <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
                     <div class="text">
                       <h3 class="h5"><a href="/single_product/show_product/{{prod.pk}}">{{prod.name}}</a></h3>
                       <p class="price">{{prod.price}}</p>
