@@ -16,11 +16,11 @@
     
 </head>
 <body>
-      <form action="add_product"method="POST">
-        
+      <form action="dashboard/add_product"method="POST">
+        {% csrf_token %}
          <input type="text" name="name" placeholder="product name" required=""><br>
          <input type="text" name="category" placeholder="category" required=""><br>
-         <input type="text" name="discription" placeholder="product discription" required=""><br>
+         <input type="text" name="discription" placeholder="discription" required=""><br>
          <input type="number" name="price" placeholder="price" required=""><br>
          <input type="number" name="quantity" placeholder="quantity" required=""><br>
          <input type="number" name="offer" placeholder="offer" required=""><br>
