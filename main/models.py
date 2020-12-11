@@ -14,9 +14,9 @@ class Product(models.Model) :
     quantity = models.IntegerField()
     rate = models.IntegerField() 
     offer =  models.FloatField()
-    comment=ArrayField(models.CharField(max_length=100))
+    comment=ArrayField(models.CharField(max_length=100),default=None)
     img =models.ImageField(upload_to= 'pics' )
-    shop_id = models.CharField(max_length=100)
+    shop_id = models.CharField(max_length=100,default=None)
 
 
 
