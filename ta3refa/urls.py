@@ -26,4 +26,5 @@ urlpatterns = [
     path('dashboard',include('dashboard.urls')),
     path('personal_shop',include('personal_shop.urls')),
    
+    path('register/', include('register.urls')),
 ]
