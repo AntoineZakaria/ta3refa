@@ -20,7 +20,6 @@ def add_product(request):
         new_product.save()
         return redirect('/')
         
-def return_product():
-    pass
+
         
 
