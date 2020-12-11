@@ -26,8 +26,7 @@ def home (request):
 
 def login(request):
     pass
-def logout(request):
-    pass
+
 def return_offer():
     pass
 
@@ -37,3 +36,4 @@ def signup(request):
 
 def dashboard(request):
     return render(request,'dashboard_form.html')
+
