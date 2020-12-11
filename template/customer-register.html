@@ -159,11 +159,11 @@
                 <p>With registration with us new world of fashion, fantastic discounts and much more opens to you! The whole process will not take you more than a minute!</p>
                 <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
                 <hr>
-                <form action="/" method="POST">
+                <form action="/register/customer_register" method="POST">
                   {% csrf_token %}
                   <div class="form-group">
-                    <label for="name-login">UserName</label>
-                    <input id="name-login" type="text" class="form-control">
+                    <label for="username">UserName</label>
+                    <input name="username" type="text" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="first_name">First Name</label>
@@ -171,27 +171,23 @@
                   </div>
                   <div class="form-group">
                     <label for="last_name">Last Name</label>
-                    <input id="last_name" type="text" class="form-control">
+                    <input name="last_name" type="text" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="address">Address</label>
-                    <input id="address" type="text" class="form-control">
+                    <input name="address" type="text" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="phone">Telephone</label>
-                    <input id="phone" type="text" class="form-control">
-                  </div>
-                  <div class="form-group">
-                    <label for="email-login">Email</label>
-                    <input id="email-login" type="email" class="form-control">
+                    <label for="email">Email</label>
+                    <input name="email" type="email" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="password1">Password</label>
-                    <input id="password2" type="password" class="form-control">
+                    <input name="password1" type="password" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="password2">Retype password</label>
-                    <input id="password2" type="password" class="form-control">
+                    <input name="password2" type="password" class="form-control">
                   </div>
             
                   <div class="text-center">

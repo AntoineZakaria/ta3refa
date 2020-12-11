@@ -36,9 +36,6 @@ def return_offer():
     pass
 
 
-def signup(request):
-    return render(request,'customer-register.html')
-
 
 def random_products(range_product):
     #range_product -> number of products in the random products array
