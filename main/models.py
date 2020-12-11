@@ -17,6 +17,7 @@ class Product(models.Model) :
     comment=ArrayField(models.CharField(max_length=100),default=None)
     img =models.ImageField(upload_to= 'pics' )
     shop_id = models.CharField(max_length=100,default=None)
+    category = models.CharField(max_length=100,default=None)
 
 
 
