@@ -1,3 +1,6 @@
+{% load static %}
+{% static "img" as baseUrl %}
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,23 +11,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
     <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
     <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
     <!-- Google fonts - Roboto-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700">
+    <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Roboto:300,400,700' %}">
     <!-- Bootstrap Select-->
-    <link rel="stylesheet" href="vendor/bootstrap-select/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap-select/css/bootstrap-select.min.css' %}">
     <!-- owl carousel-->
-    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
-    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
+    <link rel="stylesheet" href="{% static 'vendor/owl.carousel/assets/owl.carousel.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl.carousel/assets/owl.theme.default.css' %}">
     <!-- theme stylesheet-->
-    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <!-- Favicon and apple touch icons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
     <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
     <link rel="apple-touch-icon" sizes="76x76" href="img/apple-touch-icon-76x76.png">
@@ -98,7 +101,7 @@
             <button type="button" data-toggle="collapse" data-target="#navigation" class="navbar-toggler btn-template-outlined"><span class="sr-only">Toggle navigation</span><i class="fa fa-align-justify"></i></button>
             <div id="navigation" class="navbar-collapse collapse">
               <ul class="nav navbar-nav ml-auto">
-                <li class="nav-item"><a href="shop-category-left.html" data-toggle="" class="">Home <b class="caret"></b></a></li>
+                <li class="nav-item"><a href="/" data-toggle="" class="">Home <b class="caret"></b></a></li>
                 <li class="nav-item "><a href="index.html" data-toggle="" class="">How to use <b class="caret"></b></a></li>
                 <li class="nav-item "><a href="shop-basket.html" data-toggle="" class="">Cart <b class="caret"></b></a></li>
                 <li class="nav-item "><a href="customer-account.html" data-toggle="" class="">My account <b class="caret"></b></a></li>
@@ -151,14 +154,15 @@
                 <p>With registration with us new world of fashion, fantastic discounts and much more opens to you! The whole process will not take you more than a minute!</p>
                 <p class="text-muted">If you have any questions, please feel free to <a href="contact.html">contact us</a>, our customer service center is working for you 24/7.</p>
                 <hr>
-                <form action="customer-orders.html" method="get">
+                <form action="/" method="POST">
+                  {% csrf_token %}
                   <div class="form-group">
                     <label for="name-login">Name</label>
                     <input id="name-login" type="text" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="street">Street</label>
-                    <input id="street" type="text" class="form-control">
+                    <label for="address">Address</label>
+                    <input id="address" type="text" class="form-control">
                   </div>
                   <div class="form-group">
                     <label for="phone">Telephone</label>
@@ -166,15 +170,20 @@
                   </div>
                   <div class="form-group">
                     <label for="email-login">Email</label>
-                    <input id="email-login" type="text" class="form-control">
+                    <input id="email-login" type="email" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="password-login">Password</label>
-                    <input id="password-login" type="password" class="form-control">
+                    <label for="password1">Password</label>
+                    <input id="password2" type="password" class="form-control">
                   </div>
                   <div class="form-group">
-                    <label for="password_2">Retype password</label>
-                    <input id="password_2" type="password" class="form-control">
+                    <label for="password2">Retype password</label>
+                    <input id="password2" type="password" class="form-control">
+                  </div>
+                  <div>
+                    {% for message in messages %}
+                    <h4> {{message}} </h4>
+                    {% endfor %}
                   </div>
                   <div class="text-center">
                     <button type="submit" class="btn btn-template-outlined"><i class="fa fa-user-md"></i> Register</button>
