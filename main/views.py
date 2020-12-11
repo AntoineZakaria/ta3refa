@@ -35,4 +35,5 @@ def return_offer():
 def signup(request):
     return render(request,'customer-register.html')
 
-
+def dashboard(request):
+    return render(request,'dashboard_form.html')
