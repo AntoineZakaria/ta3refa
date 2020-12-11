@@ -3,7 +3,11 @@ from main.models import Product
 from .models import Shop
 
 # Create your views here.
+<<<<<<< HEAD
 def return_dashboard(request):
+=======
+def return_html_dashboard(request):
+>>>>>>> b11fee3a2afad126e5fb765697fdd98efe5264f6
     return render(request,'dashboard_form.html')
 
 
