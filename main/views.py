@@ -39,10 +39,7 @@ def return_offer():
 def signup(request):
     return render(request,'customer-register.html')
 
-<<<<<<< HEAD
-def dashboard(request):
-    return render(request,'dashboard_form.html')
-=======
+
 def random_products(range_product):
     #range_product -> number of products in the random products array
     array_of_random_pr = []
@@ -59,5 +56,4 @@ def random_products(range_product):
 
 
 
->>>>>>> cea286904b48faff06f538c82941d1de7f4e218e
 
