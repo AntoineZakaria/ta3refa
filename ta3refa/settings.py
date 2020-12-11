@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'dashboard.apps.DashboardConfig',
     'main.apps.MainConfig',
     'checkout.apps.CheckoutConfig',
     'django.contrib.admin',
@@ -129,3 +130,6 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
 
+MEDIA_URL='/product_image/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'product_image')
+SESSION_SAVE_EVERY_REQUEST=True
