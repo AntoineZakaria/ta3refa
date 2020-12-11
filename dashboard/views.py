@@ -16,7 +16,7 @@ def add_product(request):
         description=request.POST['descrription']
         price=request.POST['price']
         quantity=request.POST['quantity']
-        img=request.POST['img']
+        img=request.FILES['photo1']
         offer=request.POST['offer']
         new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=0)
         new_product.save()

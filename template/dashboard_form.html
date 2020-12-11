@@ -273,7 +273,7 @@
               <div class="box">
                 <h2 class="text-uppercase">Product Details</h2>
 
-                <form action="/dashboard/add_product" method="POST">
+                <form action="/dashboard/add_product" method="POST" enctype="multipart/form-data">
                   {% csrf_token %}
                   
                   <div class="form-group">
@@ -302,7 +302,7 @@
                   </div>
                   <div class="form-group">
                     <label for="img">Upload Product Image</label>
-                    <input type="file" id= "img" name = "img" >
+                    <input type='file' accept="image/*"  name = "photo1" >
                   </div>
                   <div class="text-center">
                     <button type="submit" class="btn btn-lg btn-success"></i>ADD Product</button>
