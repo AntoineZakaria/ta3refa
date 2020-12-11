@@ -1,3 +1,5 @@
+{% load static %}
+{% static "img" as baseUrl %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,26 +9,26 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="all,follow">
-    <!-- Bootstrap CSS-->
-    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
-    <!-- Font Awesome CSS-->
-    <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.min.css">
-    <!-- Google fonts - Roboto-->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,700">
-    <!-- Bootstrap Select-->
-    <link rel="stylesheet" href="vendor/bootstrap-select/css/bootstrap-select.min.css">
-    <!-- owl carousel-->
-    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.carousel.css">
-    <link rel="stylesheet" href="vendor/owl.carousel/assets/owl.theme.default.css">
-    <!-- theme stylesheet-->
-    <link rel="stylesheet" href="css/style.default.css" id="theme-stylesheet">
-    <!-- Custom stylesheet - for your changes-->
-    <link rel="stylesheet" href="css/custom.css">
-    <!-- Favicon and apple touch icons-->
-    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-    <link rel="apple-touch-icon" sizes="57x57" href="img/apple-touch-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+   <!-- Bootstrap CSS-->
+   <link rel="stylesheet" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}">
+   <!-- Font Awesome CSS-->
+   <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}">
+   <!-- Google fonts - Roboto-->
+   <link rel="stylesheet" href="{% static 'https://fonts.googleapis.com/css?family=Roboto:300,400,700' %}">
+   <!-- Bootstrap Select-->
+   <link rel="stylesheet" href="{% static 'vendor/bootstrap-select/css/bootstrap-select.min.css' %}">
+   <!-- owl carousel-->
+   <link rel="stylesheet" href="{% static 'vendor/owl.carousel/assets/owl.carousel.css' %}">
+   <link rel="stylesheet" href="{% static 'vendor/owl.carousel/assets/owl.theme.default.css' %}">
+   <!-- theme stylesheet-->
+   <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
+   <!-- Custom stylesheet - for your changes-->
+   <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+   <!-- Favicon and apple touch icons-->
+   <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+   <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
+   <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-touch-icon-57x57.png' %}">
+   <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-touch-icon-72x72.png' %}">
     <link rel="apple-touch-icon" sizes="76x76" href="img/apple-touch-icon-76x76.png">
     <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
     <link rel="apple-touch-icon" sizes="120x120" href="img/apple-touch-icon-120x120.png">
@@ -298,14 +300,14 @@
         <div class="container">
           <div class="row d-flex align-items-center flex-wrap">
             <div class="col-md-7">
-              <h1 class="h2">White Blouse Armani</h1>
+              <h1 class="h2">{{product.name}}</h1>
             </div>
             <div class="col-md-5">
               <ul class="breadcrumb d-flex justify-content-end">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
                 <li class="breadcrumb-item"><a href="shop-category.html">Ladies</a></li>
                 <li class="breadcrumb-item"><a href="shop-category.html">Tops</a></li>
-                <li class="breadcrumb-item active">White Blouse Armani</li>
+                <li class="breadcrumb-item active">{{product.name}}</li>
               </ul>
             </div>
           </div>
@@ -317,7 +319,7 @@
             <!-- LEFT COLUMN _________________________________________________________-->
             <div class="col-lg-9">
               <p class="lead">Built purse maids cease her ham new seven among and. Pulled coming wooded tended it answer remain me be. So landlord by we unlocked sensible it. Fat cannot use denied excuse son law. Wisdom happen suffer common the appear ham beauty her had. Or belonging zealously existence as by resources.</p>
-              <p class="goToDescription"><a href="#details" class="scroll-to text-uppercase">Scroll to product details, material & care and sizing</a></p>
+              <p class="goToDescription"><a href="#details" class="scroll-to text-uppercase">Scroll to product details</a></p>
               <div id="productMain" class="row">
                 <div class="col-sm-6">
                   <div data-slider-id="1" class="owl-carousel shop-detail-carousel">
@@ -338,7 +340,7 @@
                           <option value="x-large">X Large</option>
                         </select>
                       </div>
-                      <p class="price">$124.00</p>
+                      <p class="price">{{product.price}}</p>
                       <p class="text-center">
                         <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Add to cart</button>
                         <button type="submit" data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="btn btn-default"><i class="fa fa-heart-o"></i></button>
@@ -355,20 +357,9 @@
               <div id="details" class="box mb-4 mt-4">
                 <p></p>
                 <h4>Product details</h4>
-                <p>White lace top, woven, has a round neck, short sleeves, has knitted lining attached</p>
-                <h4>Material & care</h4>
-                <ul>
-                  <li>Polyester</li>
-                  <li>Machine wash</li>
-                </ul>
-                <h4>Size & Fit</h4>
-                <ul>
-                  <li>Regular fit</li>
-                  <li>The model (height 5'8 "and chest 33") is wearing a size S</li>
-                </ul>
-                <blockquote class="blockquote">
-                  <p class="mb-0"><em>Define style this season with Armani's new range of trendy tops, crafted with intricate details. Create a chic statement look by teaming this lace number with skinny jeans and pumps.</em></p>
-                </blockquote>
+                <p>{{product.description}}</p>
+                
+                
               </div>
               <div id="product-social" class="box social text-center mb-5 mt-5">
                 <h4 class="heading-light">Show it to your friends</h4>

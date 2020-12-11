@@ -42,6 +42,14 @@ def edit_product(request, id):
         edit_product.save()
         return redirect('/')
 
+def delete_product(request,id):
+    Product.objects.filter(pk=id).delete()
+    return redirect('/')
+
+def delete_shop(request,id):
+    Shop.objects.filter(pk=id).delete()
+    return redirect('/')
+
 
 def add_shop(request):
     if request.method=='POST':
