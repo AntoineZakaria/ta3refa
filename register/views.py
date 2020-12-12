@@ -15,7 +15,7 @@ def login(request):
             auth.login(request,user)
             return redirect("/")
         else:
-            messages.info(request, 'incorrect email or password')
+            messages.info(request, 'incorrect User Name or password')
             return redirect('/register')
     
     else:
