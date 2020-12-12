@@ -55,9 +55,15 @@
                   <li class="list-inline-item"><a href="#"><i class="fa fa-envelope"></i></a></li>
                 </ul>
                 {% if user.is_authenticated %}
-                <li>Hello , {{user.username}}</li>
-                <div class="logout"><a href="register/logout" data-toggle="modal" data-target="#logout-modal" class="login-btn"><i class="fa fa-sign-in"></i><span class="d-none d-md-inline-block">Sign In</span></a>
-                {% else %}
+                Hello , {{user.username}}
+                <form action="/register/logout" method="POST">
+                  {% csrf_token %}
+                  
+                  <input type="submit" value="logout" class="fa fa-sign-in" style="background-color: darkgrey;">
+                 
+                </div>
+              </form>
+                  {% else %}
                 <div class="login"><a href="#" data-toggle="modal" data-target="#login-modal" class="login-btn"><i class="fa fa-sign-in"></i><span class="d-none d-md-inline-block">Sign In</span></a><a href="\register" class="signup-btn"><i class="fa fa-user"></i><span class="d-none d-md-inline-block">Sign Up</span></a></div>
                 {% endif %}
                 <ul class="social-custom list-inline">

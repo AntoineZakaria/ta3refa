@@ -7,19 +7,19 @@ def return_register(request):
     return render(request,'customer-register.html')
 def login(request):
     if request.method== 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
+        email = request.POST['email_login']
+        password = request.POST['password_login']
 
-        user = auth.authenticate(email=email, password=password)
+        user = auth.authenticate(username=email, password=password)
         if user is not None:
             auth.login(request,user)
             return redirect("/")
         else:
-            messages.info(request, 'incorrect username or password')
-            return redirect('customer-register.html')
+            messages.info(request, 'incorrect email or password')
+            return redirect('/register')
     
     else:
-        return render(request,'customer-register.html')
+        return render(request,'/register')
 
 
 def logout(request):
@@ -38,10 +38,10 @@ def customer_register(request):
         if password1 == password2:
             if User.objects.filter(username=username).exists():
                 messages.info(request,"username already exists")
-                return redirect("customer-register.html")
+                return redirect("/register")
             elif User.objects.filter(email=email).exists():
                 messages.info(request,"email already exists")
-                return redirect("customer-register.html")
+                return redirect("/register")
             else:
                 person =Person(first_name=first_name,last_name=last_name,address=address,email=email,is_seller=False,Purchased_products=[])
                 person.save()
@@ -51,7 +51,7 @@ def customer_register(request):
             
         else:
             messages.info(request,"Password doesnt match")
-            return redirect("customer-register")
+            return redirect("register")
         return redirect('/')
     else:
         return render(request,'customer-register.html')
