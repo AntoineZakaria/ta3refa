@@ -5,7 +5,9 @@ from . import views
 import random
 
 def return_html_category (request,category):
-    prods=random_category_products(0,'category')
+    prods=random_category_products(0,category)
+ ## It takes the ammount of products you want .. im passing zero to avoid errors as you will not have products in your data base
+
 
     return render(request,'shop-category.html',{'prods':prods})
 
@@ -50,6 +52,7 @@ def random_products(range_product):
     return array_of_random_pr
 
 
+
 def random_category_products(range_product,category):
     #range_product -> number of products in the random products array
     array_of_random_pr = []
@@ -63,6 +66,9 @@ def random_category_products(range_product,category):
             if flag:        
                 array_of_random_pr.append(random_object)
     return array_of_random_pr
+
+
+
 
 
 
