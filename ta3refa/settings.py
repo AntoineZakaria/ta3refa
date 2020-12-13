@@ -67,7 +67,7 @@ ROOT_URLCONF = 'ta3refa.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'template')],
+        'DIRS': [os.path.join(BASE_DIR,'template')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -90,24 +90,24 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'Ecommerce',
-        'USER': 'postgres',
-        'PASSWORD': '1234',
+        'USER': 'postgres' ,
+        'PASSWORD' :'1234' ,       
 
+               
 
-
-        'HOST': 'localhost'
+        'HOST' :'localhost' 
     }
 }
 
 # Login using Gmail
 AUTHENTICATION_BACKENDS = [
-
+    
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
 
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
-
+    
 ]
 
 # Password validation
@@ -150,9 +150,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
+STATIC_ROOT = os.path.join(BASE_DIR,'assets')
 
 
-MEDIA_URL = '/product_image/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'product_image')
-SESSION_SAVE_EVERY_REQUEST = True
+MEDIA_URL='/product_image/'
+MEDIA_ROOT=os.path.join(BASE_DIR,'product_image')
+SESSION_SAVE_EVERY_REQUEST=True
