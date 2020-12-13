@@ -6,7 +6,7 @@ from main.models import Product
     
 def get_product(request,id):
     product = Product.objects.get(pk=id)
-    
+   
 
 
   
