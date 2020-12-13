@@ -4,12 +4,10 @@ from .models import Product
 from . import views
 import random
 
-def return_offers():
-    pass
-def return_suggested():
-    pass
-def return_random():
-    pass
+def return_html_category (request,category):
+    prods=random_category_products(0,'category')
+
+    return render(request,'shop-category.html',{'prods':prods})
 
 
 
@@ -51,6 +49,20 @@ def random_products(range_product):
                 array_of_random_pr.append(random_object)
     return array_of_random_pr
 
+
+def random_category_products(range_product,category):
+    #range_product -> number of products in the random products array
+    array_of_random_pr = []
+    for i in range(range_product):
+        flag = 1
+        while len(array_of_random_pr) < range_product:
+            random_object = Product.objects.all().filter(category=category)[random.randint(0, Product.objects.filter(category=category).count() - 1)]
+            for single_product in array_of_random_pr:
+                if single_product == random_object:
+                    flag = 0
+            if flag:        
+                array_of_random_pr.append(random_object)
+    return array_of_random_pr
 
 
 
