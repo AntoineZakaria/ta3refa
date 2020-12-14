@@ -16,7 +16,7 @@ def login(request):
             return redirect("/")
         else:
             messages.info(request, 'incorrect User Name or password')
-            return redirect('/register')
+            return redirect('/')
     
     else:
         return render(request,'/register')
