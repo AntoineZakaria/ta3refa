@@ -82,6 +82,11 @@
               <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
+              {% for message in messages %}
+              <div role="alert" class="alert alert-danger">
+              <h4> {{message}} </h4>
+              {% endfor %}
+            </div>
               <form action="/register/login" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
