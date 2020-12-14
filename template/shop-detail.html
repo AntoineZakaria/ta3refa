@@ -317,7 +317,7 @@
             <img src="{{product.img.url}}" style="width:40%; margin-left:0%;">
             <p class="text-center" style="display: inline-block;width:20%;">
               <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-              <p class="price"  style="display: inline-block;width:20%;">{{product.price}}</p>
+              <p class="price"  style="display: inline-block;width:20%;">{{product.price-(product.price*product.offer/100)}}</p>
               <p class="price"  style="display: inline-block;width:10%;margin-left:-10%;">{{product.quantity}} in stock</p>
               {% if product.offer %}
               <p class="price"  style="display: inline-block;width:10%;color:red;">{{product.offer}}% offer!</p>
