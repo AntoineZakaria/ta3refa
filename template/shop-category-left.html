@@ -78,15 +78,11 @@
         <div role="document" class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
+            
               <h4 id="login-modalLabel" class="modal-title">Customer/Seller Login</h4>
               <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
             </div>
             <div class="modal-body">
-              {% for message in messages %}
-              <div role="alert" class="alert alert-danger">
-              <h4> {{message}} </h4>
-              {% endfor %}
-            </div>
               <form action="/register/login" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
@@ -158,6 +154,12 @@
           </div>
         </div>
       </div>
+      {% for message in messages %}
+      <div role="alert" class="alert alert-warning alert-dismissible">
+        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>{{ message }}
+      
+      {% endfor %}
+    </div>
       <div id="content">
         <div class="container">
           <div class="row bar">
