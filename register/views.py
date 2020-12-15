@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User,auth
 from main.models import Person,Customer,Seller
 # Create your views here.
+is_seller = False
+shop_name = ""
 def return_register(request):
     return render(request,'customer-register.html')
 def login(request):
@@ -16,9 +18,10 @@ def login(request):
             logged_user_type = Person.objects.get(username=username)
             
             if logged_user_type.is_seller:
+                is_seller = True
                 seller = Seller.objects.get(username=username)
-                shop= seller.shop_name
-                messages.info(request, shop)
+                shop_name= seller.shop_name
+                messages.info(request, shop_name)
                 return redirect('/dashboard')
 
 
