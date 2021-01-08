@@ -7,9 +7,8 @@
 
 
 
-
-
-      <!-- Navbar End-->
+<head>
+  <title>Ta3refa-Home</title></head>
       
       <div id="heading-breadcrumbs">
         <div class="container">
@@ -154,8 +153,32 @@
                     <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
                     <div class="text">
                       <h3 class="h5"><a href="/single_product/show_product/{{prod.pk}}">{{prod.name}}</a></h3>
-                      <p class="price">{{prod.price}}</p>
+                    
+                    <div class="single-review" style="margin:0em;">
+                      <div class="review-heading">
+                        
+                          <div class="review-rating" style="position:initial">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o empty"></i>
+                              <i class="fa fa-star-o empty"></i>
+                          </div>
+                      </div></div>
+                    
+                      {% if prod.offer %}
+                      <p class="price">
+                        <del>${{prod.price}}</del>
+                      </p>
+                      {% else %}
+                      <p class="price">${{prod.price}}</p>  
+                      {% endif %}
                     </div>
+                    {% if prod.offer %}
+                    <div class="ribbon-holder">
+                      <div class="ribbon sale" style="background: red;font:xx-small">{{prod.offer}}%OFF</div>
+                    </div>
+                    {% endif %}
                   </div>
                 </div>
                 {% endfor %}
@@ -164,7 +187,7 @@
                     <div class="image"><a href="shop-detail.html"><img src="{% static 'img/product2.jpg' %}" alt="" class="img-fluid image1"></a></div>
                     <div class="text">
                       <h3 class="h5"><a href="shop-detail.html">White Blouse Armani</a></h3>
-                      <p class="price">
+                        <p class="price">
                         <del>$280</del> $143.00
                       </p>
                     </div>
@@ -172,6 +195,7 @@
                       <div class="ribbon sale">SALE</div>
                       <div class="ribbon new">NEW</div>
                     </div>
+
                   </div>
                 </div>
                 <div class="col-lg-4 col-md-6">
