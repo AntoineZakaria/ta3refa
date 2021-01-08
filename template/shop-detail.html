@@ -6,7 +6,7 @@
 {% block content %}
 
       <!-- Navbar End-->
-      
+
       <div id="heading-breadcrumbs">
         <div class="container">
           <div class="row d-flex align-items-center flex-wrap">
@@ -30,7 +30,7 @@
             <img src="{{product.img.url}}" style="width:40%; margin-left:0%;">
             <p class="text-center" style="display: inline-block;width:20%;">
               <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-              <p class="price"  style="display: inline-block;width:20%;">{{product.price}}</p>
+              <p class="price"  style="display: inline-block;width:20%;">Price:{{product.price}}$</p>
               <p class="price"  style="display: inline-block;width:10%;margin-left:-10%;">{{product.quantity}} in stock</p>
               {% if product.offer %}
               <p class="price"  style="display: inline-block;width:10%;color:red;">{{product.offer}}% offer!</p>
@@ -56,6 +56,123 @@
                 <h4>Product details</h4>
                 <p>{{product.description}}</p>
               </div>
+ 
+
+
+              <div class="col-md-12">
+                <div class="product-tab">
+                    <ul class="tab-nav">
+                        <li class="active"><h3 data-toggle="tab" >Product Reviews</h3></li>
+                    </ul>
+
+            
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="product-reviews">
+                                        <div class="single-review">
+                                            <div class="review-heading">
+                                                <div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
+                                                <div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
+                                                <div class="review-rating pull-right">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o empty"></i>
+                                                    <i class="fa fa-star-o empty"></i>
+                                                </div>
+                                            </div>
+                                            <div class="review-body">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute
+                                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                            </div>
+                                        </div>
+            
+                                        <div class="single-review">
+                                            <div class="review-heading">
+                                                <div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
+                                                <div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
+                                                <div class="review-rating pull-right">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o empty"></i>
+                                                </div>
+                                            </div>
+                                            <div class="review-body">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute
+                                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                            </div>
+                                        </div>
+            
+                                        <div class="single-review">
+                                            <div class="review-heading">
+                                                <div><a href="#"><i class="fa fa-user-o"></i> John</a></div>
+                                                <div><a href="#"><i class="fa fa-clock-o"></i> 27 DEC 2017 / 8:0 PM</a></div>
+                                                <div class="review-rating pull-right">
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star"></i>
+                                                    <i class="fa fa-star-o empty"></i>
+                                                </div>
+                                            </div>
+                                            <div class="review-body">
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.Duis aute
+                                                    irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                            </div>
+                                        </div>
+            
+                                        <ul class="reviews-pages">
+                                            <li class="active">1</li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#"><i class="fa fa-caret-right"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                  {% if user.is_authenticated %}
+                                    <h3 class="text-uppercase" >Write Your Review</h3>
+                                    <form class="review-form">
+                                      {% if user.is_authenticated %}
+                                      <div class="form-group">
+                                       <h4>Your name will be shown as: <a style="color: blue;"><i class="fa fa-user-o"></i>{{user.username}}</a></h4>
+                                      </div>
+                                      {% endif %}
+                                      <div class="form-group">
+                                        <textarea class="form-control" placeholder="Your review"></textarea>
+                                      </div>
+                                        <div class="form-group">
+                                            <div class="input-rating">
+                                                <strong class="text-uppercase">Your Rating: </strong>
+                                                <div class="stars">
+                                                    <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
+                                                    <input type="radio" id="star4" name="rating" value="4" /><label for="star4"></label>
+                                                    <input type="radio" id="star3" name="rating" value="3" /><label for="star3"></label>
+                                                    <input type="radio" id="star2" name="rating" value="2" /><label for="star2"></label>
+                                                    <input type="radio" id="star1" name="rating" value="1" /><label for="star1"></label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-template-outlined">Submit</button>
+                                    </form>
+                                </div>
+                                {% else %}
+                                <h4 style="color: rgb(23, 70, 165);text-align: center;">Please Sign in to add your review</h4>
+                                {% endif %}
+                            </div>
+            
+            
+            
+                       
+                  
+                </div>
+            </div>
+            
+
+
+
               <div id="product-social" class="box social text-center mb-5 mt-5">
                 <h4 class="heading-light">Show it to your friends</h4>
                 <ul class="social list-inline">

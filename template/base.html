@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="{% static 'css/style.default.css' %}" id="theme-stylesheet">
     <!-- Custom stylesheet - for your changes-->
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Favicon and apple touch icons-->
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
@@ -37,9 +38,101 @@
     <link rel="apple-touch-icon" sizes="120x120" href="img/apple-touch-icon-120x120.png">
     <link rel="apple-touch-icon" sizes="144x144" href="img/apple-touch-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="img/apple-touch-icon-152x152.png">
-    <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+
+
+    <style>
+      .single-review {
+        margin-bottom: 30px;
+      }
+      
+      .single-review .review-heading>div {
+        display: inline-block;
+      }
+      
+      .single-review .review-heading>div+div {
+        margin-left: 10px;
+      }
+      
+      .single-review .review-rating {
+        display: inline-block;
+      }
+      
+      .single-review .review-rating>i {
+        color: #FFB656;
+      }
+      
+      .single-review .review-rating>i.empty {
+        color: #DADADA;
+      }
+      
+      .single-review .review-body {
+        margin-top: 10px;
+      }
+      
+      .reviews-pages li {
+        display: inline-block;
+        margin-right: 6px;
+      }
+      
+      .reviews-pages li a {
+        display: block;
+        min-width: 10px;
+        text-align: center;
+      }
+      
+      .reviews-pages li.active {
+        color: #F8694A;
+      }
+      .review-form textarea.input {
+        height: 90px;
+      }
+      
+      .review-form .input-rating .stars {
+        display: inline-block;
+        vertical-align: top;
+      }
+      
+      .review-form .input-rating .stars input[type="radio"] {
+        display: none;
+      }
+      
+      .review-form .input-rating .stars>label {
+        float: right;
+        cursor: pointer;
+        padding: 0px 3px;
+        margin: 0px;
+        -webkit-transition: 0.3s all;
+        transition: 0.3s all;
+      }
+      
+      .review-form .input-rating .stars>label:hover, .review-form .input-rating .stars>label:hover~label {
+        -webkit-transform: scale(1.5);
+        -ms-transform: scale(1.5);
+        transform: scale(1.5);
+      }
+      
+      .review-form .input-rating .stars>label:before {
+        content: "\f006";
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        color: #DADADA;
+        font-size: 14px;
+        -webkit-transition: 0.3s all;
+        transition: 0.3s all;
+      }
+      
+      .review-form .input-rating .stars>label:hover:before, .review-form .input-rating .stars>label:hover~label:before {
+        content: "\f005";
+        color: #FFB656;
+      }
+      
+      .review-form .input-rating .stars>input:checked label:before, .review-form .input-rating .stars>input:checked~label:before {
+        content: "\f005";
+        color: #FFB656;
+      }
+      
+    </style>
   </head>
   <body>
     <div id="all">
@@ -115,9 +208,9 @@
               <ul class="nav navbar-nav ml-auto">
                 <li class="nav-item "><a href="/" data-toggle="" class="">Home <b class="caret"></b></a></li>
                 <li class="nav-item "><a href="index.html" data-toggle="" class="">How to use <b class="caret"></b></a></li>
-                <li class="nav-item "><a href="shop-basket.html" data-toggle="" class="">Cart <b class="caret"></b></a></li>
+                <li class="nav-item "><a href="shop-basket.html" data-toggle="" class="">Cart <b class="caret"><b class="fa fa-shopping-cart" style="font-size:24px;color:#467fbf"></b> <span class="badge badge-primary" style="position:absolute;">0</span> </b></a></li>
                 <li class="nav-item "><a href="customer-account.html" data-toggle="" class="">My account <b class="caret"></b></a></li>
-                <li class="nav-item "><a href="dashboard" data-toggle="" class="">dashboard <b class="caret"></b></a></li>
+                <li class="nav-item "><a href="\dashboard" data-toggle="" class=""> dashboard <b class="caret"></b></a></li>
                  
                 
                 
