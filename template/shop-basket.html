@@ -36,11 +36,11 @@
                     <table class="table">
                       <thead>
                         <tr>
-                          <th colspan="2">Product</th>
+                          <th colspan="1">Product</th>
                           <th>Quantity</th>
                           <th>Unit price</th>
-                          <th>Discount</th>
-                          <th colspan="2">Total</th>
+                          <th>Price After Discount</th>
+                          <th colspan="1">Total</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -49,11 +49,11 @@
                           <td><a href="#"><img src="{{product.img.url}}" alt="{{product.name}}" class="img-fluid"></a></td>
                           <td><a href="#">{{product.name}}</a></td>
                           <td>
-                            <input type="number" value="2" class="form-control">
+                            <input type="number" value="1" class="form-control">
                           </td>
                           <td>{{product.price}}</td>
-                          <td>$0.00</td>
-                          <td>$246.00</td>
+                          <td>${{product.new_price}}</td>
+                          
                           <td><a href="/checkout/remove_from_cart/{{product.pk}}"><i class="fa fa-trash-o"></i></a></td>
                          
                         </tr>
@@ -73,7 +73,7 @@
                       <tfoot>
                         <tr>
                           <th colspan="5">Total</th>
-                          <th colspan="2">$446.00</th>
+                          <th colspan="2">${{totalprice}}</th>
                         </tr>
                       </tfoot>
                     </table>
