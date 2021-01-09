@@ -134,6 +134,8 @@ def seller_register(request):
                 user = User.objects.create_user(username = username , email=email, password = password1, first_name=first_name,last_name=last_name)
                 user.save();
                 messages.info(request,"Seller Account created . you just need to Login")
+                new_cart=Cart(user_id=User.objects.get(username=username).id,products=[])
+                new_cart.save()
             
         else:
             messages.info(request,"Password doesnt match")
