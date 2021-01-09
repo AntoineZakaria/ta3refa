@@ -54,6 +54,7 @@
                   </ul>
                 </div>
               </div>
+              {% if user.is_authenticated %}
               <div class="panel panel-default sidebar-menu">
                 <div class="panel-heading">
                   <h3 class="h4 panel-title">Favourites</h3>
@@ -70,6 +71,7 @@
                   </ul>
                 </div>
               </div>
+              {%endif%}
               <div class="panel panel-default sidebar-menu">
                 <div class="panel-heading d-flex align-items-center justify-content-between">
                   <h3 class="h4 panel-title">Filters</h3><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i><span class="d-none d-md-inline-block">Clear</span></a>
