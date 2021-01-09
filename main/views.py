@@ -5,7 +5,9 @@ from . import views
 import random
 
 def return_html_category (request,category):
-    prods=random_category_products(0,category)
+    prods=Product.objects.all().filter(category=category)
+    
+  ##  prods=random_category_products(0,category)
  ## It takes the ammount of products you want .. im passing zero to avoid errors as you will not have products in your data base
 
 
