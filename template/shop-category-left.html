@@ -42,42 +42,15 @@
                 </div>
                 <div class="panel-body">
                   <ul class="nav nav-pills flex-column text-sm category-menu">
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Technology </span><span class="badge badge-secondary">42</span></a>
+                    <li ></a>
                       <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="/shop_category/phones" class="nav-link">Cell Phones</a></li>
-                        <li class="nav-item"><a href="/shop_category/computers" class="nav-link">Computers and Laptops</a></li>
-                        <li class="nav-item"><a href="/shop_category/accessories" class="nav-link">Accessories</a></li>
+                        <li class="nav-item"><a href="/shop_category/Phones" class="nav-link">Cell Phones</a></li>
+                        <li class="nav-item"><a href="/shop_category/Computers" class="nav-link">Computers and Laptops</a></li>
+                        <li class="nav-item"><a href="/shop_category/Accessories" class="nav-link">Accessories</a></li>
+                        <li class="nav-item"><a href="/shop_category/Clothes" class="nav-link">Clothes</a></li>
                       </ul>
                     </li>
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link active d-flex align-items-center justify-content-between"><span>Clothes  </span><span class="badge badge-light">123</span></a>
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">T-shirts</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Shoes</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Pants</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Smart Home  </span><span class="badge badge-secondary">11</span></a>
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Security Systems</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Lighting</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Voice Assistants</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Video Games  </span><span class="badge badge-secondary">11</span></a>
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">PlayStation 5</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">PlayStation 4</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Xbox 360</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Accessories</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item"><a href="shop-category.html" class="nav-link d-flex align-items-center justify-content-between"><span>Beauty And Personal Care  </span><span class="badge badge-secondary">11</span></a>
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Makeup</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Skin Care</a></li>
-                        <li class="nav-item"><a href="shop-category.html" class="nav-link">Hair Care</a></li>
-                      </ul>
-                    </li>
+                 
                   </ul>
                 </div>
               </div>
@@ -145,7 +118,7 @@
               
             </div>
             <div class="col-md-9">
-              <p class="text-muted lead">In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.</p>
+             
               <div class="row products products-big">
                 {%for prod in prods %}
                 <div class="col-lg-4 col-md-6">
@@ -169,6 +142,7 @@
                       {% if prod.offer %}
                       <p class="price">
                         <del>${{prod.price}}</del>
+                        <p class="price">${{prod.new_price}}</p> 
                       </p>
                       {% else %}
                       <p class="price">${{prod.price}}</p>  
@@ -182,68 +156,7 @@
                   </div>
                 </div>
                 {% endfor %}
-                <div class="col-lg-4 col-md-6">
-                  <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="{% static 'img/product2.jpg' %}" alt="" class="img-fluid image1"></a></div>
-                    <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">White Blouse Armani</a></h3>
-                        <p class="price">
-                        <del>$280</del> $143.00
-                      </p>
-                    </div>
-                    <div class="ribbon-holder">
-                      <div class="ribbon sale">SALE</div>
-                      <div class="ribbon new">NEW</div>
-                    </div>
-
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="{% static 'img/product3.jpg' %}" alt="" class="img-fluid image1"></a></div>
-                    <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">Black Blouse Versace</a></h3>
-                      <p class="price">$143.00</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="{% static 'img/product4.jpg' %}" alt="" class="img-fluid image1"></a></div>
-                    <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">Black Blouse Versace</a></h3>
-                      <p class="price">$143.00</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="{% static 'img/product3.jpg' %}" alt="" class="img-fluid image1"></a></div>
-                    <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">White Blouse Armani</a></h3>
-                      <p class="price">
-                        <del>$280</del> $143.00
-                      </p>
-                    </div>
-                    <div class="ribbon-holder">
-                      <div class="ribbon sale">SALE</div>
-                      <div class="ribbon new">NEW</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                  <div class="product">
-                    <div class="image"><a href="shop-detail.html"><img src="{% static 'img/product4.jpg' %}" alt="" class="img-fluid image1"></a></div>
-                    <div class="text">
-                      <h3 class="h5"><a href="shop-detail.html">White Blouse Versace</a></h3>
-                      <p class="price">$143.00</p>
-                    </div>
-                    <div class="ribbon-holder">
-                      <div class="ribbon new">NEW</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                
               <div class="row">
                
               </div>
