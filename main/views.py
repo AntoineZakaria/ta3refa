@@ -33,9 +33,12 @@ def return_html_home (request):
     #array_of_random_pr=random_products(3)   
     #prods = array_of_random_pr
     prods=Product.objects.all()
-    current_username=request.user.username
-    per= Person.objects.get(username=current_username)
-    dash_flag=per.is_seller
+    if request.user.is_authenticated:
+        current_username=request.user.username
+        per= Person.objects.get(username=current_username)
+        dash_flag=per.is_seller
+    else:
+        dash_flag=False
 
     return render(request,'shop-category-left.html',{'prods':prods,'dash_flag':dash_flag})
 

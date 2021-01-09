@@ -19,7 +19,6 @@ def login(request):
         username = request.POST['email_login']
         password = request.POST['password_login']
         user = auth.authenticate(username=username, password=password)
-        mail_verification.objects.filter(user_name=username).delete()
         if user is not None:
             exists_user = mail_verification.objects.all().filter(user_name=username).exists()
             print("/////////////////////////////////////////////111")
