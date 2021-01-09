@@ -49,3 +49,8 @@ class Customer(models.Model):
     username=models.CharField(max_length=100)
     rated_products = ArrayField(models.CharField(max_length=100))
     commented_products = ArrayField(models.CharField(max_length=100))
+
+class mail_verification(models.Model):
+    user_name= models.TextField() 
+    message_code=models.TextField() 
+    is_autonticated=models.BooleanField(default=False)
