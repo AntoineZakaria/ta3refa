@@ -2,7 +2,7 @@ from django.db import models
 
 from django.contrib.postgres.fields import ArrayField
 # Create your models here.
-class comment(models.Model) :
+class Comment(models.Model) :
     person_name=models.CharField(max_length=100)
     content = models.TextField()
     produc_id=models.CharField(max_length=100)
@@ -15,7 +15,7 @@ class Product(models.Model) :
     rate = models.IntegerField() 
     offer =  models.FloatField()
     #comment=ArrayField(models.CharField(max_length=100),default=None)
-    comment = ArrayField(ArrayField(models.CharField(max_length=100,blank=True),size=3),size=100,)
+    comment = ArrayField(ArrayField(models.CharField(max_length=100,blank=True),size=3),size=100,default=None)
     img =models.ImageField(upload_to= 'product_image')
     shop_id = models.CharField(max_length=100,default=None)
     category = models.CharField(max_length=100,default=None)
