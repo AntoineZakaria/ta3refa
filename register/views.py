@@ -7,6 +7,8 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from cryptography.fernet import Fernet
+from main.models import Person,Customer,Seller
+from checkout.models import Cart
 # Create your views here.
 is_seller = False
 shop_name = ""
@@ -84,13 +86,18 @@ def customer_register(request):
                 messages.info(request,"email already exists")
                 return redirect("/register")
             else:
-                person =Person(username=username,address=address,is_seller=False,Purchased_products=[])
+                person =Person(username=username,address=address,is_seller=False,Purchased_products=[],favourite_products=[])
                 person.save()
                 customer=Customer(username=username,rated_products=[],commented_products=[])
                 customer.save()
                 user = User.objects.create_user(username = username , email=email, password = password1, first_name=first_name,last_name=last_name)
                 user.save();
                 messages.info(request,"user created you just need to check your email")
+
+                new_cart=Cart(user_id=User.objects.get(username=username).id,products=[])
+                new_cart.save()
+
+                messages.info(request,"user created you just need to Login")
             
         else:
             messages.info(request,"Password doesnt match")
@@ -121,7 +128,7 @@ def seller_register(request):
                 messages.info(request,"email already exists")
                 return redirect("/register")
             else:
-                person = Person(username=username,address=address,is_seller=True,Purchased_products=[])
+                person = Person(username=username,address=address,is_seller=True,Purchased_products=[],favourite_products=[])
                 person.save()
                 seller = Seller(username=username,shop_name=shop_name,telephone=telephone,owned_products=[])
                 seller.save()

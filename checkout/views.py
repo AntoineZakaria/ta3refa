@@ -1,5 +1,8 @@
 from django.shortcuts import render ,redirect
 from django.contrib.auth.models import User , auth
+from .models import Cart
+from main.models import Product
+
 
 
 
@@ -20,6 +23,35 @@ def cart_page (request):
     #stripe_pay function
     #send_mail_details
     #calculate_pay
-    return render(request,'shop-basket.html')    
+    user_id = request.user.id
+    user_cart=Cart.objects.get(user_id=user_id)
+    products=[]
+    for i in user_cart.products:
+        products.append(Product.objects.get(pk=i))
+   
 
+    return render(request,'shop-basket.html',{'products':products})
 
+def add_to_cart(request,id):
+    user_id = request.user.id
+    user_cart=Cart.objects.get(user_id=user_id)
+    user_cart.products.append(Product.objects.get(pk=id).pk)
+    user_cart.save()
+    products=[]
+    for i in user_cart.products:
+        products.append(Product.objects.get(pk=i))
+   
+
+    return render(request,'shop-basket.html',{'products':products})
+
+def remove_from_cart(request,id):
+    user_id = request.user.id
+    user_cart=Cart.objects.get(user_id=user_id)
+    user_cart.products.remove(id)
+    user_cart.save()
+    products=[]
+    for i in user_cart.products:
+        products.append(Product.objects.get(pk=i))
+   
+
+    return render(request,'shop-basket.html',{'products':products})               

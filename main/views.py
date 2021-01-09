@@ -2,6 +2,7 @@ from django.shortcuts import render ,redirect
 from django.contrib.auth.models import User , auth
 from .models import Product 
 from main.models import mail_verification
+from .models import Person
 from . import views
 import random
 from django.http import HttpResponse
@@ -12,7 +13,7 @@ def return_html_category (request,category):
 
     ##prods=random_category_products(0,category)
  ## It takes the ammount of products you want .. im passing zero to avoid errors as you will not have products in your data base
-
+    
     
 
     return render(request,'shop-category.html',{'prods':prods})
@@ -32,8 +33,11 @@ def return_html_home (request):
     #array_of_random_pr=random_products(3)   
     #prods = array_of_random_pr
     prods=Product.objects.all()
+    current_username=request.user.username
+    per= Person.objects.get(username=current_username)
+    dash_flag=per.is_seller
 
-    return render(request,'shop-category-left.html',{'prods':prods})
+    return render(request,'shop-category-left.html',{'prods':prods,'dash_flag':dash_flag})
 
 def login(request):
     pass
@@ -90,4 +94,15 @@ def verify_code(request,code):
 
 
 
+def return_favourite(request):
+    current_username=request.user.username
+    per= Person.objects.get(username=current_username)
+    list_products=per.favourite_products
+    prods=[]
+    for item in list_products:
+        p=Product.objects.all().filter(category=item)
+        for single in p:
+            prods.append(single)
+       
+    return render(request,'favourite.html',{'prods':prods})
 

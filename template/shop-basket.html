@@ -44,17 +44,20 @@
                         </tr>
                       </thead>
                       <tbody>
+                        {%for product in products%}
                         <tr>
-                          <td><a href="#"><img src="img/detailsquare.jpg" alt="White Blouse Armani" class="img-fluid"></a></td>
-                          <td><a href="#">White Blouse Armani</a></td>
+                          <td><a href="#"><img src="{{product.img.url}}" alt="{{product.name}}" class="img-fluid"></a></td>
+                          <td><a href="#">{{product.name}}</a></td>
                           <td>
                             <input type="number" value="2" class="form-control">
                           </td>
-                          <td>$123.00</td>
+                          <td>{{product.price}}</td>
                           <td>$0.00</td>
                           <td>$246.00</td>
-                          <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
+                          <td><a href="/checkout/remove_from_cart/{{product.pk}}"><i class="fa fa-trash-o"></i></a></td>
+                         
                         </tr>
+                        {%endfor%}
                         <tr>
                           <td><a href="#"><img src="img/basketsquare.jpg" alt="Black Blouse Armani" class="img-fluid"></a></td>
                           <td><a href="#">Black Blouse Armani</a></td>
