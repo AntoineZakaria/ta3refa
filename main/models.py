@@ -35,6 +35,7 @@ class Person(models.Model):
     address=models.TextField(max_length=100)
     is_seller=models.BooleanField(default=False)
     Purchased_products=ArrayField(models.CharField(max_length=100))
+    favourite_products=ArrayField(models.CharField(max_length=100))
 
 
 class Seller(models.Model):
