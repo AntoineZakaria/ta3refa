@@ -58,7 +58,7 @@ def customer_register(request):
                 messages.info(request,"email already exists")
                 return redirect("/register")
             else:
-                person =Person(username=username,address=address,is_seller=False,Purchased_products=[])
+                person =Person(username=username,address=address,is_seller=False,Purchased_products=[],favourite_products=[])
                 person.save()
                 customer=Customer(username=username,rated_products=[],commented_products=[])
                 customer.save()
@@ -99,7 +99,7 @@ def seller_register(request):
                 messages.info(request,"email already exists")
                 return redirect("/register")
             else:
-                person = Person(username=username,address=address,is_seller=True,Purchased_products=[])
+                person = Person(username=username,address=address,is_seller=True,Purchased_products=[],favourite_products=[])
                 person.save()
                 seller = Seller(username=username,shop_name=shop_name,telephone=telephone,owned_products=[])
                 seller.save()

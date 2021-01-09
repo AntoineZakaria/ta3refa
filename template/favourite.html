@@ -136,9 +136,10 @@
               
             </div>
             <div class="col-md-9">
-             
+              <h2 class="h4 panel-title">Suggestions</h2>
               <div class="row products products-big">
                 {%for prod in prods %}
+                {%if not prod.offer %}
                 <div class="col-lg-4 col-md-6">
                   <div class="product">
                     <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
@@ -172,8 +173,48 @@
                     {% endif %}
                   </div>
                 </div>
-                {% endfor %}
-                
+                {%endif%}
+                {% endfor %}  
+                <h2 class="h4 panel-title">Offers</h2>
+                <div class="row products products-big">
+                  {%for prod in prods %}
+                  {%if  prod.offer %}
+                  <div class="col-lg-4 col-md-6">
+                    <div class="product">
+                      <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
+                      <div class="text">
+                        <h3 class="h5" style="margin-bottom: 0em;"><a href="/single_product/show_product/{{prod.pk}}">{{prod.name}}</a></h3>
+                        <h6 style="margin: 0em;" style="text-transform: lowercase;">in stock: {{prod.quantity}}</h6>
+                      <div class="single-review" style="margin:0em;">
+                        <div class="review-heading">
+                          
+                            <div class="review-rating" style="position:initial">
+                                <i class="fa fa-star{% if prod.rate < 1 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if prod.rate < 2 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if prod.rate < 3 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if prod.rate < 4 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if prod.rate < 5 %}-o empty{% endif %}"></i>
+                            </div>
+                        </div></div>
+                        <h6 style="margin: 0em;" style="text-transform: lowercase;">{{prod.rate}}/5</h6>
+                        {% if prod.offer %}
+                        <p class="price">
+                          <del>${{prod.price}}</del>${{prod.new_price}}
+                        </p>
+                        {% else %}
+                        <p class="price">${{prod.price}}</p>  
+                        {% endif %}
+                      </div>
+                      {% if prod.offer %}
+                      <div class="ribbon-holder">
+                        <div class="ribbon sale" style="background: red;font:xx-small">{{prod.offer}}%OFF</div>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {%endif%}
+                  {% endfor %}  
+                  
               <div class="row">
                
               </div>
