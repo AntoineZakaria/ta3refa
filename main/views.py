@@ -82,5 +82,5 @@ def return_favourite(request):
         for single in p:
             prods.append(single)
        
-    return render(request,'shop-category-left.html',{'prods':prods})
+    return render(request,'favourite.html',{'prods':prods})
 
