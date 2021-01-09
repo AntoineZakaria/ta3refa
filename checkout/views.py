@@ -15,11 +15,11 @@ def calculate_pay ():
 def send_mail_details ():
     pass
 
-def card_page (request):
+def cart_page (request):
     #return_shop_list function
     #stripe_pay function
     #send_mail_details
     #calculate_pay
-    return render(request,'shop-checkout1.html')
+    return render(request,'shop-basket.html')
 
 

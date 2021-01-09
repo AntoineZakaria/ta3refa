@@ -15,9 +15,13 @@ class Product(models.Model) :
     rate = models.IntegerField() 
     offer =  models.FloatField()
     comment=ArrayField(models.CharField(max_length=100),default=None)
-    img =models.ImageField(upload_to= 'product_image' )
+    img =models.ImageField(upload_to= 'product_image')
     shop_id = models.CharField(max_length=100,default=None)
     category = models.CharField(max_length=100,default=None)
+    def new_price (self):
+        new_price=(self.price)-(self.price)*(self.offer)*0.01
+        return new_price
+
 
 
 
@@ -27,9 +31,19 @@ class Product(models.Model) :
 
 
 class Person(models.Model):
-    first_name=models.CharField(max_length=100)
-    last_name=models.CharField(max_length=100)
-    email=models.EmailField(max_length=100)
+    username=models.CharField(max_length=100)
     address=models.TextField(max_length=100)
     is_seller=models.BooleanField(default=False)
     Purchased_products=ArrayField(models.CharField(max_length=100))
+
+
+class Seller(models.Model):
+    username=models.CharField(max_length=100)
+    shop_name = models.CharField(max_length=100)
+    telephone = models.IntegerField() 
+    owned_products = ArrayField(models.CharField(max_length=100))
+
+class Customer(models.Model):
+    username=models.CharField(max_length=100)
+    rated_products = ArrayField(models.CharField(max_length=100))
+    commented_products = ArrayField(models.CharField(max_length=100))

@@ -1733,6 +1733,7 @@ header.nav-holder.sticky {
   text-align: center;
   position: relative;
   margin-bottom: 40px;
+  border-bottom: 1px solid #ddd;
 }
 
 .product .image {
@@ -1746,7 +1747,7 @@ header.nav-holder.sticky {
 
 .product .text {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
+  
 }
 
 .product .text h3 {
@@ -2060,7 +2061,7 @@ ul ul a.nav-link {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   margin-bottom: 20px;
   position: absolute;
   top: 30px;
@@ -2069,7 +2070,7 @@ ul ul a.nav-link {
 }
 
 .ribbon.sale {
-  background: #4fbfa8;
+  background: #ff0000;
 }
 
 .ribbon.new {

@@ -2055,7 +2055,7 @@ ul ul a.nav-link {
   width: 80px;
   height: 32px;
   line-height: 32px;
-  background: #467fbf;
+  background: #ff0000;
   color: #fff;
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -2069,7 +2069,7 @@ ul ul a.nav-link {
 }
 
 .ribbon.sale {
-  background: #467fbf;
+  background: #ff0000;
 }
 
 .ribbon.new {
