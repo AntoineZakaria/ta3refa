@@ -46,11 +46,11 @@
                 <div class="review-heading">
                   <a>Rating:</a>
                     <div class="review-rating pull-right">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star-o empty"></i>
-                        <i class="fa fa-star-o empty"></i>
+                      <i class="fa fa-star{% if product.rate < 1 %}-o empty{% endif %}"></i>
+                      <i class="fa fa-star{% if product.rate < 2 %}-o empty{% endif %}"></i>
+                      <i class="fa fa-star{% if product.rate < 3 %}-o empty{% endif %}"></i>
+                      <i class="fa fa-star{% if product.rate < 4 %}-o empty{% endif %}"></i>
+                      <i class="fa fa-star{% if product.rate < 5 %}-o empty{% endif %}"></i>
                     </div>
                 </div></div>
             </p>
@@ -184,20 +184,24 @@
                                         </ul>
                                     </div>
                                 </div>
+
+
+                                <!--user commentttttttttttttttttttttttttttttttttttttttttttttttttttttttttt-->
                                 <div class="col-md-6">
                                   {% if user.is_authenticated %}
                                     <h3 class="text-uppercase" >Write Your Review</h3>
-                                    <form class="review-form">
-                                      {% if user.is_authenticated %}
+                                    <form class="review-form" action="/single_product/review/{{product.id}}" method="POST">
+                                      {% csrf_token %}
                                       <div class="form-group">
-                                       <h4>Your name will be shown as: <a style="color: blue;"><i class="fa fa-user-o"></i>{{user.username}}</a></h4>
+                                       <h4>Your name will be shown as: <a style="color: blue;"><i class="fa fa-user-o"></i> {{user.username}}</a></h4>
                                       </div>
-                                      {% endif %}
                                       <div class="form-group">
-                                        <textarea class="form-control" placeholder="Your review"></textarea>
+                                        <textarea name="comment" class="form-control" placeholder="Your review"></textarea>
+        
                                       </div>
                                         <div class="form-group">
-                                            <div class="input-rating">
+                                          
+                                            <div class="input-rating" name="ratee">
                                                 <strong class="text-uppercase">Your Rating: </strong>
                                                 <div class="stars">
                                                     <input type="radio" id="star5" name="rating" value="5" /><label for="star5"></label>
@@ -208,7 +212,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-template-outlined">Submit</button>
+                                        <button class="btn btn-template-outlined" >Submit</button>
                                     </form>
                                 </div>
                                 {% else %}
