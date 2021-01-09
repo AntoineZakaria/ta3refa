@@ -211,9 +211,11 @@
                 {% if user.is_authenticated %}
                 <li class="nav-item "><a href="\checkout" data-toggle="" class="">Cart <b class="caret"><b class="fa fa-shopping-cart" style="font-size:24px;color:#467fbf"></b> <span class="badge badge-primary" style="position:absolute;">0</span> </b></a></li>
                 <li class="nav-item "><a href="customer-account.html" data-toggle="" class="">My account <b class="caret"></b></a></li>
+                
+                {%endif%}
+                {%if dash_flag %}
                 <li class="nav-item "><a href="\dashboard" data-toggle="" class=""> dashboard <b class="caret"></b></a></li>
                 {%endif%}
-               
                 
                 
                        
