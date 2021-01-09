@@ -141,8 +141,7 @@
                     
                       {% if prod.offer %}
                       <p class="price">
-                        <del>${{prod.price}}</del>
-                        <p class="price">${{prod.new_price}}</p> 
+                        <del>${{prod.price}}</del>${{prod.new_price}}
                       </p>
                       {% else %}
                       <p class="price">${{prod.price}}</p>  
