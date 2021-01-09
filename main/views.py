@@ -10,7 +10,7 @@ def return_html_category (request,category):
 
     ##prods=random_category_products(0,category)
  ## It takes the ammount of products you want .. im passing zero to avoid errors as you will not have products in your data base
-
+    
     
 
     return render(request,'shop-category.html',{'prods':prods})
@@ -30,8 +30,11 @@ def return_html_home (request):
     #array_of_random_pr=random_products(3)   
     #prods = array_of_random_pr
     prods=Product.objects.all()
+    current_username=request.user.username
+    per= Person.objects.get(username=current_username)
+    dash_flag=per.is_seller
 
-    return render(request,'shop-category-left.html',{'prods':prods})
+    return render(request,'shop-category-left.html',{'prods':prods,'dash_flag':dash_flag})
 
 def login(request):
     pass
