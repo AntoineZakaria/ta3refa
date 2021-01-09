@@ -24,6 +24,8 @@ def add_product(request):
         quantity=request.POST['quantity']
         img=request.FILES['photo1']
         offer=request.POST['offer']
+        if offer =='':
+            offer=0
         new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=0)
         new_product.save()
         return redirect('/')

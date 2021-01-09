@@ -18,6 +18,10 @@ class Product(models.Model) :
     img =models.ImageField(upload_to= 'product_image' )
     shop_id = models.CharField(max_length=100,default=None)
     category = models.CharField(max_length=100,default=None)
+    def new_price (self):
+        new_price=(self.price)-(self.price)*(self.offer)*0.01
+        return new_price
+
 
 
 
