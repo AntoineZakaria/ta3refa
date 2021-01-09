@@ -1,7 +1,12 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
-from main.models import Person,Customer,Seller
+from main.models import Person,Customer,Seller,mail_verification
+import random
+import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from cryptography.fernet import Fernet
 # Create your views here.
 is_seller = False
 shop_name = ""
@@ -11,21 +16,43 @@ def login(request):
     if request.method== 'POST':
         username = request.POST['email_login']
         password = request.POST['password_login']
-
         user = auth.authenticate(username=username, password=password)
+        mail_verification.objects.filter(user_name=username).delete()
         if user is not None:
-            auth.login(request,user)
-            logged_user_type = Person.objects.get(username=username)
-            
-            if logged_user_type.is_seller:
-                is_seller = True
-                seller = Seller.objects.get(username=username)
-                shop_name= seller.shop_name
-                messages.info(request, shop_name)
-                return redirect('/dashboard')
+            exists_user = mail_verification.objects.all().filter(user_name=username).exists()
+            print("/////////////////////////////////////////////111")
+            if not(exists_user):
+                print("/////////////////////////////////////////////222")
+                file = open('my_dute_to_save.key' , 'rb')
+                key = file.read()
+                f= Fernet(key)
+                random_code=random.random()
+                random_code2='hgjkghjkhg'
+                random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
+                new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
+                new_mail_verification.save();
+                message_to_send=f"http://127.0.0.1:8000/verification/{str(random_code)}"
+                print(message_to_send)
+                send_mail(user.email,message_to_send)
+                
+                return redirect('/')
+
+            elif (mail_verification.objects.get(user_name=username)).is_autonticated:
+                auth.login(request,user)
+                logged_user_type = Person.objects.get(username=username)
+                
+                if logged_user_type.is_seller:
+                    is_seller = True
+                    seller = Seller.objects.get(username=username)
+                    shop_name= seller.shop_name
+                    messages.info(request, shop_name)
+                    return redirect('/dashboard')
 
 
+                else:
+                    return redirect("/")
             else:
+                messages.info(request, 'please verify your email')
                 return redirect("/")
                  
         else:
@@ -63,7 +90,7 @@ def customer_register(request):
                 customer.save()
                 user = User.objects.create_user(username = username , email=email, password = password1, first_name=first_name,last_name=last_name)
                 user.save();
-                messages.info(request,"user created you just need to Login")
+                messages.info(request,"user created you just need to check your email")
             
         else:
             messages.info(request,"Password doesnt match")
@@ -111,3 +138,46 @@ def seller_register(request):
         
 
 
+def send_mail(receiver_email,randm_link):
+    port = 465  # For SSL
+    smtp_server = "smtp.gmail.com"
+    sender_email = "Ta3refa00@gmail.com"  # Enter your address
+    password = 'TONY12345'
+
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "multipart test"
+    message["From"] = sender_email
+    message["To"] = receiver_email
+
+    # Create the plain-text and HTML version of your message
+    text = """\
+    your verification code
+    from ta3refa"""
+    html = f"""\
+    <html>
+    <body>
+        <p>Hi,<br>
+        How are you?<br>
+        <button><a href="{randm_link}">click</a></button>
+        has many great tutorials.
+        </p>
+    </body>
+    </html>
+    """
+
+    # Turn these into plain/html MIMEText objects
+    part1 = MIMEText(text, "plain")
+    part2 = MIMEText(html, "html")
+
+    # Add HTML/plain-text parts to MIMEMultipart message
+    # The email client will try to render the last part first
+    message.attach(part1)
+    message.attach(part2)
+
+    # Create secure connection with server and send email
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(sender_email, password)
+        server.sendmail(
+            sender_email, receiver_email, message.as_string()
+        )

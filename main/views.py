@@ -1,8 +1,11 @@
 from django.shortcuts import render ,redirect
 from django.contrib.auth.models import User , auth
-from .models import Product
+from .models import Product 
+from main.models import mail_verification
 from . import views
 import random
+from django.http import HttpResponse
+from django.contrib import messages
 
 def return_html_category (request,category):
     prods= Product.objects.all().filter(category=category)
@@ -70,6 +73,19 @@ def random_category_products(range_product,category):
                 array_of_random_pr.append(random_object)
     return array_of_random_pr
 
+
+def verify_code(request,code):
+    verification_email=mail_verification.objects.all().filter(message_code=code).exists()
+    if verification_email== False:
+        messages.info(request, 'that code is not available')
+        return redirect('/')
+
+    else:
+        verification_email=mail_verification.objects.get(message_code=str(code))
+        verification_email.is_autonticated=True
+        verification_email.save();
+        messages.info(request, 'your account has been verified you can login now')
+        return redirect('/')
 
 
 
