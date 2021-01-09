@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
 from main.models import Person,Customer,Seller
+from checkout.models import Cart
 # Create your views here.
 is_seller = False
 shop_name = ""
@@ -63,6 +64,10 @@ def customer_register(request):
                 customer.save()
                 user = User.objects.create_user(username = username , email=email, password = password1, first_name=first_name,last_name=last_name)
                 user.save();
+
+                new_cart=Cart(user_id=User.objects.get(username=username).id,products=[])
+                new_cart.save()
+
                 messages.info(request,"user created you just need to Login")
             
         else:
