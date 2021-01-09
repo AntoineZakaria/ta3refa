@@ -30,6 +30,6 @@ urlpatterns = [
     path('register/', include('register.urls')),
 
     path('accounts/', include('allauth.urls')),
-    
+    path('favourite/', include('main.urls'))
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

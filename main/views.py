@@ -1,6 +1,7 @@
 from django.shortcuts import render ,redirect
 from django.contrib.auth.models import User , auth
 from .models import Product
+from .models import Person
 from . import views
 import random
 
@@ -71,7 +72,15 @@ def random_category_products(range_product,category):
     return array_of_random_pr
 
 
-
-
-
+def return_favourite(request):
+    current_username=request.user.username
+    per= Person.objects.get(username=current_username)
+    list_products=per.favourite_products
+    prods=[]
+    for item in list_products:
+        p=Product.objects.all().filter(category=item)
+        for single in p:
+            prods.append(single)
+       
+    return render(request,'shop-category-left.html',{'prods':prods})
 
