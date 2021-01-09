@@ -145,7 +145,7 @@
               
             </div>
             <div class="col-md-9">
-              <p class="text-muted lead">In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.</p>
+             
               <div class="row products products-big">
                 {%for prod in prods %}
                 <div class="col-lg-4 col-md-6">
@@ -169,6 +169,7 @@
                       {% if prod.offer %}
                       <p class="price">
                         <del>${{prod.price}}</del>
+                        <p class="price">${{prod.new_price}}</p> 
                       </p>
                       {% else %}
                       <p class="price">${{prod.price}}</p>  

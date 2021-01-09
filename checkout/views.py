@@ -20,6 +20,6 @@ def cart_page (request):
     #stripe_pay function
     #send_mail_details
     #calculate_pay
-    return render(request,'shop-basket.html')
+    return render(request,'shop-basket.html')    
 
 

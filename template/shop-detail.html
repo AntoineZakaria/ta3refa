@@ -31,11 +31,15 @@
             <img src="{{product.img.url}}" style="width:40%; margin-left:0%;">
             <p class="text-center" style="display: inline-block;width:20%;">
               <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Add to cart</button>
-              <p class="price"  style="display: inline-block;width:20%;">Price:{{product.price}}$</p>
-              <p class="price"  style="display: inline-block;width:10%;margin-left:-10%;">{{product.quantity}} in stock</p>
               {% if product.offer %}
               <p class="price"  style="display: inline-block;width:10%;color:red;">{{product.offer}}% offer!</p>
+              <p class="price"  style="display: inline-block;width:20%;">Price:{{product.new_price}}$</p>
+              
+              {% else %}
+              <p class="price"  style="display: inline-block;width:20%;">Price:{{product.price}}$</p>
               {%endif%}
+              <p class="price"  style="display: inline-block;width:10%;margin-left:-7%;">{{product.quantity}} in stock</p>
+            
               <button type="submit" data-toggle="tooltip" data-placement="top" title="Add to wishlist" class="btn btn-default"><i class="fa fa-heart-o"></i></button>
               <br><br>
               <div class="single-review" style="position: absolute;">
