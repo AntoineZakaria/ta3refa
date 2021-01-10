@@ -1,14 +1,10 @@
 from django.shortcuts import render ,redirect
 from django.contrib.auth.models import User , auth
 from .models import Cart
-<<<<<<< HEAD
 from main.models import Product ,Seller,Person
 import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-=======
-from main.models import Product, Seller,Person
->>>>>>> 5b5b21cc3e543ef1cfb41e59b8fe0092dd00abc4
 
 
 
@@ -103,7 +99,6 @@ def calc_cart(products):
         sum=sum+Product.objects.get(pk=i).new_price()
     return sum 
 
-<<<<<<< HEAD
 
 
 def send_mail(receiver_email,products):
@@ -150,7 +145,7 @@ def send_mail(receiver_email,products):
         server.sendmail(
             sender_email, receiver_email, message.as_string()
         )
-=======
+"""
 def give_vendors_money(request,id):
     user_id = request.user.id
     user_cart=Cart.objects.get(user_id= user_id)
@@ -164,4 +159,4 @@ def give_vendors_money(request,id):
         shop.save()
             
     return redirect('/')
->>>>>>> 5b5b21cc3e543ef1cfb41e59b8fe0092dd00abc4
+"""
