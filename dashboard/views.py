@@ -1,11 +1,18 @@
 from django.shortcuts import render , redirect
 from main.models import Product
+from main.models import Seller
 from .models import Shop
 
 # Create your views here.
 
 def return_html_dashboard(request):
-    return render(request,'dashboard_form.html')
+    current_username=request.user.username
+    per= Seller.objects.get(username=current_username)
+    ar=per.owned_products
+    prods=[]
+    for item in ar:
+        prods.append(Product.objects.get(pk=item))
+    return render(request,'dashboard_form.html',{'prods':prods})
 
 def return_edit_product(request):
     return render(request,'try_edit_product.html')
@@ -28,6 +35,10 @@ def add_product(request):
             offer=0
         new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=0)
         new_product.save()
+        current_username=request.user.username
+        per= Seller.objects.get(username=current_username)
+        per.owned_products.append(new_product.id)
+        per.save()
         return redirect('/')
         
 
@@ -45,8 +56,17 @@ def edit_product(request, id):
         return redirect('/')
 
 def delete_product(request,id):
+    current_username=request.user.username
+    per= Seller.objects.get(username=current_username)
+    ar=per.owned_products
+    ar.remove(id)
+    per.save() 
     Product.objects.filter(pk=id).delete()
-    return redirect('/')
+    prods=[]
+    for item in ar:
+        prods.append(Product.objects.get(pk=item))
+    return render(request,'dashboard_form.html',{'prods':prods})
+
 
 def delete_shop(request,id):
     Shop.objects.filter(pk=id).delete()

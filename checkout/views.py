@@ -28,9 +28,11 @@ def cart_page (request):
     products=[]
     for i in user_cart.products:
         products.append(Product.objects.get(pk=i))
+
+    totalprice=calc_cart(user_cart.products)    
    
 
-    return render(request,'shop-basket.html',{'products':products})
+    return render(request,'shop-basket.html',{'products':products,'totalprice':totalprice})
 
 def add_to_cart(request,id):
     user_id = request.user.id
@@ -40,9 +42,11 @@ def add_to_cart(request,id):
     products=[]
     for i in user_cart.products:
         products.append(Product.objects.get(pk=i))
+
+    totalprice=calc_cart(user_cart.products)    
    
 
-    return render(request,'shop-basket.html',{'products':products})
+    return render(request,'shop-basket.html',{'products':products,'totalprice':totalprice})
 
 def remove_from_cart(request,id):
     user_id = request.user.id
@@ -52,6 +56,15 @@ def remove_from_cart(request,id):
     products=[]
     for i in user_cart.products:
         products.append(Product.objects.get(pk=i))
+
+    totalprice=calc_cart(user_cart.products)    
    
 
-    return render(request,'shop-basket.html',{'products':products})               
+    return render(request,'shop-basket.html',{'products':products,'totalprice':totalprice})               
+
+
+def calc_cart(products):
+    sum=0
+    for i in products:
+        sum=sum+Product.objects.get(pk=i).new_price()
+    return sum 
