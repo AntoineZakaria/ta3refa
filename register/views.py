@@ -139,7 +139,7 @@ def seller_register(request):
             else:
                 person = Person(username=username,address=address,is_seller=True,Purchased_products=[],favourite_products=[])
                 person.save()
-                seller = Seller(username=username,shop_name=shop_name,telephone=telephone,owned_products=[])
+                seller = Seller(username=username,shop_name=shop_name,telephone=telephone,owned_products=[],current_balance=0)
                 seller.save()
                 user = User.objects.create_user(username = username , email=email, password = password1, first_name=first_name,last_name=last_name)
                 user.save();
