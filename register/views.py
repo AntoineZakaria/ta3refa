@@ -156,6 +156,7 @@ def seller_register(request):
                 print(message_to_send)
                 send_mail(email,message_to_send)
                 messages.info(request,"Seller Account created . you just need to check your mail")
+
                 new_cart=Cart(user_id=User.objects.get(username=username).id,products=[])
                 new_cart.save()
             
