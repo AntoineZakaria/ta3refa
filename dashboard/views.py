@@ -61,6 +61,7 @@ def delete_product(request,id):
     ar=per.owned_products
     ar.remove(id)
     per.save() 
+    Product.objects.filter(pk=id).delete()
     prods=[]
     for item in ar:
         prods.append(Product.objects.get(pk=item))
