@@ -46,7 +46,7 @@ def add_to_cart(request,id):
     totalprice=calc_cart(user_cart.products)    
    
 
-    return render(request,'shop-basket.html',{'products':products,'totalprice':totalprice})
+    return redirect('/checkout/')
 
 def remove_from_cart(request,id):
     user_id = request.user.id
@@ -60,7 +60,7 @@ def remove_from_cart(request,id):
     totalprice=calc_cart(user_cart.products)    
    
 
-    return render(request,'shop-basket.html',{'products':products,'totalprice':totalprice})               
+    return  redirect('/checkout/')               
 
 
 def calc_cart(products):

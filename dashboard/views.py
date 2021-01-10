@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect
 from main.models import Product
 from main.models import Seller
 from .models import Shop
-
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 def return_html_dashboard(request):
@@ -40,21 +40,19 @@ def add_product(request):
         per= Seller.objects.get(username=current_username)
         per.owned_products.append(new_product.id)
         per.save()
-        return redirect('/')
+        return redirect('/dashboard')
         
 
 def edit_product(request, id):
     edit_product = Product.objects.get(pk=id)
     if request.method == 'POST':
-        edit_product.name=request.POST['name']
-        edit_product.category=request.POST['category']
-        edit_product.description=request.POST['descrription']
         edit_product.price=request.POST['price']
         edit_product.quantity=request.POST['quantity']
-        edit_product.img=request.POST['img']
         edit_product.offer=request.POST['offer']
         edit_product.save()
-        return redirect('/')
+    return redirect('/dashboard')
+
+        
 
 def delete_product(request,id):
     current_username=request.user.username
