@@ -109,3 +109,8 @@ def return_favourite(request):
        
     return render(request,'favourite.html',{'prods':prods})
 
+def redirect_to_main(request):
+    if not(Person.objects.all().filter(username=request.user.username).exists()):
+        person =Person(username=request.user.username,address="fady",is_seller=False,Purchased_products=[],favourite_products=[])
+        person.save()
+    return redirect('/')
