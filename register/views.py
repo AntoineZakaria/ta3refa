@@ -21,9 +21,7 @@ def login(request):
         user = auth.authenticate(username=username, password=password)
         if user is not None:
             exists_user = mail_verification.objects.all().filter(user_name=username).exists()
-            print("/////////////////////////////////////////////111")
             if not(exists_user):
-                print("/////////////////////////////////////////////222")
                 file = open('my_dute_to_save.key' , 'rb')
                 key = file.read()
                 f= Fernet(key)
@@ -92,11 +90,23 @@ def customer_register(request):
                 user = User.objects.create_user(username = username , email=email, password = password1, first_name=first_name,last_name=last_name)
                 user.save();
                 messages.info(request,"user created you just need to check your email")
+                #send mail ro verify
+                file = open('my_dute_to_save.key' , 'rb')
+                key = file.read()
+                f= Fernet(key)
+                random_code=random.random()
+                random_code2='hgjkghjkhg'
+                random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
+                new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
+                new_mail_verification.save();
+                message_to_send=f"http://127.0.0.1:8000/verification/{str(random_code)}"
+                print(message_to_send)
+                send_mail(email,message_to_send)
 
                 new_cart=Cart(user_id=User.objects.get(username=username).id,products=[])
                 new_cart.save()
 
-                messages.info(request,"user created you just need to Login")
+                #messages.info(request,"user created you just need to Login")
             
         else:
             messages.info(request,"Password doesnt match")
@@ -133,7 +143,19 @@ def seller_register(request):
                 seller.save()
                 user = User.objects.create_user(username = username , email=email, password = password1, first_name=first_name,last_name=last_name)
                 user.save();
-                messages.info(request,"Seller Account created . you just need to Login")
+                #send mail ro verify
+                file = open('my_dute_to_save.key' , 'rb')
+                key = file.read()
+                f= Fernet(key)
+                random_code=random.random()
+                random_code2='hgjkghjkhg'
+                random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
+                new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
+                new_mail_verification.save();
+                message_to_send=f"http://127.0.0.1:8000/verification/{str(random_code)}"
+                print(message_to_send)
+                send_mail(email,message_to_send)
+                messages.info(request,"Seller Account created . you just need to check your mail")
             
         else:
             messages.info(request,"Password doesnt match")
