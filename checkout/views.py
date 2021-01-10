@@ -1,7 +1,7 @@
 from django.shortcuts import render ,redirect
 from django.contrib.auth.models import User , auth
 from .models import Cart
-from main.models import Product
+from main.models import Product, Seller,Person
 
 
 
@@ -68,3 +68,17 @@ def calc_cart(products):
     for i in products:
         sum=sum+Product.objects.get(pk=i).new_price()
     return sum 
+
+def give_vendors_money(request,id):
+    user_id = request.user.id
+    user_cart=Cart.objects.get(user_id= user_id)
+    products = user_cart.products
+    #product= Product.objects.get(pk=product_id)
+    for product_id in products:
+        product = Product.objects.get(id=product_id)
+        shop_id = int(product.shop_id) 
+        shop = Seller.objects.get(id = int(shop_id))
+        shop.balance += product.new_price()
+        shop.save()
+            
+    return redirect('/')

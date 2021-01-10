@@ -31,9 +31,10 @@ def add_product(request):
         quantity=request.POST['quantity']
         img=request.FILES['photo1']
         offer=request.POST['offer']
+        shop_id = request.user.id
         if offer =='':
             offer=0
-        new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=0)
+        new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=shop_id)
         new_product.save()
         current_username=request.user.username
         per= Seller.objects.get(username=current_username)

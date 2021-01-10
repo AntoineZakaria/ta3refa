@@ -44,6 +44,7 @@ class Seller(models.Model):
     shop_name = models.CharField(max_length=100)
     telephone = models.IntegerField() 
     owned_products = ArrayField(models.CharField(max_length=100))
+    balance = models.FloatField(max_length=10000 ,default=0.0)
 
 class Customer(models.Model):
     username=models.CharField(max_length=100)
