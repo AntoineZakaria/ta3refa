@@ -35,7 +35,7 @@ def add_product(request):
         shop_id = request.user.id
         if offer =='':
             offer=0
-        new_product.save()
+        
         current_username=request.user.username
         per= Seller.objects.get(username=current_username)
         new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=per.id)

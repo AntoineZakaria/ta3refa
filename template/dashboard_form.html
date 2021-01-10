@@ -6,11 +6,12 @@
 {% block content %}
 
       <!-- Navbar End-->
-      <h1>{{balance}}</h1>
+   
       <div id="heading-breadcrumbs">
         <div class="container">
           <div class="row d-flex align-items-center flex-wrap">
             <div class="col-md-7">
+              <h1 class="h2">Current balance:{{balance}}LE</h1>
               {% for message in messages %}
               <h1>{{ message }} </h1>
               {% endfor %}
