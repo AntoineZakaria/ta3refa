@@ -172,8 +172,8 @@ def seller_register(request):
 def send_mail(receiver_email,randm_link):
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
-    sender_email = "tarefaa041@gmail.com"  # Enter your address
-    password = '123456ytrewq'
+    sender_email = "ta3refa0000@gmail.com"  # Enter your address
+    password = 'TONY1234'
 
     message = MIMEMultipart("alternative")
     message["Subject"] = "multipart test"
