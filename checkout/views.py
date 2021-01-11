@@ -143,7 +143,7 @@ def send_mail(receiver_email,products,Shipping,Payment):
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
     sender_email = "tarefaa041@gmail.com"  # Enter your address
-    password = '123456ytrewq'
+    password = '123'
 
     message = MIMEMultipart("alternative")
     message["Subject"] = "multipart test"
