@@ -9,12 +9,12 @@ from django.http import HttpResponseRedirect
     
 def get_product(request,id):
     product = Product.objects.get(pk=id)
-
-    current_username=request.user.username
-    per= Person.objects.get(username=current_username)
-    if not ((product.category) in (per.favourite_products)):
-     per.favourite_products.append(product.category)
-     per.save()
+    if request.user.is_authenticated:
+        current_username=request.user.username
+        per= Person.objects.get(username=current_username)
+        if not ((product.category) in (per.favourite_products)):
+            per.favourite_products.append(product.category)
+            per.save()
  
 
   
