@@ -31,16 +31,18 @@
             </div>
             <div id="basket" class="col-lg-9">
               <div class="box mt-0 pb-0 no-horizontal-padding">
-                <form method="get" action="shop-checkout1.html">
+                <form action="/checkout/finishing/1" method="POST">
+                  {% csrf_token %}
                   <div class="table-responsive">
                     <table class="table">
                       <thead>
                         <tr>
                           <th colspan="1">Product</th>
-                          <th>Quantity</th>
+                          <th>Product name</th>
                           <th>Unit price</th>
                           <th>Price After Discount</th>
                           <th colspan="1">Total</th>
+                          <th colspan="1">ShopID</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -53,12 +55,13 @@
                           </td>
                           <td>{{product.price}}</td>
                           <td>${{product.new_price}}</td>
-                          
+                          <td name="shop_id">{{product.shop_id}}</td>
                           <td><a href="/checkout/remove_from_cart/{{product.pk}}"><i class="fa fa-trash-o"></i></a></td>
                          
                         </tr>
                         {%endfor%}
-                        <tr>
+                        
+                        <!-- <tr>
                           <td><a href="#"><img src="img/basketsquare.jpg" alt="Black Blouse Armani" class="img-fluid"></a></td>
                           <td><a href="#">Black Blouse Armani</a></td>
                           <td>
@@ -68,7 +71,8 @@
                           <td>$0.00</td>
                           <td>$200.00</td>
                           <td><a href="#"><i class="fa fa-trash-o"></i></a></td>
-                        </tr>
+                        </tr>-->
+                        
                       </tbody>
                       <tfoot>
                         <tr>
@@ -82,7 +86,8 @@
                     <div class="left-col"><a href="shop-category.html" class="btn btn-secondary mt-0"><i class="fa fa-chevron-left"></i> Continue shopping</a></div>
                     <div class="right-col">
                       <button class="btn btn-secondary"><i class="fa fa-refresh"></i> Update cart</button>
-                      <button type="submit" class="btn btn-template-outlined">Proceed to checkout <i class="fa fa-chevron-right"></i></button>
+                      <a href="/checkout/complete_purchase"><button type="button" class="btn btn-template-outlined">Proceed to checkout <i class="fa fa-chevron-right"></i></button></a>
+                      
                     </div>
                   </div>
                 </form>

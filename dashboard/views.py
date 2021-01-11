@@ -12,7 +12,8 @@ def return_html_dashboard(request):
     prods=[]
     for item in ar:
         prods.append(Product.objects.get(pk=item))
-    return render(request,'dashboard_form.html',{'prods':prods})
+    balance=per.current_balance
+    return render(request,'dashboard_form.html',{'prods':prods,'balance':balance})
 
 def return_edit_product(request):
     return render(request,'try_edit_product.html')
@@ -31,12 +32,14 @@ def add_product(request):
         quantity=request.POST['quantity']
         img=request.FILES['photo1']
         offer=request.POST['offer']
+        shop_id = request.user.id
         if offer =='':
             offer=0
-        new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=0)
-        new_product.save()
+        
         current_username=request.user.username
         per= Seller.objects.get(username=current_username)
+        new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=per.id)
+        new_product.save()
         per.owned_products.append(new_product.id)
         per.save()
         return redirect('/dashboard')
