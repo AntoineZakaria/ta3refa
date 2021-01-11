@@ -103,46 +103,13 @@
                   </ul>
                 </div>
               </div>
+
               <div class="panel panel-default sidebar-menu">
-                <div class="panel-heading d-flex align-items-center justify-content-between">
-                  <h3 class="h4 panel-title">Brands</h3><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i><span class="d-none d-md-inline-block">Clear</span></a>
-                </div>
-                <div class="panel-body">
-                  <form>
-                    <div class="form-group">
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> Armani  (10)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> Versace  (12)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> Carlo Bruni  (15)
-                        </label>
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <input type="checkbox"> Jack Honey  (14)
-                        </label>
-                      </div>
-                    </div>
-                    <button class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>
-                  </form>
-                </div>
-              </div>
-              <div class="panel panel-default sidebar-menu">
-                <div class="panel-heading d-flex align-items-center justify-content-between">
-                  <h3 class="h4 panel-title">Filters</h3><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i><span class="d-none d-md-inline-block">Clear</span></a>
-                </div>
+
                 <div class="panel-body">
                   <form action="/filter" method="GET">
                     <div class="form-group">
-                      <label for="filterr">Rating filter:</label>
+                      <label for="filterr">Star rating:</label>
                       <br>
                       <select name="rate" size="5" style="width: 100%;overflow:hidden" class="form-control">
                         <option value=1 >  
@@ -154,6 +121,15 @@
                         <option value=5>☆☆☆☆☆ only</option>
                       </select>
                       
+                      <label for="price_filter">Price:</label>
+                      <br>
+                      <select name="price_filter" size="1" style="width: 100%;overflow:hidden" class="form-control">
+                        <option value = 1000> 0-1000$</option>
+                        <option value = 2000>1001-2000$</option>
+                        <option value = 3000>2001-3000$</option>
+                        <option value = 4000>3001-4000$</option>
+                        <option value = 5000>5001$ & more</option>
+                      </select>
                     </div> 
                      
                       <button type="submit"   class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>

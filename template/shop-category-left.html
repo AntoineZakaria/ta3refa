@@ -79,7 +79,7 @@
                 <div class="panel-body">
                   <form action="/filter" method="GET">
                     <div class="form-group">
-                      <label for="filterr">Rating filter:</label>
+                      <label for="rate">Star rating:</label>
                       <br>
                       <select name="rate" size="5" style="width: 100%;overflow:hidden" class="form-control">
                         <option value=1 >  
@@ -91,8 +91,20 @@
                         <option value=5>☆☆☆☆☆ only</option>
                       </select>
                       
+                      <label for="price_filter">Price:</label>
+                      <br>
+                      <select name="price_filter" size="1" style="width: 100%;overflow:hidden" class="form-control">
+                        <option value = 1000> 0-1000$</option>
+                        <option value = 2000>1001-2000$</option>
+                        <option value = 3000>2001-3000$</option>
+                        <option value = 4000>3001-4000$</option>
+                        <option value = 5000>5001$ & more</option>
+                      </select>
+
+
                     </div>     
                      
+
                      
                       <button type="submit"   class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>
                      
