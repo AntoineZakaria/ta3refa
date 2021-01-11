@@ -44,6 +44,7 @@ def complete_purchase(request):
     user_cart=Cart.objects.get(user_id=user_id)
     user_cart.products=[]
     user_cart.save()
+    request.session['np']=0
     
     return redirect('/')
 
@@ -73,6 +74,7 @@ def cart_page (request):
 
 def add_to_cart(request,id):
     user_id = request.user.id
+    np=0
     if not(Cart.objects.all().filter(user_id=user_id).exists()):
         new_cart=Cart(user_id=user_id,products=[])
         new_cart.save()
@@ -81,14 +83,16 @@ def add_to_cart(request,id):
     user_cart.save()
     products=[]
     for i in user_cart.products:
+        np=np+1
         products.append(Product.objects.get(pk=i))
-
+    request.session['np']=np
     totalprice=calc_cart(user_cart.products)    
    
 
     return redirect('/checkout/')
 
 def remove_from_cart(request,id):
+    request.session['np']=int(request.session['np'])-1
     user_id = request.user.id
     user_cart=Cart.objects.get(user_id=user_id)
     user_cart.products.remove(id)

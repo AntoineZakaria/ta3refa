@@ -4,6 +4,7 @@ from .models import Product
 from main.models import mail_verification
 from .models import Person
 from . import views
+from checkout.models import Cart
 import random
 from django.http import HttpResponse
 from django.contrib import messages
@@ -28,6 +29,22 @@ def return_html_home (request):
     #return_random function
     #session user info
     """
+    #####################################
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        np=0
+        if not(Cart.objects.all().filter(user_id=user_id).exists()):
+            new_cart=Cart(user_id=user_id,products=[])
+            new_cart.save()
+        user_cart=Cart.objects.get(user_id=user_id)
+        products=[]
+        for i in user_cart.products:
+            np=np+1
+            products.append(Product.objects.get(pk=i))
+        request.session['np']=np
+    else:
+        request.session['np']=0
+    #####################################
     
     #ya 4bab a3mlo add products ktyr 3l4an t4t8l
     #array_of_random_pr=random_products(3)   
