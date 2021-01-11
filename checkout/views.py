@@ -128,11 +128,11 @@ def send_mail(receiver_email,products):
                 </td>
                 
                 <td>
-                   {single_prod.price}
+                   {single_prod.new_price()}
                 </td>
                 </tr>\n
             """
-        sum_invoice=sum_invoice+single_prod.price
+        sum_invoice=sum_invoice+single_prod.new_price()
     # Create the plain-text and HTML version of your message
     text = """\
     your verification code
