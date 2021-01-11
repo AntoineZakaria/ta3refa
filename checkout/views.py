@@ -62,6 +62,12 @@ def cart_page (request):
     #stripe_pay function
     #send_mail_details
     #calculate_pay
+    if request.user.is_authenticated:
+        current_username=request.user.username
+        per= Person.objects.get(username=current_username)
+        dash_flag=per.is_seller
+    else:
+        dash_flag=False
     user_id = request.user.id
     user_cart=Cart.objects.get(user_id=user_id)
     products=[]
@@ -70,7 +76,7 @@ def cart_page (request):
     totalprice=calc_cart(user_cart.products)    
    
 
-    return render(request,'shop-basket.html',{'products':products,'totalprice':totalprice})
+    return render(request,'shop-basket.html',{'products':products,'totalprice':totalprice,'dash_flag':dash_flag})
 
 def add_to_cart(request,id):
     user_id = request.user.id

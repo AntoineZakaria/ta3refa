@@ -115,6 +115,12 @@ def verify_code(request,code):
 
 
 def return_favourite(request):
+    if request.user.is_authenticated:
+        current_username=request.user.username
+        per= Person.objects.get(username=current_username)
+        dash_flag=per.is_seller
+    else:
+        dash_flag=False
     current_username=request.user.username
     per= Person.objects.get(username=current_username)
     list_products=per.favourite_products
@@ -124,7 +130,7 @@ def return_favourite(request):
         for single in p:
             prods.append(single)
        
-    return render(request,'favourite.html',{'prods':prods})
+    return render(request,'favourite.html',{'prods':prods,'dash_flag':dash_flag})
 
 def redirect_to_main(request):
     if not(Person.objects.all().filter(username=request.user.username).exists()):
