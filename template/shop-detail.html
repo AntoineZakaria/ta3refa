@@ -30,10 +30,15 @@
           <div style="margin-left: 0%; margin-top:2%;width:120%;display:inline--block;" class="col-sm-12">
             <img src="{{product.img.url}}" style="width:40%; margin-left:0%;">
             <p class="text-center" style="display: inline-block;width:20%;">
+              {% if user.is_authenticated %}
               <a href="/checkout/add_to_cart/{{product.pk}}">
                 <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i> Add to cart</button>
               </a>
-
+              {%else%}
+              <a href="">
+                <button type="submit" class="btn btn-template-outlined"><i class="fa fa-shopping-cart"></i>Login to add to cart</button>
+              </a>
+           {%endif%}
               {% if product.offer %}
               <p class="price"  style="display: inline-block;width:10%;color:red;">{{product.offer}}% offer!</p>
               <p class="price"  style="display: inline-block;width:20%;">Price:{{product.new_price}}$</p>
