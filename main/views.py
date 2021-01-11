@@ -119,6 +119,6 @@ def redirect_to_main(request):
 
 def return_filter(request):
     rate = request.GET['rate']
-    prods=Product.objects.filter(rate =rate)
+    prods=Product.objects.filter(rate__gte = rate)
        
     return render(request,'filtered.html',{'prods':prods})    
