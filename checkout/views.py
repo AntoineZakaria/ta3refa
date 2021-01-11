@@ -47,7 +47,7 @@ def complete_purchase(request):
     user_cart.products=[]
     user_cart.save()
     request.session['np']=0
-    
+    messages.info(request, 'Purchase completed successfully')
     return redirect('/')
 
 

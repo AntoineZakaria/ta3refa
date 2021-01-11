@@ -30,7 +30,7 @@ def login(request):
                 random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
                 new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
                 new_mail_verification.save();
-                message_to_send=f"https://73c61d0e2128.ngrok.io/verification/{str(random_code)}"
+                message_to_send=f"https://754d681be257.ngrok.io/verification/{str(random_code)}"
                 print(message_to_send)
                 send_mail(user.email,message_to_send)
                 
@@ -99,7 +99,7 @@ def customer_register(request):
                 random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
                 new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
                 new_mail_verification.save();
-                message_to_send=f"https://73c61d0e2128.ngrok.io/verification/{str(random_code)}"
+                message_to_send=f"https://754d681be257.ngrok.io/verification/{str(random_code)}"
                 print(message_to_send)
                 send_mail(email,message_to_send)
 
@@ -152,7 +152,7 @@ def seller_register(request):
                 random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
                 new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
                 new_mail_verification.save();
-                message_to_send=f"https://73c61d0e2128.ngrok.io/verification/{str(random_code)}"
+                message_to_send=f"https://754d681be257.ngrok.io/verification/{str(random_code)}"
                 print(message_to_send)
                 send_mail(email,message_to_send)
                 messages.info(request,"Seller Account created . you just need to check your mail")
@@ -181,16 +181,14 @@ def send_mail(receiver_email,randm_link):
     message["To"] = receiver_email
 
     # Create the plain-text and HTML version of your message
-    text = """\
-    your verification code
-    from ta3refa"""
+    text = "verification code"
     html = f"""\
     <html>
     <body>
-        <p>Hi,<br>
-        How are you?<br>
-        <button><a href="{randm_link}">click</a></button>
-        has many great tutorials.
+        <p>Welcome to Ta3refa<br>
+        You have created a new account please <br>
+        <button><a href="{randm_link}">click here</a></button>
+        to verify <br>
         </p>
     </body>
     </html>
