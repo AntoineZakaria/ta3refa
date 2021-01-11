@@ -29,6 +29,8 @@ def complete_purchase(request):
         products.append(Product.objects.get(pk=i))
     for single_prod in products:
         product_price=single_prod.new_price()
+        single_prod.quantity=single_prod.quantity-1
+        single_prod.save()
         sellerid=single_prod.shop_id
         theseller=Seller.objects.get(pk=sellerid)
         theseller.current_balance=theseller.current_balance+product_price
@@ -62,6 +64,22 @@ def cart_page (request):
     #stripe_pay function
     #send_mail_details
     #calculate_pay
+    #####################################
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        np=0
+        if not(Cart.objects.all().filter(user_id=user_id).exists()):
+            new_cart=Cart(user_id=user_id,products=[])
+            new_cart.save()
+        user_cart=Cart.objects.get(user_id=user_id)
+        products=[]
+        for i in user_cart.products:
+            np=np+1
+            
+        request.session['np']=np
+    else:
+        request.session['np']=0
+    #####################################
     if request.user.is_authenticated:
         current_username=request.user.username
         per= Person.objects.get(username=current_username)
@@ -124,8 +142,8 @@ def calc_cart(products):
 def send_mail(receiver_email,products,Shipping,Payment):
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
-    sender_email = "Ta3refa00@gmail.com"  # Enter your address
-    password = 'TONY12345'
+    sender_email = "tarefaa041@gmail.com"  # Enter your address
+    password = '123456ytrewq'
 
     message = MIMEMultipart("alternative")
     message["Subject"] = "multipart test"
