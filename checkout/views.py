@@ -33,14 +33,18 @@ def complete_purchase(request):
         theseller=Seller.objects.get(pk=sellerid)
         theseller.current_balance=theseller.current_balance+product_price
         theseller.save()
+    if request.method == 'POST':
+        Shipping = request.POST['Shipping']
+        Payment = request.POST['Payment']
     if request.user.email =="":
         pass
     else:
-        send_mail(request.user.email,products)
+        send_mail(request.user.email,products,Shipping,Payment)
     
     user_cart=Cart.objects.get(user_id=user_id)
     user_cart.products=[]
     user_cart.save()
+    request.session['np']=0
     
     return redirect('/')
 
@@ -58,6 +62,12 @@ def cart_page (request):
     #stripe_pay function
     #send_mail_details
     #calculate_pay
+    if request.user.is_authenticated:
+        current_username=request.user.username
+        per= Person.objects.get(username=current_username)
+        dash_flag=per.is_seller
+    else:
+        dash_flag=False
     user_id = request.user.id
     user_cart=Cart.objects.get(user_id=user_id)
     products=[]
@@ -66,10 +76,11 @@ def cart_page (request):
     totalprice=calc_cart(user_cart.products)    
    
 
-    return render(request,'shop-basket.html',{'products':products,'totalprice':totalprice})
+    return render(request,'shop-basket.html',{'products':products,'totalprice':totalprice,'dash_flag':dash_flag})
 
 def add_to_cart(request,id):
     user_id = request.user.id
+    np=0
     if not(Cart.objects.all().filter(user_id=user_id).exists()):
         new_cart=Cart(user_id=user_id,products=[])
         new_cart.save()
@@ -78,14 +89,16 @@ def add_to_cart(request,id):
     user_cart.save()
     products=[]
     for i in user_cart.products:
+        np=np+1
         products.append(Product.objects.get(pk=i))
-
+    request.session['np']=np
     totalprice=calc_cart(user_cart.products)    
    
 
     return redirect('/checkout/')
 
 def remove_from_cart(request,id):
+    request.session['np']=int(request.session['np'])-1
     user_id = request.user.id
     user_cart=Cart.objects.get(user_id=user_id)
     user_cart.products.remove(id)
@@ -108,7 +121,7 @@ def calc_cart(products):
 
 
 
-def send_mail(receiver_email,products):
+def send_mail(receiver_email,products,Shipping,Payment):
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
     sender_email = "Ta3refa00@gmail.com"  # Enter your address
@@ -120,6 +133,12 @@ def send_mail(receiver_email,products):
     message["To"] = receiver_email
     text_viko=""
     sum_invoice=0
+    taxes=0
+    if Shipping=="Standard":
+        taxes=50
+    elif Shipping=="Express":
+        taxes=100
+
     for single_prod in products:
         text_viko=text_viko+f"""\
                 <tr class="item">
@@ -261,22 +280,34 @@ def send_mail(receiver_email,products):
                                     </td>
                             
                     </tr>
-                    
                     <tr class="heading">
                         <td>
                             Payment Method
                         </td>
                         
+                      
+                    </tr>         
+                    <tr class="details">
                         <td>
-                            Check #
+                            {Payment}
+                        </td>        
+                      
+                    </tr>
+                    <tr class="heading">
+                        <td>
+                            Shipping Method
+                        </td>
+                        
+                        <td>
+                            Shipping cost
                         </td>
                     </tr>         
                     <tr class="details">
                         <td>
-                            Check
+                            {Shipping}
                         </td>        
                         <td>
-                            1000
+                            {taxes}
                         </td>
                     </tr>
                     
@@ -294,7 +325,7 @@ def send_mail(receiver_email,products):
                         <td></td>
                         
                         <td>
-                        Total: {sum_invoice} $
+                        Total: {sum_invoice+taxes} $
                         </td>
                     </tr>
                 </table>

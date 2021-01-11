@@ -60,16 +60,14 @@
                           {% if prod.offer %}
                           <p class="price">
                             <del>${{prod.price}}</del>${{prod.new_price}}
-                          
-                            
-
+                        
                             <td><a href="/dashboard/delete_product/{{prod.pk}}"><i class="fa fa-trash-o"></i></a></td>
                           </p>
                           {% else %}
-                          <p class="price">${{prod.price}}</p>  
+                          <p class="price">${{prod.price}}
                           
 
-                          <td><a href="/dashboard/delete_product/{{prod.pk}}"><i class="fa fa-trash-o"></i></a></td>
+                          <td><a href="/dashboard/delete_product/{{prod.pk}}"><i class="fa fa-trash-o"></i></a></td></p>
                           {% endif %}
                         </div>
                         {% if prod.offer %}
@@ -78,10 +76,11 @@
                           
                         </div>
                         {% endif %}
-                        <ul class="nav navbar-nav ml-auto" style="margin: 1em;">
-                        <li class="nav-item dropdown active" style="margin: 1em;"><a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">Edit <b class="caret"></b></a>
-                          <ul class="dropdown-menu" style="margin: 1em;">
-                        <form action="/dashboard/edit_product/{{prod.pk}}" style="margin: 1em;" method="POST" enctype="multipart/form-data">
+                        <div id="myDIV" style="block">
+                        <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item dropdown active"><a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">Edit <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+                        <form action="/dashboard/edit_product/{{prod.pk}}" method="POST" style="margin: 1em;" enctype="multipart/form-data">
                           {% csrf_token %}
     
                          <li> <div class="form-group">

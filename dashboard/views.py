@@ -3,9 +3,26 @@ from main.models import Product
 from main.models import Seller
 from .models import Shop
 from django.http import HttpResponseRedirect
+from checkout.models import Cart
 # Create your views here.
 
 def return_html_dashboard(request):
+    #####################################
+    if request.user.is_authenticated:
+        user_id = request.user.id
+        np=0
+        if not(Cart.objects.all().filter(user_id=user_id).exists()):
+            new_cart=Cart(user_id=user_id,products=[])
+            new_cart.save()
+        user_cart=Cart.objects.get(user_id=user_id)
+        products=[]
+        for i in user_cart.products:
+            np=np+1
+            products.append(Product.objects.get(pk=i))
+        request.session['np']=np
+    else:
+        request.session['np']=0
+    #####################################
     current_username=request.user.username
     per= Seller.objects.get(username=current_username)
     ar=per.owned_products
@@ -13,7 +30,7 @@ def return_html_dashboard(request):
     for item in ar:
         prods.append(Product.objects.get(pk=item))
     balance=per.current_balance
-    return render(request,'dashboard_form.html',{'prods':prods,'balance':balance})
+    return render(request,'dashboard_form.html',{'prods':prods,'balance':balance,'dash_flag':True})
 
 def return_edit_product(request):
     return render(request,'try_edit_product.html')

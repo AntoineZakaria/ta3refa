@@ -8,6 +8,12 @@ from django.http import HttpResponseRedirect
 
     
 def get_product(request,id):
+    if request.user.is_authenticated:
+        current_username=request.user.username
+        per= Person.objects.get(username=current_username)
+        dash_flag=per.is_seller
+    else:
+        dash_flag=False
     product = Product.objects.get(pk=id)
     if request.user.is_authenticated:
         current_username=request.user.username
@@ -18,7 +24,7 @@ def get_product(request,id):
  
 
   
-    return render(request,'shop-detail.html',{'product':product})
+    return render(request,'shop-detail.html',{'product':product,'dash_flag':dash_flag})
 
     
 def review(request,id):
