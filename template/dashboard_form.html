@@ -78,26 +78,32 @@
                           
                         </div>
                         {% endif %}
+<<<<<<< HEAD
                         <div id="myDIV" style="block">
+=======
+                        <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item dropdown active"><a href="javascript: void(0)" data-toggle="dropdown" class="dropdown-toggle">Edit <b class="caret"></b></a>
+                          <ul class="dropdown-menu">
+>>>>>>> 446df2ca26cadcf4abc6e308beda4606b31d6630
                         <form action="/dashboard/edit_product/{{prod.pk}}" method="POST" enctype="multipart/form-data">
                           {% csrf_token %}
     
-                          <div class="form-group">
+                         <li> <div class="form-group">
                             <label for="price">Product Price</label>
                             <input name="price" type="number" class="form-control">
-                          </div>
-                          <div class="form-group">
+                          </div></li>
+                          <li><div class="form-group">
                             <label for="offer">Offer% (if not put 0)</label>
                             <input name="offer" type="number" class="form-control" placeholder="0">
-                          </div>
-                          <div class="form-group">
+                          </div></li>
+                          <li><div class="form-group">
                             <label for="quantity">Quantity</label>
                             <input name="quantity" type="number" class="form-control">
-                          </div>
+                          </div></li>
                           
-                          <div class="text-center">
+                          <li><div class="text-center">
                             <button type="submit" class="btn btn-lg btn-success"></i>Edit Product</button>
-                          </div>
+                          </div></li></ul></li></ul>
                         </form>
                       </div>
                       

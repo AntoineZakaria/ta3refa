@@ -119,6 +119,15 @@ def redirect_to_main(request):
 
 def return_filter(request):
     rate = request.GET['rate']
+    price_filter = request.GET['price_filter']
     prods=Product.objects.filter(rate__gte = rate)
-       
+    if (price_filter == 1000):
+        prods=Product.objects.filter(price__lte = 1000)
+        
+    elif (float(price_filter) < 5000 and price_filter!=1000):
+        prods = Product.objects.filter(price__lte = float(price_filter) , rate__gte = rate, price__gte = float(price_filter)-999)
+    else:
+        prods = Product.objects.filter(price__gte = float(price_filter)+1, rate__gte = rate)
+
+
     return render(request,'filtered.html',{'prods':prods})    
