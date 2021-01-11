@@ -26,7 +26,6 @@
         <div class="container">
           <div class="row bar">
             <div class="col-md-9">
-              <p class="text-muted lead">In our Ladies department we offer wide selection of the best products we have found and carefully selected worldwide. Pellentesque habitant morbi tristique senectus et netuss.</p>
               <div class="row products products-big">
                 {%for prod in prods %}
                 <div class="col-lg-4 col-md-6">
@@ -111,8 +110,9 @@
                     <div class="form-group">
                       <label for="filterr">Star rating:</label>
                       <br>
-                      <select name="rate" size="5" style="width: 100%;overflow:hidden" class="form-control">
-                        <option value=1 >  
+                      <select name="rate" size="6" style="width: 100%;overflow:hidden" class="form-control">
+                        <option value="none" selected>None</option>
+                        <option value=1>  
                           ☆ & more
                     </option>
                         <option value=2>☆☆ & more</option>
@@ -128,8 +128,10 @@
                         <option value = 2000>1001-2000$</option>
                         <option value = 3000>2001-3000$</option>
                         <option value = 4000>3001-4000$</option>
-                        <option value = 5000>5001$ & more</option>
+                        <option value = 5000>4001-5000$</option>
+                        <option value = 6000>6001$ & more</option>
                       </select>
+
                     </div> 
                      
                       <button type="submit"   class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>

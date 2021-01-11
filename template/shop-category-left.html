@@ -74,15 +74,16 @@
               {%endif%}
               <div class="panel panel-default sidebar-menu">
                 <div class="panel-heading d-flex align-items-center justify-content-between">
-                  <h3 class="h4 panel-title">Filters</h3><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i><span class="d-none d-md-inline-block">Clear</span></a>
+                  <h3 class="h4 panel-title">Filters</h3>
                 </div>
                 <div class="panel-body">
                   <form action="/filter" method="GET">
                     <div class="form-group">
                       <label for="rate">Star rating:</label>
                       <br>
-                      <select name="rate" size="5" style="width: 100%;overflow:hidden" class="form-control">
-                        <option value=1 >  
+                      <select name="rate" size="6" style="width: 100%;overflow:hidden" class="form-control">
+                        <option value="none" selected>None</option>
+                        <option value=1>  
                           ☆ & more
                     </option>
                         <option value=2>☆☆ & more</option>
@@ -98,7 +99,8 @@
                         <option value = 2000>1001-2000$</option>
                         <option value = 3000>2001-3000$</option>
                         <option value = 4000>3001-4000$</option>
-                        <option value = 5000>5001$ & more</option>
+                        <option value = 5000>4001-5000$</option>
+                        <option value = 6000>6001$ & more</option>
                       </select>
 
 
