@@ -33,10 +33,13 @@ def complete_purchase(request):
         theseller=Seller.objects.get(pk=sellerid)
         theseller.current_balance=theseller.current_balance+product_price
         theseller.save()
+    if request.method == 'POST':
+        Shipping = request.POST['Shipping']
+        Payment = request.POST['Payment']
     if request.user.email =="":
         pass
     else:
-        send_mail(request.user.email,products)
+        send_mail(request.user.email,products,Shipping,Payment)
     
     user_cart=Cart.objects.get(user_id=user_id)
     user_cart.products=[]
@@ -108,7 +111,7 @@ def calc_cart(products):
 
 
 
-def send_mail(receiver_email,products):
+def send_mail(receiver_email,products,Shipping,Payment):
     port = 465  # For SSL
     smtp_server = "smtp.gmail.com"
     sender_email = "Ta3refa00@gmail.com"  # Enter your address
@@ -120,6 +123,12 @@ def send_mail(receiver_email,products):
     message["To"] = receiver_email
     text_viko=""
     sum_invoice=0
+    taxes=0
+    if Shipping=="Standard":
+        taxes=50
+    elif Shipping=="Express":
+        taxes=100
+
     for single_prod in products:
         text_viko=text_viko+f"""\
                 <tr class="item">
@@ -261,22 +270,34 @@ def send_mail(receiver_email,products):
                                     </td>
                             
                     </tr>
-                    
                     <tr class="heading">
                         <td>
                             Payment Method
                         </td>
                         
+                      
+                    </tr>         
+                    <tr class="details">
                         <td>
-                            Check #
+                            {Payment}
+                        </td>        
+                      
+                    </tr>
+                    <tr class="heading">
+                        <td>
+                            Shipping Method
+                        </td>
+                        
+                        <td>
+                            Shipping cost
                         </td>
                     </tr>         
                     <tr class="details">
                         <td>
-                            Check
+                            {Shipping}
                         </td>        
                         <td>
-                            1000
+                            {taxes}
                         </td>
                     </tr>
                     
@@ -294,7 +315,7 @@ def send_mail(receiver_email,products):
                         <td></td>
                         
                         <td>
-                        Total: {sum_invoice} $
+                        Total: {sum_invoice+taxes} $
                         </td>
                     </tr>
                 </table>
