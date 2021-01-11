@@ -60,6 +60,7 @@
                           {% if prod.offer %}
                           <p class="price">
                             <del>${{prod.price}}</del>${{prod.new_price}}
+                            <button onclick="myFunction1()">edit</button> 
                             
 
                             <td><a href="/dashboard/delete_product/{{prod.pk}}"><i class="fa fa-trash-o"></i></a></td>
@@ -98,8 +99,9 @@
                           
                           <li><div class="text-center">
                             <button type="submit" class="btn btn-lg btn-success"></i>Edit Product</button>
-                          </div></li></ul></li></ul>
+                          </div></li>
                         </form>
+                          </ul></li></ul>
                       </div>
                       
                       </div>
@@ -249,16 +251,14 @@
 
         </div>
       <!-- GET IT-->
-      <script type="text/javascript">
-        function myFunction1() {​​​​
-          var x = document.getElementById("myDIV");
-          if (x.style.display == "none") {​​​​
-              x.style.display = "block";
-            }​​​​ else {​​​​
-              x.style.display = "none";
-            }​​​​
-          }​​​​
-          
-          
-      </script>
+<script>
+  function myFunction1() {​​​​
+    var x = document.getElementById("myDIV");
+    if (x.style.display == "none") {​​​​
+        x.style.display = "block";
+      }​​​​ else {​​​​
+        x.style.display = "none";
+      }​​​​
+    }​​​​   
+</script>
 {% endblock %}

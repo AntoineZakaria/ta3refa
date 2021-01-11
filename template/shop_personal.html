@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+{% static "img" as baseUrl %}
+
+
+{% block content %}
+
+      <!-- Navbar End-->
+   
+      <div id="heading-breadcrumbs">
+        <div class="container">
+          <div class="row d-flex align-items-center flex-wrap">
+            <div class="col-md-7">
+              <h1 class="h2">{{shop_name}}</h1>
+              {% for message in messages %}
+              <h1>{{ message }} </h1>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <div class="container">
+          <div class="row bar">
+            <div class="col-md-12">
+              
+              <div class="products-big">
+                <div class="row products">
+            
+                  
+                  
+                  
+                      <div class="ribbon-holder">
+                        
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="row products products-big">
+                    {%for prod in prods %}
+                    <div class="col-lg-4 col-md-6">
+                      <div class="product">
+                        <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
+                        <div class="text">
+                          <h3 class="h5" style="margin-bottom: 0em;"><a href="/single_product/show_product/{{prod.pk}}">{{prod.name}}</a></h3>
+                          <h6 style="margin: 0em;" style="text-transform: lowercase;">in stock: {{prod.quantity}}</h6>
+                        <div class="single-review" style="margin:0em;">
+                          <div class="review-heading">
+                            
+                              <div class="review-rating" style="position:initial">
+                                  <i class="fa fa-star{% if prod.rate < 1 %}-o empty{% endif %}"></i>
+                                  <i class="fa fa-star{% if prod.rate < 2 %}-o empty{% endif %}"></i>
+                                  <i class="fa fa-star{% if prod.rate < 3 %}-o empty{% endif %}"></i>
+                                  <i class="fa fa-star{% if prod.rate < 4 %}-o empty{% endif %}"></i>
+                                  <i class="fa fa-star{% if prod.rate < 5 %}-o empty{% endif %}"></i>
+                                  
+                              </div>
+                          </div></div>
+                          <h6 style="margin: 0em;" style="text-transform: lowercase;">{{prod.rate}}/5</h6>
+
+                        </div>
+                        {% if prod.offer %}
+                        <div class="ribbon-holder">
+                          <div class="ribbon sale" style="background: red;font:xx-small">{{prod.offer}}%OFF</div>
+                          
+                        </div>
+                        {% endif %}
+
+                      
+                      </div>
+                    </div>
+                  
+                    {% endfor %}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 banner mb-small text-center"><a href="#"><img src="img/banner2.jpg" alt="" class="img-fluid"></a></div>
+              </div>
+              <div class="pages">
+                
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                  <ul class="pagination">
+                    <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-double-left"></i></a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="heading-breadcrumbs">
+        <div class="container">
+          <div class="row d-flex align-items-center flex-wrap">
+            <div class="col-md-7">
+            </div>
+          </div>
+        </div>
+      </div>
+     
+        </div>
+      <!-- GET IT-->
+      <script type="text/javascript">
+        function myFunction1() {​​​​
+          var x = document.getElementById("myDIV");
+          if (x.style.display == "none") {​​​​
+              x.style.display = "block";
+            }​​​​ else {​​​​
+              x.style.display = "none";
+            }​​​​
+          }​​​​
+          
+          
+      </script>
+{% endblock %}

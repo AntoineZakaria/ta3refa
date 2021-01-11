@@ -25,7 +25,7 @@ urlpatterns = [
     path('checkout/',include('checkout.urls')),
     path('single_product/',include('single_product.urls')),
     path('dashboard/',include('dashboard.urls')),
-    path('personal_shop',include('personal_shop.urls')),
+    path('personal_shop/',include('personal_shop.urls')),
    
     path('register/', include('register.urls')),
 
