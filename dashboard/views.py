@@ -13,7 +13,7 @@ def return_html_dashboard(request):
     for item in ar:
         prods.append(Product.objects.get(pk=item))
     balance=per.current_balance
-    return render(request,'dashboard_form.html',{'prods':prods,'balance':balance})
+    return render(request,'dashboard_form.html',{'prods':prods,'balance':balance,'dash_flag':True})
 
 def return_edit_product(request):
     return render(request,'try_edit_product.html')
