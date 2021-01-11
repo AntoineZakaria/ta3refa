@@ -40,7 +40,7 @@ def return_html_home (request):
         products=[]
         for i in user_cart.products:
             np=np+1
-            products.append(Product.objects.get(pk=i))
+            
         request.session['np']=np
     else:
         request.session['np']=0
