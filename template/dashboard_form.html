@@ -60,6 +60,7 @@
                           {% if prod.offer %}
                           <p class="price">
                             <del>${{prod.price}}</del>${{prod.new_price}}
+                            <button onclick="myFunction1()">edit</button> 
                             
 
                             <td><a href="/dashboard/delete_product/{{prod.pk}}"><i class="fa fa-trash-o"></i></a></td>
@@ -77,7 +78,7 @@
                           
                         </div>
                         {% endif %}
-                        <div id="myDIV">
+                        <div id="myDIV" style="block">
                         <form action="/dashboard/edit_product/{{prod.pk}}" method="POST" enctype="multipart/form-data">
                           {% csrf_token %}
     
@@ -247,16 +248,14 @@
 
         </div>
       <!-- GET IT-->
-      <script type="text/javascript">
-        function myFunction1() {​​​​
-          var x = document.getElementById("myDIV");
-          if (x.style.display == "none") {​​​​
-              x.style.display = "block";
-            }​​​​ else {​​​​
-              x.style.display = "none";
-            }​​​​
-          }​​​​
-          
-          
-      </script>
+<script>
+  function myFunction1() {​​​​
+    var x = document.getElementById("myDIV");
+    if (x.style.display == "none") {​​​​
+        x.style.display = "block";
+      }​​​​ else {​​​​
+        x.style.display = "none";
+      }​​​​
+    }​​​​   
+</script>
 {% endblock %}

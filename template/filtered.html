@@ -78,18 +78,20 @@
                 </div>
                 <div class="panel-body">
                   <form action="/filter" method="GET">
-                    <div class="form-group">
-                      <div class="checkbox">
+                      <div class="form-group">
+                        <label for="filterr">Rating filter:</label>
+                        <br>
+                        <select name="rate" size="5" style="width: 100%;overflow:hidden" class="form-control">
+                          <option value=1 >  
+                            ☆ & more
+                      </option>
+                          <option value=2>☆☆ & more</option>
+                          <option value=3>☆☆☆ & more</option>
+                          <option value=4>☆☆☆☆ & more</option>
+                          <option value=5>☆☆☆☆☆ only</option>
+                        </select>
                         
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <li>Star Rating  </li>
-                          <input type="number" name="rate" min="1" max="5">  (please enter a number from 1 to 5) <br>
-                          
-                        </label>
-                      </div>
-                     </div>
+                      </div>  
                      
                       <button type="submit"   class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>
                      
@@ -136,10 +138,9 @@
               
             </div>
             <div class="col-md-9">
-              <h2 class="h4 panel-title">Suggestions</h2>
+             
               <div class="row products products-big">
                 {%for prod in prods %}
-                {%if not prod.offer %}
                 <div class="col-lg-4 col-md-6">
                   <div class="product">
                     <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
@@ -173,47 +174,7 @@
                     {% endif %}
                   </div>
                 </div>
-                {%endif%}
-                {% endfor %}  
-                <h2 class="h4 panel-title">Offers</h2>
-                <div class="row products products-big">
-                  {%for prod in prods %}
-                  {%if  prod.offer %}
-                  <div class="col-lg-4 col-md-6">
-                    <div class="product">
-                      <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
-                      <div class="text">
-                        <h3 class="h5" style="margin-bottom: 0em;"><a href="/single_product/show_product/{{prod.pk}}">{{prod.name}}</a></h3>
-                        <h6 style="margin: 0em;" style="text-transform: lowercase;">in stock: {{prod.quantity}}</h6>
-                      <div class="single-review" style="margin:0em;">
-                        <div class="review-heading">
-                          
-                            <div class="review-rating" style="position:initial">
-                                <i class="fa fa-star{% if prod.rate < 1 %}-o empty{% endif %}"></i>
-                                <i class="fa fa-star{% if prod.rate < 2 %}-o empty{% endif %}"></i>
-                                <i class="fa fa-star{% if prod.rate < 3 %}-o empty{% endif %}"></i>
-                                <i class="fa fa-star{% if prod.rate < 4 %}-o empty{% endif %}"></i>
-                                <i class="fa fa-star{% if prod.rate < 5 %}-o empty{% endif %}"></i>
-                            </div>
-                        </div></div>
-                        <h6 style="margin: 0em;" style="text-transform: lowercase;">{{prod.rate}}/5</h6>
-                        {% if prod.offer %}
-                        <p class="price">
-                          <del>${{prod.price}}</del>${{prod.new_price}}
-                        </p>
-                        {% else %}
-                        <p class="price">${{prod.price}}</p>  
-                        {% endif %}
-                      </div>
-                      {% if prod.offer %}
-                      <div class="ribbon-holder">
-                        <div class="ribbon sale" style="background: red;font:xx-small">{{prod.offer}}%OFF</div>
-                      </div>
-                      {% endif %}
-                    </div>
-                  </div>
-                  {%endif%}
-                  {% endfor %}  
+                {% endfor %}
                   
               <div class="row">
                
@@ -235,6 +196,7 @@
             </div>
           </div>
         </div>
+      </div>
       </div>
       <!-- GET IT-->
 
