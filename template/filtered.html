@@ -78,18 +78,20 @@
                 </div>
                 <div class="panel-body">
                   <form action="/filter" method="GET">
-                    <div class="form-group">
-                      <div class="checkbox">
+                      <div class="form-group">
+                        <label for="filterr">Rating filter:</label>
+                        <br>
+                        <select name="rate" size="5" style="width: 100%;overflow:hidden" class="form-control">
+                          <option value=1 >  
+                            ☆ & more
+                      </option>
+                          <option value=2>☆☆ & more</option>
+                          <option value=3>☆☆☆ & more</option>
+                          <option value=4>☆☆☆☆ & more</option>
+                          <option value=5>☆☆☆☆☆ only</option>
+                        </select>
                         
-                      </div>
-                      <div class="checkbox">
-                        <label>
-                          <li>Star Rating  </li>
-                          <input type="number" name="rate" min="1" max="5"> (please enter a number from 1 to 5) <br>
-                          
-                        </label>
-                      </div>
-                     </div>
+                      </div>  
                      
                       <button type="submit"   class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>
                      
