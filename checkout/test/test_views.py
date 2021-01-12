@@ -57,25 +57,40 @@ class TestCheckoutViews (TestCase):
         self.cart=Cart.objects.create(
             user_id=1,
             products=[]
+            
+           
         )
-        #Product.objects.create(
-         #   name = 'product1',
-          #  category='phones',
-           # description='test description',
-            #price=100,
-            #quantity=2,
-            #offer=10,
-            #img= open('test.png', 'rb')
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
         )
+       
         self.cart_page_url=reverse('cart_page')
         self.complete_purchase_url=reverse('complete_purchase')
-        #self.add_to_cart_url=reverse('add_to_cart',args=[1])
+        self.add_to_cart_url=reverse('add_to_cart',args=["1"])
+        self.remove_from_cart_url=reverse('remove_from_cart',args=["1"])
 
+
+
+
+    def test_add_to_cart(self):
+        response=self.client.get(self.add_to_cart_url)
+        self.assertEquals(response.status_code,302)
+         
        
     def test_complete_purchase(self):
         response=self.client.post(self.complete_purchase_url,{
-            'shipping':'anything',
-            'payment':'anything'
+            'Shipping':'Standard',
+            'Payment':'Cash On Delivery'
         })
         self.assertEquals(response.status_code, 302)    
 
@@ -86,11 +101,10 @@ class TestCheckoutViews (TestCase):
         self.assertTemplateUsed(response,'shop-basket.html')
 
 
-   # def test_add_to_cart(self):
-    #    response=self.client.get(self.add_to_cart_url)
-     #   self.assertEquals(response.status_code,200)
-      #  self.assertTemplateUsed(response,'shop-basket.html')    
-    
+   
+    def test_remove_from_cart(self):
+        response=self.client.get(self.add_to_cart_url)
+        self.assertEquals(response.status_code,302)
     
     
     
