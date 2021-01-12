@@ -31,6 +31,12 @@ class TestMainViews (TestCase):
     
 
 
+    def test_redirect_to_main(self):
+        response=self.client.get(self.url_redirect_to_main)
+        self.assertEquals(response.status_code,302)
+        
+
+
 
 
 
