@@ -7,7 +7,18 @@
 
 {% block content %}
 
-
+<head>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script>
+  $(document).ready(function(){
+      $('#show').click(function() {
+        $('.menu').toggle("slide");
+      });
+  });
+  </script>
+  </head>
+  
       <!-- Navbar End-->
       
       <div id="heading-breadcrumbs">
@@ -102,21 +113,17 @@
                     <div class="form-group">
                       <label for="Payment">Payment options</label>
                       <br>
-                
-                      <select name="Payment" size="1" style="width: 100%;" class="form-control">
-                        <option value="Cash on delivery" >Cash on delivery</option>
-                        <option value="Online payment">Online payment</option>
-                        
-                      </select>
+                      <input type="radio" name="radAnswer"  value="cashondeliv">Cash on delivery
+                      <input type="radio" id="show" name="radAnswer"  value="cashonline">Online payment
                       
-
-
-
 <!-- Credit Card Payment Form - START -->
 
 <div class="container">
+
     <div class="row">
         <div class="col-xs-12 col-md-4 col-md-offset-4">
+          <div class="menu" style="display: none;">
+            <ol>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
@@ -124,7 +131,8 @@
                         <img class="img-responsive cc-img" src="http://prepbootstrap.com/Content/images/shared/misc/creditcardicons.png" style="width: 180%;">
                     </div>
                 </div>
-                <div class="panel-body">
+                
+                <div class="panel-body" >
                     
                         <div class="row">
                             <div class="col-xs-12">
@@ -161,9 +169,14 @@
                         </div>
                    
                 </div>
+                </ol>
+              </div>
+
+                
                 <div class="panel-footer">
+                  <br>
                     <div class="row">
-                        
+                      <button type="submit" class="btn btn-template-outlined"  href="/checkout/" style="font-size: large;">Complete purchase <i class="fa fa-chevron-complete"></i></button>
                     </div>
                 </div>
             </div>
@@ -179,17 +192,7 @@
 <!-- Credit Card Payment Form - END -->
 
 </div>
-                    </div>  
-                   
-                    
-                    
-                
-                  
-                  </div>
-                  <div class="text-center">
-                    <a href="/checkout/">
-                    <button class="btn btn-secondary" type="button"><i class="fa fa-refresh"></i> refresh cart</button></a>
-                    <button type="submit" class="btn btn-template-outlined">Complete purchase <i class="fa fa-chevron-right"></i></button>
+                    </div> 
                   </div>
                 </form>
               </div>

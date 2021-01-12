@@ -6,7 +6,7 @@ import smtplib, ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from django.contrib import messages
-
+from django.http import HttpResponseRedirect
 
 
 
@@ -113,8 +113,8 @@ def add_to_cart(request,id):
     request.session['np']=np
     totalprice=calc_cart(user_cart.products)    
    
-
-    return redirect('/checkout/')
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    #return redirect('/checkout/')
 
 def remove_from_cart(request,id):
     request.session['np']=int(request.session['np'])-1
