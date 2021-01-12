@@ -3,6 +3,7 @@ from django.urls import reverse
 from main.models import Comment,Product,Person,Seller,Customer,mail_verification
 from django.contrib.auth.models import User,auth
 import json
+from register.views import send_mail
 
 class TestRegister(TestCase):
     def setUp(self):
@@ -81,3 +82,5 @@ class TestRegister(TestCase):
         self.url_logout = reverse('logout')
         response=self.client.get(self.url_get_product)
         self.assertEquals(response.status_code,200)
+    def test_send_mail(self):
+        send_mail('antwanemile@gmail.com','random_test_link')
