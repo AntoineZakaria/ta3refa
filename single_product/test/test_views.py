@@ -50,7 +50,6 @@ class TestSingle_productViews (TestCase):
             category="Phones"
         )
         #self.url_verify_code=reverse('review',args=[1])
-    print(Product)
     def test_login(self):
         self.url_login=reverse('login')
         response=self.client.post(self.url_login,{

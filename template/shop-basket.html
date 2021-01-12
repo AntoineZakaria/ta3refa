@@ -15,6 +15,9 @@
       $('#show').click(function() {
         $('.menu').toggle("slide");
       });
+      $('#hide').click(function() {
+        $('.menu').toggle("hide");
+      });
   });
   </script>
   </head>
@@ -113,7 +116,7 @@
                     <div class="form-group">
                       <label for="Payment">Payment options</label>
                       <br>
-                      <input type="radio" name="Payment" value="cashondeliv">Cash on delivery
+                      <input type="radio" id="hide" name="Payment" value="cashondeliv">Cash on delivery
                       <input type="radio" id="show" name="Payment"  value="cashonline">Online payment
                       
 <!-- Credit Card Payment Form - START -->
