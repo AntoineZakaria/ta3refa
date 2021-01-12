@@ -37,6 +37,8 @@ class TestMainViews (TestCase):
         
 
 
+
+
     def test_filter(self):
         response=self.client.get(self.url_filter,{
             'rate':5,
