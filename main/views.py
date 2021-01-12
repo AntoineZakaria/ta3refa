@@ -59,11 +59,6 @@ def return_html_home (request):
 
     return render(request,'shop-category-left.html',{'prods':prods,'dash_flag':dash_flag})
 
-def login(request):
-    pass
-
-def return_offer():
-    pass
 
 
 

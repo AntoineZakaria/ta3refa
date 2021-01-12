@@ -7,7 +7,7 @@ urlpatterns =[
     path('accounts/profile/', views.redirect_to_main, name='redirect_to_main'),
     
     path('favourite', views.return_favourite, name='favourite'),
-        path('filter', views.return_filter, name='filter')
+    path('filter', views.return_filter, name='filter')
 
    
    
