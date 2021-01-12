@@ -16,7 +16,7 @@ class TestUrls(SimpleTestCase):
     
     
     
-    def test_add_to_cart_resolves(self):
+    def test_add_to_cart_url_resolves(self):
         url=reverse('add_to_cart',args=['some-slug'])
         self.assertEquals(resolve(url).func,add_to_cart)
     
