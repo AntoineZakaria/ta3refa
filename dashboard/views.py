@@ -53,6 +53,8 @@ def add_product(request):
             offer=0
         
         current_username=request.user.username
+        #print('-------------+++++++++++++++')
+        #print(current_username)
         per= Seller.objects.get(username=current_username)
         new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=per.id)
         new_product.save()
