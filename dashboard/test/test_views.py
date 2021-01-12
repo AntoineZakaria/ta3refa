@@ -64,7 +64,8 @@ class TestMainViews (TestCase):
             'photo1': open('test.png', 'rb')
         })
         self.assertEquals(response1.status_code,302)
-        print(Product.objects.get(id=1).name)
+        self.assertSequenceEqual(Product.objects.get(id=1).name,'product5')
+
 
 
 

@@ -68,7 +68,7 @@ def edit_product(request, id):
             edit_product.price=request.POST['price']
         if not(request.POST['quantity']==''):
             edit_product.quantity=request.POST['quantity']
-        if not(request.POST['offer']=='')
+        if not(request.POST['offer']==''):
             edit_product.offer=request.POST['offer']
         edit_product.save()
     return redirect('/dashboard')
