@@ -24,6 +24,35 @@ class TestMainViews (TestCase):
         self.assertEquals(response.status_code, 302)
 
 
+    def test_category(self):
+        response=self.client.get(self.url_category)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-category.html')
+    
 
+
+    def test_redirect_to_main(self):
+        response=self.client.get(self.url_redirect_to_main)
+        self.assertEquals(response.status_code,302)
+        
+
+
+
+
+    def test_filter(self):
+        response=self.client.get(self.url_filter,{
+            'rate':5,
+            'price_filter':1000
+
+        })
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'filtered.html')
+
+
+
+    def test_favourite(self):
+        response=self.client.get(self.url_favourite)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'favourite.html')    
 
 
