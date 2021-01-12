@@ -75,43 +75,8 @@
                 </div>
               </div>
               {%endif%}
-              <div class="panel panel-default sidebar-menu">
 
-                <div class="panel-body">
-                  <form action="/filter" method="GET">
-                    <div class="form-group">
-                      <label for="filterr">Star rating:</label>
-                      <br>
-                      <select name="rate" size="6" style="width: 100%;overflow:hidden" class="form-control">
-                        <option value="none" selected>None</option>
-                        <option value=1>  
-                          ☆ & more
-                    </option>
-                        <option value=2>☆☆ & more</option>
-                        <option value=3>☆☆☆ & more</option>
-                        <option value=4>☆☆☆☆ & more</option>
-                        <option value=5>☆☆☆☆☆ only</option>
-                      </select>
-                      
-                      <label for="price_filter">Price:</label>
-                      <br>
-                      <select name="price_filter" size="1" style="width: 100%;overflow:hidden" class="form-control">
-                        <option value = 1000> 0-1000$</option>
-                        <option value = 2000>1001-2000$</option>
-                        <option value = 3000>2001-3000$</option>
-                        <option value = 4000>3001-4000$</option>
-                        <option value = 5000>4001-5000$</option>
-                        <option value = 6000>6001$ & more</option>
-                      </select>
-
-                    </div> 
-                     
-                      <button type="submit"   class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>
-                     
-                  </form>
-                </div>
-              </div>
-              </div>
+              
               
               <!-- <div class="panel panel-default sidebar-menu">
                 <div class="panel-heading d-flex align-items-center justify-content-between">
@@ -192,8 +157,9 @@
                 </div>
                 {%endif%}
                 {% endfor %}  
-                <h2 class="h4 panel-title">Offers</h2>
+               
                 <div class="row products products-big">
+                  <h2 class="h4 panel-title">Offers</h2>
                   {%for prod in prods %}
                   {%if  prod.offer %}
                   <div class="col-lg-4 col-md-6">
@@ -231,7 +197,7 @@
                   </div>
                   {%endif%}
                   {% endfor %}  
-                  
+                  </div>
               <div class="row">
                
               </div>
