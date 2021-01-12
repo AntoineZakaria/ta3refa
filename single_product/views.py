@@ -33,7 +33,7 @@ def review(request,id):
     user_rate =0
     
     if "rating" in request.POST:
-        user_rate +=1
+        user_rate =1
     if "rating2" in request.POST:
         user_rate =2
     if "rating3" in request.POST:
