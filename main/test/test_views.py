@@ -24,6 +24,13 @@ class TestMainViews (TestCase):
         self.assertEquals(response.status_code, 302)
 
 
+    def test_category(self):
+        response=self.client.get(self.url_category)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-category.html')
+    
+
+
 
 
 
