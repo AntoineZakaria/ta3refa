@@ -54,8 +54,8 @@ class TestMainViews (TestCase):
 
 
     def test_add_product_post(self):
-        response1=self.client.post(self.url_add,{
-            'name':'product5',
+        response=self.client.post(self.url_add,{
+            'name':'product1',
             'category':'phones',
             'descrription':'test description',
             'price':100,
@@ -63,8 +63,25 @@ class TestMainViews (TestCase):
             'offer':10,
             'photo1': open('test.png', 'rb')
         })
-        self.assertEquals(response1.status_code,302)
-        self.assertSequenceEqual(Product.objects.get(id=1).name,'product5')
+        self.assertEquals(response.status_code,302)
+        self.assertSequenceEqual(Product.objects.get(id=1).name,'product1')
+
+    def test_return_dashboard(self):
+        response=self.client.get(reverse('return_dashboard'))
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'dashboard_form.html')
+
+    def test_try_edit_product(self):
+        response=self.client.post(reverse('edit_product',args='1'),{
+            'price':20,
+            'quantity':10,
+            'offer':50
+
+        })
+        self.assertEquals(response.status_code,302)
+        self.assertEquals(Product.objects.get(name='product1').price,20)
+        self.assertEquals(Product.objects.get(name='product1').quantity,10)
+
 
 
 
