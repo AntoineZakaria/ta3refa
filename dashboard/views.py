@@ -53,8 +53,6 @@ def add_product(request):
             offer=0
         
         current_username=request.user.username
-        #print('-------------+++++++++++++++')
-        #print(current_username)
         per= Seller.objects.get(username=current_username)
         new_product=Product(name=name,category=category,description=description,price=price,quantity=quantity,rate=0,offer=offer,comment=[],img=img,shop_id=per.id)
         new_product.save()
@@ -66,9 +64,12 @@ def add_product(request):
 def edit_product(request, id):
     edit_product = Product.objects.get(pk=id)
     if request.method == 'POST':
-        edit_product.price=request.POST['price']
-        edit_product.quantity=request.POST['quantity']
-        edit_product.offer=request.POST['offer']
+        if not(request.POST['price']==''):
+            edit_product.price=request.POST['price']
+        if not(request.POST['quantity']==''):
+            edit_product.quantity=request.POST['quantity']
+        if not(request.POST['offer']=='')
+            edit_product.offer=request.POST['offer']
         edit_product.save()
     return redirect('/dashboard')
 

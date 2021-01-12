@@ -44,8 +44,6 @@ class TestMainViews (TestCase):
         is_autonticated=True
         )
 
-
-
         self.url_login=reverse('login')
         response=self.client.post(self.url_login ,{
             'email_login':'tony',
@@ -57,16 +55,16 @@ class TestMainViews (TestCase):
 
     def test_add_product_post(self):
         response1=self.client.post(self.url_add,{
-            'name':'product1',
+            'name':'product5',
             'category':'phones',
             'descrription':'test description',
             'price':100,
             'quantity':2,
             'offer':10,
             'photo1': open('test.png', 'rb')
-        }
-        )
+        })
         self.assertEquals(response1.status_code,302)
+        print(Product.objects.get(id=1).name)
 
 
 
