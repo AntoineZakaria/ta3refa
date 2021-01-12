@@ -27,7 +27,7 @@ class TestMainViews (TestCase):
             username='tony',
             address='ADDRESS1',
             is_seller=True,
-            Purchased_products=[],
+            Purchased_products=[1,2],
             favourite_products=[]
         )
         Seller.objects.create(
@@ -48,6 +48,15 @@ class TestMainViews (TestCase):
         response=self.client.post(self.url_login ,{
             'email_login':'tony',
             'password_login':'1234'
+        })
+        response=self.client.post(self.url_add,{
+            'name':'product1',
+            'category':'phones',
+            'descrription':'test description',
+            'price':100,
+            'quantity':2,
+            'offer':10,
+            'photo1': open('test.png', 'rb')
         })
 
 
@@ -72,16 +81,34 @@ class TestMainViews (TestCase):
         self.assertTemplateUsed(response,'dashboard_form.html')
 
     def test_try_edit_product(self):
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
+        )
         response=self.client.post(reverse('edit_product',args='1'),{
             'price':20,
             'quantity':10,
             'offer':50
-
         })
         self.assertEquals(response.status_code,302)
-        self.assertEquals(Product.objects.get(name='product1').price,20)
-        self.assertEquals(Product.objects.get(name='product1').quantity,10)
+        self.assertEquals(Product.objects.get(id=1).price,20)
+        self.assertEquals(Product.objects.get(id=1).quantity,10)
+        self.assertEquals(Product.objects.get(id=1).offer,50)
 
+    def test_delete_product(self):
+        response=self.client.get(reverse('delete_product',args='3'))
+        self.assertEquals(response.status_code,200)
+        self.assertEquals(Product.objects.all().filter(id=3).exists(),False)
+       
 
 
 
