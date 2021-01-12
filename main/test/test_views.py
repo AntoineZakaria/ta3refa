@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from main.models import Comment,Product,Person,Seller,Customer,mail_verification
 import json
-
+from django.contrib.auth.models import User,auth
 
 class TestMainViews (TestCase):
     def setUp(self):
@@ -13,7 +13,7 @@ class TestMainViews (TestCase):
         self.url_redirect_to_main=reverse('redirect_to_main')
         self.url_favourite=reverse('favourite')
         self.url_filter=reverse('filter')
-
+      
     def test_home_get(self):
         response=self.client.get(self.url_home)
         self.assertEquals(response.status_code,200)
