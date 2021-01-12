@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from main.models import Person,Customer,Seller,Product
-
+from checkout.models import Cart
 # Create your views here.
 def return_html_personal_shop(request):
     return render(request,'personal-shop.html')

@@ -10,7 +10,6 @@ class TestSingle_productViews (TestCase):
         self.client=Client()
         self.url_get_product=reverse('get_product',args=[1])
         self.url_review = reverse('review' , args=[1])
-        self.client=Client()
         User.objects.create_user(
             username='tony',
             email='tony.felo18@gmail.com',
