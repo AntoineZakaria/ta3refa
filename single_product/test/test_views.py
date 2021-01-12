@@ -73,4 +73,20 @@ class TestSingle_productViews (TestCase):
         #Testing If the comment has been added proberly
         self.assertEquals(Product.objects.get(name='prod').comment[1][1] , '1')
         self.assertEquals(Product.objects.get(name='prod').comment[1][2] , "bad")
+
+    def test_offer_calculate(self):
+        Product.objects.create(
+            id=10,
+            name="prod10",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 50,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [],
+            shop_id="1",
+            category="Phones"
+        )
+        self.assertEquals(Product.objects.get(id=10).new_price(),50)
          
