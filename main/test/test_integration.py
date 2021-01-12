@@ -15,6 +15,8 @@ class TestMainViews (TestCase):
         self.url_favourite=reverse('favourite')
         self.url_filter=reverse('filter')
         self.url_add=reverse('add_product')
+        self.url_html_personal_shop=reverse('return_personal_shop')
+        self.url_html_shop = reverse('return_html_shop',args=['tony'])
         User.objects.create_user(
             id=1,
             username='tony',
@@ -38,7 +40,7 @@ class TestMainViews (TestCase):
         Seller.objects.create(
             id=1,
             username='tony',
-            shop_name = 'shop1_test',
+            shop_name = 'tony',
             telephone = 123, 
             owned_products = [],
             current_balance = 0
@@ -75,4 +77,10 @@ class TestMainViews (TestCase):
         self.assertEquals(response.status_code,200)
         self.assertTemplateUsed(response,'favourite.html')    
 
+        response=self.client.get(self.url_html_personal_shop)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'personal-shop.html')
 
+        response=self.client.get(self.url_html_shop)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop_personal.html')
