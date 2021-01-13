@@ -37,6 +37,7 @@
                   </div>
                   
                   <div class="row products products-big">
+                    {% if prods %}
                     {%for prod in prods %}
                     <div class="col-lg-4 col-md-6">
                       <div class="product">
@@ -107,6 +108,10 @@
                     </div>
                   
                     {% endfor %}
+                    {% else %}
+                    <h4>You don't have products yet ,you can add one using the form below</h4>
+
+                    {% endif %}
                 </div>
               </div>
               <div class="row">
