@@ -1,0 +1,226 @@
+{% extends 'base.html' %}
+{% load static %}
+{% static "img" as baseUrl %}
+
+
+{% block content %}
+
+
+
+<head>
+  <title>Ta3refa-Home</title></head>
+      
+      <div id="heading-breadcrumbs">
+        <div class="container">
+          <div class="row d-flex align-items-center flex-wrap">
+            <div class="col-md-7">
+              <h1 class="h2">Category with left sidebar</h1>
+            </div>
+            <div class="col-md-5">
+              <ul class="breadcrumb d-flex justify-content-end">
+                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                <li class="breadcrumb-item active">Category with left sidebar</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% for message in messages %}
+      <div role="alert" class="alert alert-warning alert-dismissible">
+        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>{{ message }}
+      
+      {% endfor %}
+    </div>
+      <div id="content">
+        <div class="container">
+          <div class="row bar">
+            <div class="col-md-3">
+              <!-- MENUS AND FILTERS-->
+              <div class="panel panel-default sidebar-menu">
+                <div class="panel-heading">
+                  <h3 class="h4 panel-title">Categories</h3>
+                </div>
+                <div class="panel-body">
+                  <ul class="nav nav-pills flex-column text-sm category-menu">
+                    <li ></a>
+                      <ul class="nav nav-pills flex-column">
+                        <li class="nav-item"><a href="/shop_category/Phones" class="nav-link">Cell Phones</a></li>
+                        <li class="nav-item"><a href="/shop_category/Computers" class="nav-link">Computers and Laptops</a></li>
+                        <li class="nav-item"><a href="/shop_category/Accessories" class="nav-link">Accessories</a></li>
+                        <li class="nav-item"><a href="/shop_category/Clothes" class="nav-link">Clothes</a></li>
+                        <li class="nav-item"><a href="/shop_category/Perfumes" class="nav-link">Perfumes</a></li>
+                        <li class="nav-item"><a href="/shop_category/Musical Instruments" class="nav-link">Musical Instruments</a></li>
+                        <li class="nav-item"><a href="/shop_category/Games" class="nav-link">Games</a></li>
+                      </ul>
+                    </li>
+                 
+                  </ul>
+                </div>
+              </div>
+              {% if user.is_authenticated %}
+              <div class="panel panel-default sidebar-menu">
+                <div class="panel-heading">
+                  <h3 class="h4 panel-title">For you</h3>
+                </div>
+                <div class="panel-body">
+                  <ul class="nav nav-pills flex-column text-sm category-menu">
+                    <li ></a>
+                      <ul class="nav nav-pills flex-column">
+                        <li class="nav-item"><a href="/favourite" class="nav-link">Offers & suggestions</a></li>
+                        
+                      </ul>
+                    </li>
+                 
+                  </ul>
+                </div>
+              </div>
+              {%endif%}
+
+              
+              
+              <!-- <div class="panel panel-default sidebar-menu">
+                <div class="panel-heading d-flex align-items-center justify-content-between">
+                  <h3 class="h4 panel-titlen">Colours</h3><a href="#" class="btn btn-sm btn-danger"><i class="fa fa-times-circle"></i><span class="d-none d-md-inline-block">Clear</span></a>
+                </div>
+                <div class="panel-body">
+                  <form>
+                    <div class="form-group">
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour white"></span> White (14)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour blue"></span> Blue (10)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour green"></span>  Green (20)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour yellow"></span>  Yellow (13)
+                        </label>
+                      </div>
+                      <div class="checkbox">
+                        <label>
+                          <input type="checkbox"><span class="colour red"></span>  Red (10)
+                        </label>
+                      </div>
+                    </div>
+                    <button class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>
+                  </form>
+                </div>
+              </div> -->
+              
+            </div>
+            <div class="col-md-9">
+              <h2 class="h4 panel-title">Suggestions</h2>
+              <div class="row products products-big">
+                {%for prod in prods %}
+                {%if not prod.offer %}
+                <div class="col-lg-4 col-md-6">
+                  <div class="product">
+                    <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
+                    <div class="text">
+                      <h3 class="h5" style="margin-bottom: 0em;"><a href="/single_product/show_product/{{prod.pk}}">{{prod.name}}</a></h3>
+                      <h6 style="margin: 0em;" style="text-transform: lowercase;">in stock: {{prod.quantity}}</h6>
+                    <div class="single-review" style="margin:0em;">
+                      <div class="review-heading">
+                        
+                          <div class="review-rating" style="position:initial">
+                              <i class="fa fa-star{% if prod.rate < 1 %}-o empty{% endif %}"></i>
+                              <i class="fa fa-star{% if prod.rate < 2 %}-o empty{% endif %}"></i>
+                              <i class="fa fa-star{% if prod.rate < 3 %}-o empty{% endif %}"></i>
+                              <i class="fa fa-star{% if prod.rate < 4 %}-o empty{% endif %}"></i>
+                              <i class="fa fa-star{% if prod.rate < 5 %}-o empty{% endif %}"></i>
+                          </div>
+                      </div></div>
+                      <h6 style="margin: 0em;" style="text-transform: lowercase;">{{prod.rate}}/5</h6>
+                      {% if prod.offer %}
+                      <p class="price">
+                        <del>${{prod.price}}</del>${{prod.new_price}}
+                      </p>
+                      {% else %}
+                      <p class="price">${{prod.price}}</p>  
+                      {% endif %}
+                    </div>
+                    {% if prod.offer %}
+                    <div class="ribbon-holder">
+                      <div class="ribbon sale" style="background: red;font:xx-small">{{prod.offer}}%OFF</div>
+                    </div>
+                    {% endif %}
+                  </div>
+                </div>
+                {%endif%}
+                {% endfor %}  
+               
+                <div class="row products products-big">
+                  <h2 class="h4 panel-title">Offers</h2>
+                  {%for prod in prods %}
+                  {%if  prod.offer %}
+                  <div class="col-lg-4 col-md-6">
+                    <div class="product">
+                      <div class="image"><a href="/single_product/show_product/{{prod.pk}}"><img src="{{prod.img.url}}" alt="" class="img-fluid image1"></a></div>
+                      <div class="text">
+                        <h3 class="h5" style="margin-bottom: 0em;"><a href="/single_product/show_product/{{prod.pk}}">{{prod.name}}</a></h3>
+                        <h6 style="margin: 0em;" style="text-transform: lowercase;">in stock: {{prod.quantity}}</h6>
+                      <div class="single-review" style="margin:0em;">
+                        <div class="review-heading">
+                          
+                            <div class="review-rating" style="position:initial">
+                                <i class="fa fa-star{% if prod.rate < 1 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if prod.rate < 2 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if prod.rate < 3 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if prod.rate < 4 %}-o empty{% endif %}"></i>
+                                <i class="fa fa-star{% if prod.rate < 5 %}-o empty{% endif %}"></i>
+                            </div>
+                        </div></div>
+                        <h6 style="margin: 0em;" style="text-transform: lowercase;">{{prod.rate}}/5</h6>
+                        {% if prod.offer %}
+                        <p class="price">
+                          <del>${{prod.price}}</del>${{prod.new_price}}
+                        </p>
+                        {% else %}
+                        <p class="price">${{prod.price}}</p>  
+                        {% endif %}
+                      </div>
+                      {% if prod.offer %}
+                      <div class="ribbon-holder">
+                        <div class="ribbon sale" style="background: red;font:xx-small">{{prod.offer}}%OFF</div>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                  {%endif%}
+                  {% endfor %}  
+                  </div>
+              <div class="row">
+               
+              </div>
+              <div class="pages" style="display:none;">
+                <p class="loadMore text-center"><a href="#" class="btn btn-template-outlined"><i class="fa fa-chevron-down" ></i> Load more</a></p>
+                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                  <ul class="pagination">
+                    <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-double-left"></i></a></li>
+                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                    <li class="page-item"><a href="#" class="page-link">2</a></li>
+                    <li class="page-item"><a href="#" class="page-link">3</a></li>
+                    <li class="page-item"><a href="#" class="page-link">4</a></li>
+                    <li class="page-item"><a href="#" class="page-link">5</a></li>
+                    <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- GET IT-->
+
+      <!-- FOOTER -->
+
+{% endblock %}

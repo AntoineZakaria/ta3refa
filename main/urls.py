@@ -6,5 +6,7 @@ urlpatterns =[
     path('verification/<code>', views.verify_code, name='verify_code'),
     path('accounts/profile/', views.redirect_to_main, name='redirect_to_main'),
     path('favourite', views.return_favourite, name='favourite'),
-    path('filter', views.return_filter, name='filter')   
+    path('filter', views.return_filter, name='filter')  ,
+        path('how_to_use', views.return_how_to_use, name='how_to_use')   
+ 
 ]
