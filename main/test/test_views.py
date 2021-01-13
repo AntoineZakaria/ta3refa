@@ -54,7 +54,7 @@ class TestMainViews (TestCase):
         self.url_favourite=reverse('favourite')
         self.url_filter=reverse('filter')
         self.url_add=reverse('add_product')
-       
+
     def test_home_get(self):
         response=self.client.get(self.url_home)
         self.assertEquals(response.status_code,200)
