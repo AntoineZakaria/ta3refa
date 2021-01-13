@@ -9,7 +9,7 @@ class TestPersonal_shop(TestCase):
     def setUp(self):
         self.client=Client()
         self.url_html_personal_shop=reverse('return_personal_shop')
-        self.url_html_shop = reverse('return_html_shop',args=['shop1_test'])
+        self.url_html_shop = reverse('return_html_shop',args=['tony'])
         User.objects.create_user(
             id=1,
             username='tony',
@@ -46,9 +46,13 @@ class TestPersonal_shop(TestCase):
         Seller.objects.create(
             id=1,
             username='tony',
-            shop_name = 'shop1_test',
+            shop_name = 'tony',
             telephone = 123, 
+<<<<<<< HEAD
             owned_products = [1],
+=======
+            owned_products = ['1'],
+>>>>>>> 12f1aba8f0c6e25bf8b67e394bd4786a274b5d1f
             current_balance = 0
         )
         mail_verification.objects.create(
@@ -71,7 +75,7 @@ class TestPersonal_shop(TestCase):
 
     def test_html_shop(self):
          response=self.client.get(self.url_html_shop)
-         self.assertEquals(response.stats_code,200)
+         self.assertEquals(response.status_code,200)
          self.assertTemplateUsed(response,'shop_personal.html')
 
 

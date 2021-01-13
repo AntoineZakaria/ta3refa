@@ -22,7 +22,8 @@ def return_html_shop(request,shop_name):
     else:
         request.session['np']=0
     #####################################
-    per= Seller.objects.get(username=shop_name)
+
+    per= Seller.objects.get(shop_name=shop_name)
     ar=per.owned_products
     prods=[]
     for item in ar:

@@ -159,4 +159,10 @@ def return_filter(request):
             prods = Product.objects.filter(price__gte = float(price_filter)+1, rate__gte = rate)
 
 
-    return render(request,'filtered.html',{'prods':prods})    
+    return render(request,'filtered.html',{'prods':prods})  
+
+
+
+
+def return_how_to_use(request):
+    return render(request,'how_to_use.html')      
