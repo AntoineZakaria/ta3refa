@@ -10,7 +10,6 @@ class TestSingle_productViews (TestCase):
         self.client=Client()
         self.url_get_product=reverse('get_product',args=[1])
         self.url_review = reverse('review' , args=[1])
-        self.client=Client()
         User.objects.create_user(
             username='tony',
             email='tony.felo18@gmail.com',
@@ -50,7 +49,6 @@ class TestSingle_productViews (TestCase):
             category="Phones"
         )
         #self.url_verify_code=reverse('review',args=[1])
-    print(Product)
     def test_login(self):
         self.url_login=reverse('login')
         response=self.client.post(self.url_login,{
@@ -74,4 +72,20 @@ class TestSingle_productViews (TestCase):
         #Testing If the comment has been added proberly
         self.assertEquals(Product.objects.get(name='prod').comment[1][1] , '1')
         self.assertEquals(Product.objects.get(name='prod').comment[1][2] , "bad")
+
+    def test_offer_calculate(self):
+        Product.objects.create(
+            id=10,
+            name="prod10",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 50,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [],
+            shop_id="1",
+            category="Phones"
+        )
+        self.assertEquals(Product.objects.get(id=10).new_price(),50)
          
