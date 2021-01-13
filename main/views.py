@@ -12,12 +12,15 @@ from django.contrib import messages
 def return_html_category (request,category):
     prods= Product.objects.all().filter(category=category)
 
-    ##prods=random_category_products(0,category)
- ## It takes the ammount of products you want .. im passing zero to avoid errors as you will not have products in your data base
-    
-    
+    ##prods=random_category_products(0,category)    
+    if request.user.is_authenticated:
+        current_username=request.user.username
+        per= Person.objects.get(username=current_username)
+        dash_flag=per.is_seller
+    else:
+        dash_flag=False
 
-    return render(request,'shop-category.html',{'prods':prods})
+    return render(request,'shop-category.html',{'prods':prods,'dash_flag':dash_flag})
 
 
 
@@ -138,6 +141,8 @@ def redirect_to_main(request):
 def return_filter(request):
     rate = request.GET['rate']
     price_filter = request.GET['price_filter']
+
+  
     #prods=Product.objects.filter(rate__gte = rate)
     if (rate == 'none'):
         if (price_filter == 1000):
@@ -148,7 +153,6 @@ def return_filter(request):
         else:
             prods = Product.objects.filter(price__gte = float(price_filter)+1)
 
-
     else:
         if (price_filter == 1000):
             prods=Product.objects.filter(price__lte = 1000 ,rate__gte = rate )
@@ -158,11 +162,23 @@ def return_filter(request):
         else:
             prods = Product.objects.filter(price__gte = float(price_filter)+1, rate__gte = rate)
 
+    if request.user.is_authenticated:
+        current_username=request.user.username
+        per= Person.objects.get(username=current_username)
+        dash_flag=per.is_seller
+    else:
+        dash_flage=False
 
-    return render(request,'filtered.html',{'prods':prods})  
+    return render(request,'filtered.html',{'prods':prods,'dash_flag':dash_flag})  
 
 
 
 
 def return_how_to_use(request):
-    return render(request,'how_to_use.html')      
+    if request.user.is_authenticated:
+        current_username=request.user.username
+        per= Person.objects.get(username=current_username)
+        dash_flag=per.is_seller
+    else:
+        dash_flag=False
+    return render(request,'how_to_use.html',{'dash_flag':dash_flag})      

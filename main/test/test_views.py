@@ -54,39 +54,7 @@ class TestMainViews (TestCase):
         self.url_favourite=reverse('favourite')
         self.url_filter=reverse('filter')
         self.url_add=reverse('add_product')
-        User.objects.create_user(
-            id=1,
-            username='tony',
-            email='tony.felo18@gmail.com',
-            password='1234',
-            is_superuser=True,
-            first_name='antonios',
-            last_name='amgad',
-            is_staff=True,
-            is_active=True,
-            date_joined='2021-01-11 16:49:26.898785+02'
-        )
-        Person.objects.create(
-            id=1,
-            username='tony',
-            address='ADDRESS1',
-            is_seller=True,
-            Purchased_products=[1,2],
-            favourite_products=[]
-        )
-        Seller.objects.create(
-            id=1,
-            username='tony',
-            shop_name = 'shop1_test',
-            telephone = 123, 
-            owned_products = [],
-            current_balance = 0
-        )
-        mail_verification.objects.create(
-        user_name= 'tony',
-        message_code='TEST',
-        is_autonticated=True
-        )
+
 
         self.url_login=reverse('login')
         response=self.client.post(self.url_login ,{

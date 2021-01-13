@@ -4,7 +4,8 @@
 
 
 {% block content %}
-
+<head>
+  <title>Dashboard</title></head>
       <!-- Navbar End-->
    
       <div id="heading-breadcrumbs">
@@ -206,49 +207,7 @@
               <div class="container">
                 <div class="row">
                   <div class="col-lg-10">
-                    <div class="box">
-                      <h2 class="text-uppercase">Adding new shop</h2>
-      
-                      <form action="/dashboard/add_shop" method="POST">
-                        {% csrf_token %}
-                        
-                        <div class="form-group">
-                          <label for="shop_name"> Shop Name</label>
-                          <input name="shop_name" type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                          <label for="facebook_seller">Seller facebook page</label>
-                          <input name="facebook_seller" type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                          <label for="gmail_seller">Gmail account</label>
-                          <input name="gmail_seller" type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                          <label for="website_seller">Seller website</label>
-                          <input name="website_seller" type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                          <label for="phonenumber">Phone number</label>
-                          <input name="phonenumber" type="number" class="form-control">
-                        </div>
-                        <div class="form-group">
-                          <label for="addrress">Addrress</label>
-                          <input name="addrress" type="text" class="form-control">
-                        </div>
-                        <div class="form-group">
-                          <label for="method_of_received_money">Method of receiving money</label>
-                          <input name="method_of_received_money" type="text" class="form-control">
-                        </div>                  
-                        
-                        
-                        
-                        <div class="text-center">
-                          <button type="submit" class="btn btn-lg btn-success"></i>ADD shop</button>
-                        </div>
-                      </form>
                     
-                    </div>
                   </div>
 
             </div>

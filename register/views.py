@@ -29,7 +29,7 @@ def login(request):
                 random_code2='hgjkghjkhg'
                 random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
                 new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
-                new_mail_verification.save();
+                new_mail_verification.save()
                 message_to_send=f"https://754d681be257.ngrok.io/verification/{str(random_code)}"
                 print(message_to_send)
                 send_mail(user.email,message_to_send)
@@ -98,7 +98,7 @@ def customer_register(request):
                 random_code2='hgjkghjkhg'
                 random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
                 new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
-                new_mail_verification.save();
+                new_mail_verification.save()
                 message_to_send=f"https://754d681be257.ngrok.io/verification/{str(random_code)}"
                 print(message_to_send)
                 send_mail(email,message_to_send)
@@ -142,7 +142,7 @@ def seller_register(request):
                 seller = Seller(username=username,shop_name=shop_name,telephone=telephone,owned_products=[],current_balance=0)
                 seller.save()
                 user = User.objects.create_user(username = username , email=email, password = password1, first_name=first_name,last_name=last_name)
-                user.save();
+                user.save()
                 #send mail ro verify
                 file = open('my_dute_to_save.key' , 'rb')
                 key = file.read()

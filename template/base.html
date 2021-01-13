@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- Favicon and apple touch icons-->
-    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'img/ico.ico' %}" type="image/x-icon">
     <link rel="apple-touch-icon" href="{% static 'img/apple-touch-icon.png' %}">
     <link rel="apple-touch-icon" sizes="57x57" href="{% static 'img/apple-touch-icon-57x57.png' %}">
     <link rel="apple-touch-icon" sizes="72x72" href="{% static 'img/apple-touch-icon-72x72.png' %}">
@@ -235,7 +235,14 @@
                 <li class="nav-item "><a href="/how_to_use" data-toggle="" class="">How to use <b class="caret"></b></a></li>
                 {% if user.is_authenticated %}
                 <li class="nav-item "><a href="\checkout" data-toggle="" class="">Cart <b class="caret"><b class="fa fa-shopping-cart" style="font-size:24px;color:#467fbf"></b> <span class="badge badge-primary" style="position:absolute;">{{request.session.np}}</span> </b></a></li>
-                <li class="nav-item "><a href="customer-account.html" data-toggle="" class="">My account <b class="caret"></b></a></li>
+                <li class="nav-item dropdown"><a href="javascript: void(0)" data-toggle="dropdown" class="">My Account<b class="caret"></b></a>
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-item"><a href="" class="nav-link">Username: {{ user.username }}</a></li>
+                    <li class="dropdown-item"><a href="" class="nav-link">E-mail: {{ user.email }}</a></li>
+                    <li class="dropdown-item"><a href="" class="nav-link">Account type:{% if dash_flag %}Seller {% else %}Customer{% endif %}</a></li>
+                    <li class="dropdown-item"><a href="" class="nav-link">Date Joined: {{ user.date_joined }}</a></li>
+                  </ul>
+                </li>
                 
                 {%endif%}
                 {%if dash_flag %}
