@@ -48,7 +48,11 @@ class TestPersonal_shop(TestCase):
             username='tony',
             shop_name = 'tony',
             telephone = 123, 
+<<<<<<< HEAD
+            owned_products = [1],
+=======
             owned_products = ['1'],
+>>>>>>> 12f1aba8f0c6e25bf8b67e394bd4786a274b5d1f
             current_balance = 0
         )
         mail_verification.objects.create(
