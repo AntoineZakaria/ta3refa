@@ -8,75 +8,101 @@
 
 
 <head>
-  <title>Ta3refa-Home</title></head>
+  <title>Ta3refa-How To Use</title></head>
       
       <div id="heading-breadcrumbs">
         <div class="container">
           <div class="row d-flex align-items-center flex-wrap">
             <div class="col-md-7">
-              <h1 class="h2">Category with left sidebar</h1>
+              <h1 class="h2">How To Use</h1>
             </div>
             <div class="col-md-5">
               <ul class="breadcrumb d-flex justify-content-end">
-                <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Category with left sidebar</li>
+
               </ul>
             </div>
           </div>
         </div>
       </div>
-      {% for message in messages %}
-      <div role="alert" class="alert alert-warning alert-dismissible">
-        <button type="button" data-dismiss="alert" class="close"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>{{ message }}
-      
-      {% endfor %}
+
     </div>
+    <br><br>
       <div id="content">
         <div class="container">
-          <div class="row bar">
-            <div class="col-md-3">
-              <!-- MENUS AND FILTERS-->
-              <div class="panel panel-default sidebar-menu">
-                <div class="panel-heading">
-                  <h3 class="h4 panel-title">Categories</h3>
-                </div>
-                <div class="panel-body">
-                  <ul class="nav nav-pills flex-column text-sm category-menu">
-                    <li ></a>
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="/shop_category/Phones" class="nav-link">Cell Phones</a></li>
-                        <li class="nav-item"><a href="/shop_category/Computers" class="nav-link">Computers and Laptops</a></li>
-                        <li class="nav-item"><a href="/shop_category/Accessories" class="nav-link">Accessories</a></li>
-                        <li class="nav-item"><a href="/shop_category/Clothes" class="nav-link">Clothes</a></li>
-                        <li class="nav-item"><a href="/shop_category/Perfumes" class="nav-link">Perfumes</a></li>
-                        <li class="nav-item"><a href="/shop_category/Musical Instruments" class="nav-link">Musical Instruments</a></li>
-                        <li class="nav-item"><a href="/shop_category/Games" class="nav-link">Games</a></li>
-                      </ul>
-                    </li>
-                 
-                  </ul>
-                </div>
-              </div>
-              {% if user.is_authenticated %}
-              <div class="panel panel-default sidebar-menu">
-                <div class="panel-heading">
-                  <h3 class="h4 panel-title">For you</h3>
-                </div>
-                <div class="panel-body">
-                  <ul class="nav nav-pills flex-column text-sm category-menu">
-                    <li ></a>
-                      <ul class="nav nav-pills flex-column">
-                        <li class="nav-item"><a href="/favourite" class="nav-link">Offers & suggestions</a></li>
-                        
-                      </ul>
-                    </li>
-                 
-                  </ul>
-                </div>
-              </div>
-              {%endif%}
+          <div class="row">
+ 
+               <!--here is the middle of the page you can write here!!!!!!!!!!!!!!!!!!-->
+               <h1 class="h1 panel-title">Welcome To Ta3refa ,Here you can buy/sell any product with numerous options</h1>
+        
 
-              
+             <div class="row">
+                <ol>
+                  <li>First you neeed to register as seller or customer by clicking the register button top left</li>
+                  <li>Then you neeed to fill your info in the seller or customer form ,then click register</li>
+                  <img  src="https://i.ibb.co/V2F9hHh/reg.png" alt="register" class="d-none d-md-inline-block"><span class="sr-only"></span></a>
+                 
+                  <li>Now check your E-mail ,you should recieve a message from us. if you got it click the button to redirect you again to tarefa</li>
+                  <li>The only thing you need now is to click the login button and type your username and password</li>
+                </ol>
+                </div>
+
+                </div>
+      
+                <div class="container">
+                  <div class="row">
+         
+                       <!--here is the middle of the page you can write here!!!!!!!!!!!!!!!!!!-->
+                       <h1 class="h3 panel-title" style="color:blue">Now you are logged in what to do next</h1>
+                
+        
+                     <div class="row">
+                        <ol>
+                          <li>You can filter all the products in your home page by star rating or by price range</li>
+                          <img  src="https://i.ibb.co/FY3zxn0/filter.png"  alt="register" class="d-none d-md-inline-block"><span class="sr-only"></span></a>
+                          <li>You can see any product details by clicking on it</li>
+                         <img src="https://i.ibb.co/nQSm8Lh/prod.png" alt="prod" border="0">
+                         
+                          <li>After some browsing you may need click on the offers&suggestions button on the left in th home page</li>
+                          <img src="https://i.ibb.co/gWmm88m/offers.png" alt="offers" border="0"><h6 style="color: cornflowerblue;">You will find suggestions&offers that you will certainly like </h6>
+
+                          <li>Now that you like a product ,click Add to Cart Button</li>
+                        <img src="https://i.ibb.co/4FhBbPq/ADD-to-cart.png" alt="ADD-to-cart" border="0">
+                        <h6 style="color: cornflowerblue;">Now you will notice the cart value is 1 now instead of zero</h6>
+                       <img src="https://i.ibb.co/YbMJ3bY/cart.png" alt="cart" border="0">
+                       <br><br><br>
+                       <li>Finally, click the Cart button ,and choose your desired shipping and payment oprions And click Complete purchase</li>
+                       <img src="https://i.ibb.co/dfj0LY4/checkout.png" alt="checkout" border="0">
+                       <br><br><br>
+                       <li>After the system checks your credentials ,an E-mail will be sent to you including your digital reset with shipping VAT (if you chose Express shipping)</li>
+                       <img src="https://i.ibb.co/JzNKWtf/e-mail.png" alt="e-mail" border="0">
+                       <br><br><br>
+                       <li>Did you get the product ? Share your thoughts and rating in the product Reviews section</li>
+                       <img src="https://i.ibb.co/DQ55X0T/rev.png" alt="rev" border="0">
+                        </ol>
+                        </div>
+        
+                        </div>
+                        <!--Seler-->
+                        <div class="container">
+                          <h1 class="h3 panel-title" style="color:blue">Are You registered as a seller??</h1>
+                          <h4 > <a style="color: red;">Notice:</a>  You can do everything mentioned before as a customer</h4>
+                        <div class="row">
+                          <ol>
+                           <li>After Logging in ,A button in the navbar called dashboard will appear</li>
+                           <li>Once you click it you can see your balance ,products ,and if you scroll down you can see the ADD product form</li>
+                           <img src="https://i.ibb.co/y0YjXs5/Dash1.png" alt="Dash1" border="0">
+                           <img src="https://i.ibb.co/5K7vTLS/daash2.png" alt="daash2" border="0">
+                           <li>after you click Add product your product will be shown on your dashboard ,you can edit or delete your product from your dashboard</li>
+                          <img src="https://i.ibb.co/GHXBrc1/new-product.png" alt="new-product" border="0">
+                          <h6 > <a style="color: red;">Please keep an eye on your current balance, your products stock ,and of course your customers reviews</a> </h6>
+                          </ol>
+                          </div></div>
+          
+                          </div>
+                
+      </div>
+
+
               
               <!-- <div class="panel panel-default sidebar-menu">
                 <div class="panel-heading d-flex align-items-center justify-content-between">
@@ -116,13 +142,9 @@
                 </div>
               </div> -->
               
-            </div>
-            <div class="col-md-9">
-              <!--here is the middle of the page you can write here!!!!!!!!!!!!!!!!!!-->
-            </div>
-              <div class="row">
-               
-              </div>
+        
+
+
               <div class="pages" style="display:none;">
                 <p class="loadMore text-center"><a href="#" class="btn btn-template-outlined"><i class="fa fa-chevron-down" ></i> Load more</a></p>
                 <nav aria-label="Page navigation example" class="d-flex justify-content-center">
