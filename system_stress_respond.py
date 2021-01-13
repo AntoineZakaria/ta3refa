@@ -6,8 +6,9 @@ from math import sqrt
 from joblib import Parallel, delayed
 
 
-
+##################3 please Change the domain name after Deployment (you can use freely ngrok server) ##########################
 domain_name='https://a331eae7648b.ngrok.io'
+###############################################################################################################################
 def single_request_home (domain_name):
     requests.get(domain_name)
     #print('one request sent')
