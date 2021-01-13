@@ -1,0 +1,1362 @@
+########## Note: THIS FILE IS NOT EXECUTABLE USING DJANGO #####
+########## IF YOU WANT TO RUN ALL TESTS TYPE: python manage.py test & python system_stress_respond.py  In your shell as descriped in Readme.txt file #######
+
+### CHECKOUT TESTS ###
+	##url testing##
+from django.test import SimpleTestCase
+from django.urls import resolve,reverse
+from checkout.views import cart_page,add_to_cart,remove_from_cart,complete_purchase
+class TestUrls(SimpleTestCase):
+    def test_cart_page_url_resolves(self):
+        url=reverse('cart_page')
+        self.assertEquals(resolve(url).func,cart_page)
+   
+   
+   
+   
+    def test_complete_purchase_url_resolves(self):
+        url=reverse('complete_purchase')
+        self.assertEquals(resolve(url).func,complete_purchase)
+    
+    
+    
+    
+    def test_add_to_cart_url_resolves(self):
+        url=reverse('add_to_cart',args=['some-slug'])
+        self.assertEquals(resolve(url).func,add_to_cart)
+    
+    
+    
+    
+    
+    def test_remove_from_cart_url_resolves(self):
+        url=reverse('remove_from_cart',args=['some-slug'])
+        self.assertEquals(resolve(url).func,remove_from_cart)    
+
+	##Views testing##
+from django.test import TestCase, Client
+from django.urls import reverse
+from checkout.models import Cart
+import json
+from django.contrib.auth.models import User,auth
+from main.models import Person,Seller,mail_verification,Product
+
+
+class TestCheckoutViews (TestCase):
+    def setUp(self):
+
+        self.client=Client()
+        
+        User.objects.create_user(
+            id=1,
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=True,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=True,
+            is_active=True,
+            date_joined='2021-01-11 16:49:26.898785+02'
+        )
+        Person.objects.create(
+            id=1,
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[],
+            favourite_products=[]
+        )
+        Seller.objects.create(
+            id=1,
+            username='tony',
+            shop_name = 'shop1_test',
+            telephone = 123, 
+            owned_products = [],
+            current_balance = 0
+        )
+        mail_verification.objects.create(
+        user_name= 'tony',
+        message_code='TEST',
+        is_autonticated=True
+        )
+
+
+
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login ,{
+            'email_login':'tony',
+            'password_login':'1234'
+        })
+
+
+        self.cart=Cart.objects.create(
+            user_id=1,
+            products=[]
+            
+           
+        )
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
+        )
+       
+        self.cart_page_url=reverse('cart_page')
+        self.complete_purchase_url=reverse('complete_purchase')
+        self.add_to_cart_url=reverse('add_to_cart',args=["1"])
+        self.remove_from_cart_url=reverse('remove_from_cart',args=["1"])
+
+
+
+
+    def test_add_to_cart(self):
+        response=self.client.get(self.add_to_cart_url)
+        self.assertEquals(response.status_code,302)
+         
+       
+    def test_complete_purchase(self):
+        response=self.client.post(self.complete_purchase_url,{
+            'Shipping':'Standard',
+            'Payment':'Cash On Delivery'
+        })
+        self.assertEquals(response.status_code, 302)    
+
+        
+    def test_cart_page(self):
+        response=self.client.get(self.cart_page_url)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-basket.html')
+
+
+   
+    def test_remove_from_cart(self):
+        response=self.client.get(self.add_to_cart_url)
+        self.assertEquals(response.status_code,302)
+	## integration testing ##
+from django.test import TestCase, Client
+from django.urls import reverse
+from checkout.models import Cart
+import json
+from django.contrib.auth.models import User,auth
+from main.models import Person,Seller,mail_verification,Product
+
+
+class TestCheckoutViews (TestCase):
+    def setUp(self):
+
+        self.client=Client()
+        
+        User.objects.create_user(
+            id=1,
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=True,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=True,
+            is_active=True,
+            date_joined='2021-01-11 16:49:26.898785+02'
+        )
+        Person.objects.create(
+            id=1,
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[],
+            favourite_products=[]
+        )
+        Seller.objects.create(
+            id=1,
+            username='tony',
+            shop_name = 'shop1_test',
+            telephone = 123, 
+            owned_products = [],
+            current_balance = 0
+        )
+        mail_verification.objects.create(
+        user_name= 'tony',
+        message_code='TEST',
+        is_autonticated=True
+        )
+
+
+
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login ,{
+            'email_login':'tony',
+            'password_login':'1234'
+        })
+
+
+        self.cart=Cart.objects.create(
+            user_id=1,
+            products=[]
+            
+           
+        )
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
+        )
+       
+        self.cart_page_url=reverse('cart_page')
+        self.complete_purchase_url=reverse('complete_purchase')
+        self.add_to_cart_url=reverse('add_to_cart',args=["1"])
+        self.remove_from_cart_url=reverse('remove_from_cart',args=["1"])
+        response=self.client.get(self.add_to_cart_url)
+        self.assertEquals(response.status_code,302)
+        response=self.client.post(self.complete_purchase_url,{
+            'Shipping':'Standard',
+            'Payment':'Cash On Delivery'
+        })
+        self.assertEquals(response.status_code, 302)    
+        response=self.client.get(self.cart_page_url)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-basket.html')
+        response=self.client.get(self.add_to_cart_url)
+        self.assertEquals(response.status_code,302)
+### DASHBOARD TESTS ###
+	## url testing ##
+from django.test import SimpleTestCase
+from django.urls import resolve,reverse
+from dashboard.views import return_html_dashboard,add_product,edit_product,return_edit_product,add_shop,edit_shop,return_edit_shop,delete_product,delete_shop
+class TestUrls(SimpleTestCase):
+    def test_return_html_dashboard_url_resolves(self):
+        url=reverse('return_dashboard')
+        self.assertEquals(resolve(url).func,return_html_dashboard)
+   
+   
+   
+   
+    def test_add_product_url_resolves(self):
+        url=reverse('add_product')
+        self.assertEquals(resolve(url).func,add_product)
+    
+    
+    
+    
+    def test_edit_product_url_resolves(self):
+        url=reverse('edit_product',args=['some-slug'])
+        self.assertEquals(resolve(url).func,edit_product)
+    
+    
+    
+    
+    
+    def test_return_edit_product_url_resolves(self):
+        url=reverse('return_edit_product')
+        self.assertEquals(resolve(url).func,return_edit_product)
+
+
+
+
+    def test_add_shop_url_resolves(self):
+        url=reverse('add_shop')
+        self.assertEquals(resolve(url).func,add_shop) 
+
+
+    def test_edit_shop_url_resolves(self):
+        url=reverse('edit_shop',args=['some-slug'])
+        self.assertEquals(resolve(url).func,edit_shop)
+
+
+
+    def test_return_edit_shop_url_resolves(self):
+        url=reverse('return_edit_shop')
+        self.assertEquals(resolve(url).func,return_edit_shop)    
+
+
+
+    def test_delete_shop_url_resolves(self):
+        url=reverse('delete_shop',args=['some-slug'])
+        self.assertEquals(resolve(url).func,delete_shop)
+
+
+
+    def test_delete_product_url_resolves(self):
+        url=reverse('delete_product',args=['some-slug'])
+        self.assertEquals(resolve(url).func,delete_product)   
+	## views testing ##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+from dashboard.models import Shop
+import json
+from django.contrib.auth.models import User,auth
+
+
+class TestMainViews (TestCase):
+    def setUp(self):
+        self.client=Client()
+        self.url_add=reverse('add_product')
+        User.objects.create_user(
+            id=1,
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=True,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=True,
+            is_active=True,
+            date_joined='2021-01-11 16:49:26.898785+02'
+        )
+        Person.objects.create(
+            id=1,
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[1,2],
+            favourite_products=[]
+        )
+        Seller.objects.create(
+            id=1,
+            username='tony',
+            shop_name = 'shop1_test',
+            telephone = 123, 
+            owned_products = [],
+            current_balance = 0
+        )
+        mail_verification.objects.create(
+        user_name= 'tony',
+        message_code='TEST',
+        is_autonticated=True
+        )
+
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login ,{
+            'email_login':'tony',
+            'password_login':'1234'
+        })
+        response=self.client.post(self.url_add,{
+            'name':'product1',
+            'category':'phones',
+            'descrription':'test description',
+            'price':100,
+            'quantity':2,
+            'offer':10,
+            'photo1': open('test.png', 'rb')
+        })
+
+
+
+
+    def test_add_product_post(self):
+        response=self.client.post(self.url_add,{
+            'name':'product1',
+            'category':'phones',
+            'descrription':'test description',
+            'price':100,
+            'quantity':2,
+            'offer':10,
+            'photo1': open('test.png', 'rb')
+        })
+        self.assertEquals(response.status_code,302)
+        self.assertSequenceEqual(Product.objects.get(id=1).name,'product1')
+
+    def test_return_dashboard(self):
+        response=self.client.get(reverse('return_dashboard'))
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'dashboard_form.html')
+
+    def test_try_edit_product(self):
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
+        )
+        response=self.client.post(reverse('edit_product',args='1'),{
+            'price':20,
+            'quantity':10,
+            'offer':50
+        })
+        self.assertEquals(response.status_code,302)
+        self.assertEquals(Product.objects.get(id=1).price,20)
+        self.assertEquals(Product.objects.get(id=1).quantity,10)
+        self.assertEquals(Product.objects.get(id=1).offer,50)
+
+    def test_delete_product(self):
+        response=self.client.get(reverse('delete_product',args='3'))
+        self.assertEquals(response.status_code,200)
+        self.assertEquals(Product.objects.all().filter(id=3).exists(),False)
+	##integration testing ##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+from dashboard.models import Shop
+import json
+from django.contrib.auth.models import User,auth
+
+
+class TestMainViews (TestCase):
+    def setUp(self):
+        self.client=Client()
+        self.url_add=reverse('add_product')
+        User.objects.create_user(
+            id=1,
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=True,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=True,
+            is_active=True,
+            date_joined='2021-01-11 16:49:26.898785+02'
+        )
+        Person.objects.create(
+            id=1,
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[1,2],
+            favourite_products=[]
+        )
+        Seller.objects.create(
+            id=1,
+            username='tony',
+            shop_name = 'shop1_test',
+            telephone = 123, 
+            owned_products = [],
+            current_balance = 0
+        )
+        mail_verification.objects.create(
+        user_name= 'tony',
+        message_code='TEST',
+        is_autonticated=True
+        )
+
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login ,{
+            'email_login':'tony',
+            'password_login':'1234'
+        })
+        response=self.client.post(self.url_add,{
+            'name':'product1',
+            'category':'phones',
+            'descrription':'test description',
+            'price':100,
+            'quantity':2,
+            'offer':10,
+            'photo1': open('test.png', 'rb')
+        })
+        response=self.client.post(self.url_add,{
+            'name':'product1',
+            'category':'phones',
+            'descrription':'test description',
+            'price':100,
+            'quantity':2,
+            'offer':10,
+            'photo1': open('test.png', 'rb')
+        })
+        self.assertEquals(response.status_code,302)
+        self.assertSequenceEqual(Product.objects.get(id=1).name,'product1')
+        response=self.client.get(reverse('return_dashboard'))
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'dashboard_form.html')
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
+        )
+        response=self.client.post(reverse('edit_product',args='1'),{
+            'price':20,
+            'quantity':10,
+            'offer':50
+        })
+        self.assertEquals(response.status_code,302)
+        self.assertEquals(Product.objects.get(id=1).price,20)
+        self.assertEquals(Product.objects.get(id=1).quantity,10)
+        self.assertEquals(Product.objects.get(id=1).offer,50)
+        response=self.client.get(reverse('delete_product',args='3'))
+        self.assertEquals(response.status_code,200)
+        self.assertEquals(Product.objects.all().filter(id=3).exists(),False)
+### MAIN TESTING ##
+	##url testing ##
+from django.test import SimpleTestCase
+from django.urls import resolve,reverse
+from main.views import return_html_category,return_html_home,verify_code,return_favourite,redirect_to_main,return_filter
+class TestMainUrls(SimpleTestCase):
+    def test_home_url_resolves(self):
+        url=reverse('home')
+        self.assertEquals(resolve(url).func,return_html_home)
+    def test_redirect_to_main_url_resolves(self):
+        url=reverse('redirect_to_main')
+        self.assertEquals(resolve(url).func,redirect_to_main)
+    def test_return_favourite_url_resolves(self):
+        url=reverse('favourite')
+        self.assertEquals(resolve(url).func,return_favourite)
+    def test_return_filter_url_resolves(self):
+        url=reverse('filter')
+        self.assertEquals(resolve(url).func,return_filter)
+
+
+    def test_shop_cat_url_resolves(self):
+        url=reverse('category',args=['some_slug'])
+        self.assertEquals(resolve(url).func,return_html_category)
+    def test_verify_code_url_resolves(self):
+        url=reverse('verify_code',args=['some_slug'])
+        self.assertEquals(resolve(url).func,verify_code)
+	##views testing##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+from django.contrib.auth.models import User,auth
+import json
+from django.contrib.auth.models import User,auth
+
+class TestMainViews (TestCase):
+    def setUp(self):
+        self.client=Client()
+        User.objects.create_user(
+            id=1,
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=True,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=True,
+            is_active=True,
+            date_joined='2021-01-11 16:49:26.898785+02'
+        )
+        Person.objects.create(
+            id=1,
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[],
+            favourite_products=[]
+        )
+        Seller.objects.create(
+            id=1,
+            username='tony',
+            shop_name = 'tonyShop',
+            telephone = 123, 
+            owned_products = [],
+            current_balance = 0
+        )
+        mail_verification.objects.create(
+        user_name= 'tony',
+        message_code='TEST',
+        is_autonticated=True
+        )
+
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login ,{
+            'email_login':'tony',
+            'password_login':'1234'
+        })
+        self.url_home=reverse('home')#
+        self.url_verify_code=reverse('verify_code',args=['tonytonytony'])
+        self.url_category=reverse('category',args=['hiiiii'])
+        self.url_redirect_to_main=reverse('redirect_to_main')
+        self.url_favourite=reverse('favourite')
+        self.url_filter=reverse('filter')
+        self.url_add=reverse('add_product')
+
+    def test_home_get(self):
+        response=self.client.get(self.url_home)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-category-left.html')
+
+    def test_verify_code(self):
+        response=self.client.get(self.url_verify_code)
+        self.assertEquals(response.status_code, 302)
+
+
+    def test_category(self):
+        response=self.client.get(self.url_category)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-category.html')
+    
+
+
+    def test_redirect_to_main(self):
+        response=self.client.get(self.url_redirect_to_main)
+        self.assertEquals(response.status_code,302)
+        
+
+
+
+
+    def test_filter(self):
+        response=self.client.get(self.url_filter,{
+            'rate':5,
+            'price_filter':1000
+
+        })
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'filtered.html')
+
+
+
+    def test_favourite(self):
+        response=self.client.get(self.url_favourite)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'favourite.html')    
+	##Integrationg testing##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+import json
+from django.contrib.auth.models import User,auth
+
+
+class TestMainViews (TestCase):
+    def setUp(self):
+        self.client=Client()
+        self.url_home=reverse('home')#
+        self.url_verify_code=reverse('verify_code',args=['tonytonytony'])
+        self.url_category=reverse('category',args=['hiiiii'])
+        self.url_redirect_to_main=reverse('redirect_to_main')
+        self.url_favourite=reverse('favourite')
+        self.url_filter=reverse('filter')
+        self.url_add=reverse('add_product')
+        self.url_html_personal_shop=reverse('return_personal_shop')
+        self.url_html_shop = reverse('return_html_shop',args=['tony'])
+        User.objects.create_user(
+            id=1,
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=True,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=True,
+            is_active=True,
+            date_joined='2021-01-11 16:49:26.898785+02'
+        )
+        Person.objects.create(
+            id=1,
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[1,2],
+            favourite_products=[]
+        )
+        Seller.objects.create(
+            id=1,
+            username='tony',
+            shop_name = 'tony',
+            telephone = 123, 
+            owned_products = [],
+            current_balance = 0
+        )
+        mail_verification.objects.create(
+        user_name= 'tony',
+        message_code='TEST',
+        is_autonticated=True
+        )
+
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login ,{
+            'email_login':'tony',
+            'password_login':'1234'
+        })
+        response=self.client.get(self.url_home)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-category-left.html')
+        response=self.client.get(self.url_verify_code)
+        self.assertEquals(response.status_code, 302)
+        response=self.client.get(self.url_category)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-category.html')
+        response=self.client.get(self.url_redirect_to_main)
+        self.assertEquals(response.status_code,302)
+        response=self.client.get(self.url_filter,{
+            'rate':5,
+            'price_filter':1000
+
+        })
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'filtered.html')
+        response=self.client.get(self.url_favourite)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'favourite.html')    
+
+        response=self.client.get(self.url_html_personal_shop)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'personal-shop.html')
+
+        response=self.client.get(self.url_html_shop)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop_personal.html')
+### PERSONAL_SHOP TESTING ###
+	## url testing ##
+from django.test import SimpleTestCase
+from django.urls import resolve,reverse
+from personal_shop.views import return_html_shop,return_html_personal_shop
+
+class TestPersonal_shopUrls(SimpleTestCase):
+    def test_personal_shop_return_html_personal_shop(self):
+        url= reverse('return_personal_shop')
+        self.assertEquals(resolve(url).func, return_html_personal_shop)
+    def test_personal_shop_return_html_shop(self):
+        url= reverse('return_html_shop',args=['A'])
+        self.assertEquals(resolve(url).func,return_html_shop)
+	## views testing ##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+from checkout.models import Cart
+import json
+from django.contrib.auth.models import User,auth
+
+class TestPersonal_shop(TestCase):
+    def setUp(self):
+        self.client=Client()
+        self.url_html_personal_shop=reverse('return_personal_shop')
+        self.url_html_shop = reverse('return_html_shop',args=['tony'])
+        User.objects.create_user(
+            id=1,
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=True,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=True,
+            is_active=True,
+            date_joined='2021-01-11 16:49:26.898785+02'
+        )
+        Person.objects.create(
+            id=1,
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[1,2],
+            favourite_products=[]
+        )
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [],
+            shop_id="1",
+            category="Phones"
+        )
+        Seller.objects.create(
+            id=1,
+            username='tony',
+            shop_name = 'tony',
+            telephone = 123, 
+            owned_products = ['1'],
+            current_balance = 0
+        )
+        mail_verification.objects.create(
+        user_name= 'tony',
+        message_code='TEST',
+        is_autonticated=True
+        )
+
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login ,{
+            'email_login':'tony',
+            'password_login':'1234'
+        })
+        
+
+    def test_html_personal_shop(self):
+        response=self.client.get(self.url_html_personal_shop)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'personal-shop.html')
+
+    def test_html_shop(self):
+         response=self.client.get(self.url_html_shop)
+         self.assertEquals(response.status_code,200)
+         self.assertTemplateUsed(response,'shop_personal.html')
+
+### REGISTER TESTS ###
+	##url testing##
+from django.test import SimpleTestCase
+from django.urls import resolve,reverse
+from personal_shop.views import return_html_shop,return_html_personal_shop
+
+class TestPersonal_shopUrls(SimpleTestCase):
+    def test_personal_shop_return_html_personal_shop(self):
+        url= reverse('return_personal_shop')
+        self.assertEquals(resolve(url).func, return_html_personal_shop)
+    def test_personal_shop_return_html_shop(self):
+        url= reverse('return_html_shop',args=['A'])
+        self.assertEquals(resolve(url).func,return_html_shop)
+	##views testing##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+from checkout.models import Cart
+import json
+from django.contrib.auth.models import User,auth
+
+class TestPersonal_shop(TestCase):
+    def setUp(self):
+        self.client=Client()
+        self.url_html_personal_shop=reverse('return_personal_shop')
+        self.url_html_shop = reverse('return_html_shop',args=['tony'])
+        User.objects.create_user(
+            id=1,
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=True,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=True,
+            is_active=True,
+            date_joined='2021-01-11 16:49:26.898785+02'
+        )
+        Person.objects.create(
+            id=1,
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[1,2],
+            favourite_products=[]
+        )
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [],
+            shop_id="1",
+            category="Phones"
+        )
+        Seller.objects.create(
+            id=1,
+            username='tony',
+            shop_name = 'tony',
+            telephone = 123, 
+            owned_products = ['1'],
+            current_balance = 0
+        )
+        mail_verification.objects.create(
+        user_name= 'tony',
+        message_code='TEST',
+        is_autonticated=True
+        )
+
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login ,{
+            'email_login':'tony',
+            'password_login':'1234'
+        })
+        
+
+    def test_html_personal_shop(self):
+        response=self.client.get(self.url_html_personal_shop)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'personal-shop.html')
+
+    def test_html_shop(self):
+         response=self.client.get(self.url_html_shop)
+         self.assertEquals(response.status_code,200)
+         self.assertTemplateUsed(response,'shop_personal.html')
+### REGISTER TESTS ###
+	##url testing##
+from django.test import SimpleTestCase
+from django.urls import resolve,reverse
+from register.views import return_register,customer_register,seller_register,login,logout
+class TestMainUrls(SimpleTestCase):
+    def test_return_register_url_resolves(self):
+        url=reverse('return_register')
+        self.assertEquals(resolve(url).func,return_register)
+    def test_customer_register_url_resolves(self):
+        url=reverse('customer_register')
+        self.assertEquals(resolve(url).func,customer_register)
+    def test_seller_register_url_resolves(self):
+        url=reverse('seller_register')
+        self.assertEquals(resolve(url).func,seller_register)
+    def test_login_url_resolves(self):
+        url=reverse('login')
+        self.assertEquals(resolve(url).func,login)
+    def test_logout_url_resolves(self):
+        url=reverse('logout')
+        self.assertEquals(resolve(url).func,logout)
+	## views testing ##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+from django.contrib.auth.models import User,auth
+import json
+from register.views import send_mail
+
+class TestRegister(TestCase):
+    def setUp(self):
+        self.client=Client()
+        self.url_get_product=reverse('get_product',args=[1])
+        self.url_review = reverse('review' , args=[1])
+        self.client=Client()
+      
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
+        )
+
+    def test_return_reg(self):
+        self.url_reg = reverse('return_register')
+        response=self.client.get(self.url_get_product)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-detail.html')
+
+    def test_customer_reg(self):
+        self.url_customer_reg = reverse('customer_register')
+        response=self.client.post(self.url_customer_reg,{
+            'username':'tony',
+            'email':'antwanemile@gmail.com',
+            'address':'myaddress1',
+            'password1':'1234',
+            'password2':'1234',
+            'is_superuser':False,
+            'first_name':'tony',
+            'last_name':'em',
+            'is_staff':False,
+            'is_active':True
+        })
+
+        self.assertEquals(Person.objects.get(username='tony').is_seller , False)
+        self.assertEquals(response.status_code,302)
+
+    def test_seller_reg(self):
+        self.url_customer_reg = reverse('seller_register')
+        response=self.client.post(self.url_customer_reg,{
+            'username':'tonySeller',
+            'email':'antwanemile@gmail.com',
+            'phone': '0123456789',
+            'shop_name' : 'Sadidas',
+            'address':'myaddress1',
+            'password1':'1234',
+            'password2':'1234',
+            'is_superuser':False,
+            'first_name':'antwan',
+            'last_name':'Emil',
+            'is_staff':False,
+            'is_active':True
+        })
+        self.assertEquals(Person.objects.get(username='tonySeller').is_seller , True)
+        self.assertEquals(response.status_code,302)
+
+    def test_login(self):
+        self.url_login=reverse('login')
+        response=self.client.get(self.url_get_product)
+        response=self.client.post(self.url_login,{
+            'email_login':'tony',
+            'password_login':'1234',
+        }
+        )
+        self.assertEquals(response.status_code,302)
+    def test_logout(self):
+        self.url_logout = reverse('logout')
+        response=self.client.get(self.url_get_product)
+        self.assertEquals(response.status_code,200)
+        
+    def test_send_mail(self):
+        send_mail('antwanemile@gmail.com','random_test_link')
+	##integration testing##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+from django.contrib.auth.models import User,auth
+import json
+from register.views import send_mail
+
+class TestRegister(TestCase):
+    def setUp(self):
+        self.client=Client()
+        self.url_get_product=reverse('get_product',args=[1])
+        self.url_review = reverse('review' , args=[1])
+        self.client=Client()
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
+        )
+        self.url_reg = reverse('return_register')
+        response=self.client.get(self.url_get_product)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-detail.html')
+        self.url_customer_reg = reverse('customer_register')
+        response=self.client.post(self.url_customer_reg,{
+            'username':'tony',
+            'email':'antwanemile@gmail.com',
+            'address':'myaddress1',
+            'password1':'1234',
+            'password2':'1234',
+            'is_superuser':False,
+            'first_name':'tony',
+            'last_name':'em',
+            'is_staff':False,
+            'is_active':True
+        })
+
+        self.assertEquals(Person.objects.get(username='tony').is_seller , False)
+        self.assertEquals(response.status_code,302)
+        self.url_customer_reg = reverse('seller_register')
+        response=self.client.post(self.url_customer_reg,{
+            'username':'tonySeller',
+            'email':'antwan@gmail.com',
+            'phone': '0123456789',
+            'shop_name' : 'Sadidas',
+            'address':'myaddress1',
+            'password1':'1234',
+            'password2':'1234',
+            'is_superuser':False,
+            'first_name':'antwan',
+            'last_name':'Emil',
+            'is_staff':False,
+            'is_active':True
+        })
+        self.assertEquals(Person.objects.get(username='tonySeller').is_seller , True)
+        self.assertEquals(response.status_code,302)
+        self.url_login=reverse('login')
+        response=self.client.get(self.url_get_product)
+        response=self.client.post(self.url_login,{
+            'email_login':'tony',
+            'password_login':'1234',
+        }
+        )
+        self.assertEquals(response.status_code,302)
+        self.url_logout = reverse('logout')
+        response=self.client.get(self.url_get_product)
+        self.assertEquals(response.status_code,200)
+        send_mail('tony.felo18@@gmail.com','random_test_link')
+### SINGLE_PRODUCT TESTS ##
+	##url testing ##
+from django.test import SimpleTestCase
+from django.urls import resolve,reverse
+from single_product.views import get_product,review
+
+class TestSingle_productsUrls(SimpleTestCase):
+    def test_single_product_get_product(self):
+        url=reverse('get_product',args=[1])
+        self.assertEquals(resolve(url).func,get_product)
+    def test_single_product_review(self):
+        url = reverse('review',args=[1])
+        self.assertEquals(resolve(url).func,review)
+	##views testing##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+from django.contrib.auth.models import User,auth
+import json
+
+
+class TestSingle_productViews (TestCase):
+    def setUp(self):
+        self.client=Client()
+        self.url_get_product=reverse('get_product',args=[1])
+        self.url_review = reverse('review' , args=[1])
+        User.objects.create_user(
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=False,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=False,
+            is_active=True
+        )
+        Person.objects.create(
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[],
+            favourite_products=[]
+        )
+        Seller.objects.create(
+            username='tony',
+            shop_name = 'shop1_test',
+            telephone = 123, 
+            owned_products = [],
+            current_balance = 0
+        )
+
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
+        )
+        #self.url_verify_code=reverse('review',args=[1])
+    def test_login(self):
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login,{
+            'email_login':'tony',
+            'password_login':'1234',
+        }
+        )
+        self.assertEquals(response.status_code,302)
+        
+    def test_get_product(self):
+        response=self.client.get(self.url_get_product)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-detail.html')
+      
+    def test_review(self):
+          #giving the product rate=1
+        response = self.client.post(self.url_review,{'username':"tony",'comment':"bad",'rating':True})
+        self.assertEquals(response.status_code,302)
+        #testing the overall rating 
+        self.assertEquals(Product.objects.get(name='prod').rate , 1)
+        #Testing If the comment has been added proberly
+        self.assertEquals(Product.objects.get(name='prod').comment[1][1] , '1')
+        self.assertEquals(Product.objects.get(name='prod').comment[1][2] , "bad")
+
+    def test_offer_calculate(self):
+        Product.objects.create(
+            id=10,
+            name="prod10",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 50,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [],
+            shop_id="1",
+            category="Phones"
+        )
+        self.assertEquals(Product.objects.get(id=10).new_price(),50)
+	##integration testing##
+from django.test import TestCase, Client
+from django.urls import reverse
+from main.models import Comment,Product,Person,Seller,Customer,mail_verification
+from django.contrib.auth.models import User,auth
+import json
+
+
+class TestSingle_productViews (TestCase):
+    def setUp(self):
+        self.client=Client()
+        self.url_get_product=reverse('get_product',args=[1])
+        self.url_review = reverse('review' , args=[1])
+        self.client=Client()
+        User.objects.create_user(
+            username='tony',
+            email='tony.felo18@gmail.com',
+            password='1234',
+            is_superuser=False,
+            first_name='antonios',
+            last_name='amgad',
+            is_staff=False,
+            is_active=True
+        )
+        Person.objects.create(
+            username='tony',
+            address='ADDRESS1',
+            is_seller=True,
+            Purchased_products=[],
+            favourite_products=[]
+        )
+        Seller.objects.create(
+            username='tony',
+            shop_name = 'shop1_test',
+            telephone = 123, 
+            owned_products = [],
+            current_balance = 0
+        )
+
+        Product.objects.create(
+            id=1,
+            name="prod",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 1,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [['tony',1,"good"]],
+            shop_id="1",
+            category="Phones"
+        )
+        self.url_login=reverse('login')
+        response=self.client.post(self.url_login,{
+            'email_login':'tony',
+            'password_login':'1234',
+        }
+        )
+        self.assertEquals(response.status_code,302)
+        response=self.client.get(self.url_get_product)
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'shop-detail.html')
+        #giving the product rate=1
+        response = self.client.post(self.url_review,{'username':"tony",'comment':"bad",'rating':True})
+        self.assertEquals(response.status_code,302)
+        #testing the overall rating 
+        self.assertEquals(Product.objects.get(name='prod').rate , 1)
+        #Testing If the comment has been added proberly
+        self.assertEquals(Product.objects.get(name='prod').comment[1][1] , '1')
+        self.assertEquals(Product.objects.get(name='prod').comment[1][2] , "bad")
+        Product.objects.create(
+            id=10,
+            name="prod10",
+            description="desc",
+            price= 100,
+            quantity=5,
+            rate = 3,
+            offer = 50,
+            img= "product_image/bridge_dVtWd1W.jpg",
+            comment = [],
+            shop_id="1",
+            category="Phones"
+        )
+        self.assertEquals(Product.objects.get(id=10).new_price(),50)
+
+
+
+
+########################SYSTEM TESTING###################################################
+##Note: we made system stress testing after Deployment of our webapp to an ngrok server##
+import requests
+from lxml import html
+from bs4 import BeautifulSoup
+from time import time
+from math import sqrt
+from joblib import Parallel, delayed
+
+
+##################3 please Change the domain name after Deployment (you can use freely ngrok server) ##########################
+domain_name='https://a331eae7648b.ngrok.io'
+###############################################################################################################################
+def single_request_home (domain_name):
+    requests.get(domain_name)
+    #print('one request sent')
+
+
+
+#testing server response time get home for one person
+start_time = time()
+for i in range(1):
+    requests.get(domain_name)
+end_time= time()
+time_diff=end_time-start_time
+print("=========================================")
+print(f'testing server response time get home for one person : {time_diff}')
+
+
+#test 10 requestes home bage at one time
+start_time = time()
+Parallel(n_jobs=10)(delayed(single_request_home)(domain_name) for i in range(10))
+end_time= time()
+time_diff=end_time-start_time
+print("=========================================")
+print(f'test 10 requestes home bage at one time : {time_diff}')
+
+#test 20 requestes home bage at one time
+start_time = time()
+Parallel(n_jobs=10)(delayed(single_request_home)(domain_name) for i in range(20))
+end_time= time()
+time_diff=end_time-start_time
+print("=========================================")
+print(f'test 20 requestes home bage at one time : {time_diff}')
+
+
+#test 1 requestes single_product bage at one time
+start_time = time()
+Parallel(n_jobs=10)(delayed(single_request_home)(f'{domain_name}/single_product/show_product/10') for i in range(1))
+end_time= time()
+time_diff=end_time-start_time
+print("=========================================")
+print(f'test 1 requestes single_product bage at one time : {time_diff}')
+
+#test 10 requestes single_product bage at one time
+start_time = time()
+Parallel(n_jobs=10)(delayed(single_request_home)(f'{domain_name}/single_product/show_product/10') for i in range(10))
+end_time= time()
+time_diff=end_time-start_time
+print("=========================================")
+print(f'test 10 requestes single_product bage at one time : {time_diff}')
+
+#test 20 requestes single_product bage at one time
+start_time = time()
+Parallel(n_jobs=10)(delayed(single_request_home)(f'{domain_name}/single_product/show_product/10') for i in range(20))
+end_time= time()
+time_diff=end_time-start_time
+print("=========================================")
+print(f'test 20 requestes single_product bage at one time : {time_diff}')
+
+
+
+# stress testing 50 user at once request home bage
+start_time = time()
+Parallel(n_jobs=10)(delayed(single_request_home)(f'{domain_name}') for i in range(50))
+end_time= time()
+time_diff=end_time-start_time
+print("=========================================")
+print(f'stress testing 50 user at once request home bage : {time_diff}')
+
+# stress testing 50 user at once request home bage
+start_time = time()
+Parallel(n_jobs=10)(delayed(single_request_home)(f'{domain_name}/single_product/show_product/10') for i in range(50))
+end_time= time()
+time_diff=end_time-start_time
+print("=========================================")
+print(f'stress testing 50 user at once request single_product bage : {time_diff}')
