@@ -5,18 +5,20 @@
 
 {% block content %}
 <head>
-  <title>{{product.name}}</title></head>
+  <title>{% for prod in prods %}
+    {{prod.category}} {% endfor %}
+    </title></head>
       
       <div id="heading-breadcrumbs">
         <div class="container">
           <div class="row d-flex align-items-center flex-wrap">
             <div class="col-md-7">
-              <h1 class="h2">Category with right sidebar</h1>
+              <h1 class="h2">Category</h1>
             </div>
             <div class="col-md-5">
               <ul class="breadcrumb d-flex justify-content-end">
                 <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                <li class="breadcrumb-item active">Category with right sidebar</li>
+                <li class="breadcrumb-item active">Category</li>
               </ul>
             </div>
           </div>
@@ -68,20 +70,7 @@
               <div class="row">
                 <div class="col-md-12 banner mb-small"><a href="#"><img src="img/banner2.jpg" alt="" class="img-fluid"></a></div>
               </div>
-              <div class="pages">
-                <p class="loadMore text-center"><a href="#" class="btn btn-template-outlined"><i class="fa fa-chevron-down"></i> Load more</a></p>
-                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
-                  <ul class="pagination">
-                    <li class="page-item"><a href="#" class="page-link"> <i class="fa fa-angle-double-left"></i></a></li>
-                    <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                    <li class="page-item"><a href="#" class="page-link">2</a></li>
-                    <li class="page-item"><a href="#" class="page-link">3</a></li>
-                    <li class="page-item"><a href="#" class="page-link">4</a></li>
-                    <li class="page-item"><a href="#" class="page-link">5</a></li>
-                    <li class="page-item"><a href="#" class="page-link"><i class="fa fa-angle-double-right"></i></a></li>
-                  </ul>
-                </nav>
-              </div>
+            
             </div>
             <div class="col-md-3">
               <!-- MENUS AND FILTERS-->
@@ -107,45 +96,6 @@
                 </div>
               </div>
 
-              <div class="panel panel-default sidebar-menu">
-
-                <div class="panel-body">
-                  <form action="/filter" method="GET">
-                    <div class="form-group">
-                      <label for="filterr">Star rating:</label>
-                      <br>
-                      <select name="rate" size="6" style="width: 100%;overflow:hidden" class="form-control">
-                        <option value="none" selected>None</option>
-                        <option value=1>  
-                          ☆ & more
-                    </option>
-                        <option value=2>☆☆ & more</option>
-                        <option value=3>☆☆☆ & more</option>
-                        <option value=4>☆☆☆☆ & more</option>
-                        <option value=5>☆☆☆☆☆ only</option>
-                      </select>
-                      
-                      <label for="price_filter">Price:</label>
-                      <br>
-                      <select name="price_filter" size="1" style="width: 100%;overflow:hidden" class="form-control">
-                        <option value = 1000> 0-1000$</option>
-                        <option value = 2000>1001-2000$</option>
-                        <option value = 3000>2001-3000$</option>
-                        <option value = 4000>3001-4000$</option>
-                        <option value = 5000>4001-5000$</option>
-                        <option value = 6000>6001$ & more</option>
-                      </select>
-
-                    </div> 
-                     
-                      <button type="submit"   class="btn btn-sm btn-template-outlined"><i class="fa fa-pencil"></i> Apply</button>
-                     
-                  </form>
-                </div>
-              </div>
-              </div>
-              
-            </div>
           </div>
         </div>
       </div>
