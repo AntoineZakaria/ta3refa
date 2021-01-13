@@ -48,7 +48,7 @@ class TestPersonal_shop(TestCase):
             username='tony',
             shop_name = 'shop1_test',
             telephone = 123, 
-            owned_products = ["1"],
+            owned_products = [1],
             current_balance = 0
         )
         mail_verification.objects.create(
