@@ -49,6 +49,7 @@ Django Web app
 	I.To test one app (ex:checkout) type: python manage.py test checkout
 	II.To run all tests in all apps (including integration test) type: python manage.py test
 	III.To test stress and respond time set directory of the project in cmd then write (python system_stress_respond.py)
+	     NOTE: You should change the domain name in "system_stress_respond.py" to your server ip (you can use free ngrock tunneling)
 	
 
 
