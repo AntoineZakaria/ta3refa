@@ -31,7 +31,7 @@ class TestMainViews (TestCase):
         Seller.objects.create(
             id=1,
             username='tony',
-            shop_name = 'shop1_test',
+            shop_name = 'tonyShop',
             telephone = 123, 
             owned_products = [],
             current_balance = 0
@@ -54,6 +54,7 @@ class TestMainViews (TestCase):
         self.url_favourite=reverse('favourite')
         self.url_filter=reverse('filter')
         self.url_add=reverse('add_product')
+<<<<<<< HEAD
 
 
         self.url_login=reverse('login')
@@ -62,6 +63,9 @@ class TestMainViews (TestCase):
             'password_login':'1234'
         })
 
+=======
+       
+>>>>>>> 1a18528b3cd9f6ab95ea036809729baf4d08abce
     def test_home_get(self):
         response=self.client.get(self.url_home)
         self.assertEquals(response.status_code,200)

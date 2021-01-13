@@ -54,7 +54,7 @@ class TestRegister(TestCase):
         self.url_customer_reg = reverse('seller_register')
         response=self.client.post(self.url_customer_reg,{
             'username':'tonySeller',
-            'email':'antwan@gmail.com',
+            'email':'antwanemile@gmail.com',
             'phone': '0123456789',
             'shop_name' : 'Sadidas',
             'address':'myaddress1',
