@@ -139,6 +139,7 @@ def redirect_to_main(request):
 
 
 def return_filter(request):
+    
     rate = request.GET['rate']
     price_filter = request.GET['price_filter']
 
@@ -167,7 +168,7 @@ def return_filter(request):
         per= Person.objects.get(username=current_username)
         dash_flag=per.is_seller
     else:
-        dash_flage=False
+        dash_flag=False
 
     return render(request,'filtered.html',{'prods':prods,'dash_flag':dash_flag})  
 
