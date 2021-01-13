@@ -139,6 +139,7 @@ def redirect_to_main(request):
 
 
 def return_filter(request):
+    
     rate = request.GET['rate']
     price_filter = request.GET['price_filter']
 

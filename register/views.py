@@ -30,7 +30,7 @@ def login(request):
                 random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
                 new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
                 new_mail_verification.save()
-                message_to_send=f"https://754d681be257.ngrok.io/verification/{str(random_code)}"
+                message_to_send=f"https://a331eae7648b.ngrok.io/verification/{str(random_code)}"
                 print(message_to_send)
                 send_mail(user.email,message_to_send)
                 
@@ -99,7 +99,7 @@ def customer_register(request):
                 random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
                 new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
                 new_mail_verification.save()
-                message_to_send=f"https://754d681be257.ngrok.io/verification/{str(random_code)}"
+                message_to_send=f"https://a331eae7648b.ngrok.io/verification/{str(random_code)}"
                 print(message_to_send)
                 send_mail(email,message_to_send)
 
@@ -152,7 +152,7 @@ def seller_register(request):
                 random_code = f.encrypt(str(random_code).encode())+f.encrypt(str(random_code2).encode())
                 new_mail_verification=mail_verification(user_name=username,message_code=str(random_code),is_autonticated=False)
                 new_mail_verification.save();
-                message_to_send=f"https://754d681be257.ngrok.io/verification/{str(random_code)}"
+                message_to_send=f"https://a331eae7648b.ngrok.io/verification/{str(random_code)}"
                 print(message_to_send)
                 send_mail(email,message_to_send)
                 messages.info(request,"Seller Account created . you just need to check your mail")
