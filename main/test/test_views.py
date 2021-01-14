@@ -54,6 +54,7 @@ class TestMainViews (TestCase):
         self.url_favourite=reverse('favourite')
         self.url_filter=reverse('filter')
         self.url_add=reverse('add_product')
+        self.url_how_to_use=reverse('how_to_use')
 
     def test_home_get(self):
         response=self.client.get(self.url_home)
@@ -78,7 +79,12 @@ class TestMainViews (TestCase):
         
 
 
-
+    def test_how_to_use(self):
+        response=self.client.get(self.url_how_to_use,{
+            'current_username':'tony'
+        })
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'how_to_use.html') 
 
     def test_filter(self):
         response=self.client.get(self.url_filter,{
