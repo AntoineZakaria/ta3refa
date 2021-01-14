@@ -1,0 +1,228 @@
+
+
+
+
+
+
+
+module target(clk, AD, cBE, Frame, TRDY, IRDY, DEVSEL, RST,dataout);
+    
+
+input Frame, IRDY, RST ;
+input clk;
+input[3:0] cBE ;
+output reg TRDY, DEVSEL;
+inout [31:0] AD ;
+reg [31:0] buffer [0:3];
+reg [31:0] address ;
+//reg [31:0] datain;
+output reg[31:0] dataout;
+reg oe;
+reg ptr;
+
+
+
+reg [3:0] cBE_reg;
+
+
+
+assign AD = oe ? dataout : 32'bz;
+
+wire LastDataTransfer = Frame & ~IRDY & ~TRDY;
+
+
+
+always @(posedge clk)
+begin
+
+dataout = buffer[ptr];
+ if(cBE == 0010 || cBE == 0011 )
+ begin 
+  cBE_reg <= cBE;
+ end
+
+
+assign address = AD ;
+
+assign ptr = address;
+
+if (~Frame)
+begin
+	
+	if ( address == 0 || address == 1 || address == 2 || address ==3)
+	begin
+	    
+		@(negedge clk)
+			begin
+ 			DEVSEL <= 0;
+			TRDY <= 0;
+			end
+		if(cBE == 0010)
+		begin
+			
+			if(~TRDY)
+				begin
+				@(negedge clk)	 oe <= 1 ;
+					
+				if(~IRDY)
+				 begin
+					if(ptr==3)    begin ptr <= 0; end
+                                        else          begin ptr <= ptr+ 1; end
+					   
+	                 	 end
+		end
+
+
+
+
+	//write
+                       else if(cBE == 0011 )
+                      		
+         	 	begin
+       			 
+       			
+       			if(~TRDY && ~IRDY)
+       			begin
+			 oe<=0;
+       			 
+                   buffer[ptr][7:0] <=(cBE[0])? AD[7:0] :buffer[ptr][7:0];
+                   buffer[ptr][15:8] <=(cBE[1])? AD[15:8] :buffer[ptr][15:8];
+                   buffer[ptr][23:16]<=(cBE[2])? AD[23:16]:buffer[ptr][23:16];
+                   buffer[ptr][31:24]<=(cBE[3])? AD[31:24]:buffer[ptr][31:24];
+                    if(ptr==3)begin ptr <= 0; end
+                    else begin ptr <= ptr+ 1; end
+
+
+   			 end
+
+
+end 
+				end
+	end
+
+end
+
+if(LastDataTransfer)
+begin
+	@(negedge clk)
+	DEVSEL <= 1;
+	TRDY <= 1;
+end
+
+
+end
+
+
+endmodule
+
+
+
+module testBench;
+
+
+reg f,i,r;
+reg [31:0] din;
+//
+reg [31:0] dout;
+
+
+reg [3:0]c;
+wire t,d;
+reg clk;
+reg wr;
+wire [31:0] ad;
+assign ad = wr==1 ? din:32'bz;
+//
+
+wire [31:0] dataout;
+
+
+
+
+
+
+initial
+begin
+clk=0;
+
+//write
+#40
+wr=1;
+c=4'b0011;
+f=1'b0;
+i=1'bz;
+r=1'b1;
+din = 32'b1;
+
+
+#10
+wr=1;
+c=4'b0001;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+din = 5;
+
+#10
+wr=1;
+c=4'b0010;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+din = 768;
+
+#10
+wr=1;
+c=4'b0001;
+f=1'b0;
+i=1'b1;
+r=1'b1;
+din = 4;
+
+#10
+wr=1;
+c=4'b0100;
+f=1'b1;
+i=1'b0;
+r=1'b1;
+
+//turnaround
+#10
+i = 1'b1;
+c=4'bzzzz;
+din = 32'bz;
+
+//read
+
+#20
+wr=1;
+c=4'b0010;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+din = 32'b1;
+
+#10
+
+wr=0;
+c=4'b0010;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+
+
+
+
+
+
+end
+
+
+always
+begin
+ #5 clk=~clk;
+end  
+
+ target dev1(clk,ad,c,f,t,i,d,r,dataout );
+
+endmodule
