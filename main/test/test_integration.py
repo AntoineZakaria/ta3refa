@@ -17,6 +17,7 @@ class TestMainViews (TestCase):
         self.url_add=reverse('add_product')
         self.url_html_personal_shop=reverse('return_personal_shop')
         self.url_html_shop = reverse('return_html_shop',args=['tony'])
+        self.url_how_to_use=reverse('how_to_use')
         User.objects.create_user(
             id=1,
             username='tony',
@@ -84,3 +85,8 @@ class TestMainViews (TestCase):
         response=self.client.get(self.url_html_shop)
         self.assertEquals(response.status_code,200)
         self.assertTemplateUsed(response,'shop_personal.html')
+        response=self.client.get(self.url_how_to_use,{
+            'current_username':'tony'
+        })
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'how_to_use.html') 
