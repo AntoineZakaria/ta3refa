@@ -1,0 +1,303 @@
+module target(clk, AD, cBE, Frame, TRDY, IRDY, DEVSEL, RST);
+    
+
+input Frame, IRDY, RST ;
+input clk;
+input[3:0] cBE ;
+output reg TRDY, DEVSEL;
+inout [31:0] AD ;
+reg [31:0] buffer [3:0];
+reg [31:0] address ;
+reg oe;
+reg [2:0]ptr;
+reg [3:0] cBE_reg;
+reg read;
+reg write;
+
+
+ assign AD = oe ?  buffer [ptr] : 32'bz; 
+
+wire LastDataTransfer = Frame & ~IRDY & ~TRDY;
+
+
+
+
+
+//address & control
+
+always @(posedge clk)
+begin
+
+if(~Frame)
+begin
+
+if(DEVSEL )
+begin
+if((cBE == 2))
+begin
+ read = 1'b1;
+end
+
+
+
+else 
+begin
+ write = 1'b1;
+end
+
+
+if (( AD == 0 || AD == 1 || AD == 2 || AD ==3) && DEVSEL)
+begin
+
+        address <=AD;
+	
+
+
+
+	@(negedge clk)
+begin
+	
+DEVSEL <=0;
+
+
+if(read)
+begin
+#10
+TRDY <=0;
+end
+else TRDY<=0;
+
+if(read)
+begin
+#5
+ptr <=address;
+       
+end
+else begin ptr <= address; end
+
+
+
+
+end
+end
+
+
+
+
+
+
+
+end
+
+
+
+
+end
+end
+//always
+
+
+
+
+
+
+
+
+
+always @(posedge clk)
+begin
+
+
+
+if(~RST)
+begin
+
+DEVSEL <=1;
+TRDY <=1;
+oe<=0;
+read <=0;
+write<=0;
+
+end
+
+
+
+
+//transaction
+if (~Frame)
+begin
+	
+	
+	    
+		//read
+		if(read &&  ~TRDY)
+			begin	
+					
+					 oe <= 1 ;
+					 if(~IRDY)
+					 begin
+					    if(ptr == 3 ) ptr=0;
+					    else ptr <= ptr+1;
+					    
+					 end
+			end	
+
+			//write
+                  else if(write && ~TRDY)
+                      		
+         	 	begin
+       			
+       			 oe<=0;
+			      			
+      			 
+       			 if (cBE[0]) buffer[ptr][7:0]=AD[7:0] ;
+       			 if (cBE[1]) buffer[ptr][15:8]=AD[15:8];
+   			 if (cBE[2]) buffer[ptr][23:16]=AD[23:16] ;
+  		         if (cBE[3]) buffer[ptr][31:25]=AD[31:25] ;
+			if(~IRDY)
+			begin			 
+			 if(ptr == 3 ) ptr=0;
+			 else ptr = ptr+1;
+   			 end 
+			
+			end
+//endFrame		
+end
+	
+
+
+if(LastDataTransfer)
+begin
+	@(negedge clk)
+	begin DEVSEL <= 1;
+	TRDY <= 1; end
+
+
+
+end
+
+
+
+
+//alwaysend
+end
+endmodule
+
+
+module tbb;
+
+
+reg f,i,r;
+reg [31:0] din;
+//
+reg [31:0] dout;
+
+
+reg [3:0]c;
+wire t,d;
+
+reg clk;
+reg wr;
+wire [31:0] ad;
+assign ad = wr==1 ? din:32'bz;
+//
+
+
+
+
+
+
+
+
+initial
+begin
+clk=0;
+
+//write
+
+#40
+r=1'b0;
+
+#10
+wr=1;
+c=4'b0011;
+f=1'b0;
+i=1'bz;
+r=1'b1;
+din = 32'b1;
+
+
+#10
+wr=1;
+c=4'b0001;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+din = 5;
+
+#10
+wr=1;
+c=4'b0011;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+din = 768;
+
+#10
+wr=1;
+c=4'b0001;
+f=1'b0;
+i=1'b1;
+r=1'b1;
+din = 4;
+
+#10
+wr=1;
+c=4'b0100;
+f=1'b1;
+i=1'b0;
+r=1'b1;
+
+//turnaround
+#10
+r=0;
+i = 1'b1;
+c=4'bzzzz;
+din = 32'bz;
+
+
+#20
+wr=1;
+c=4'b0010;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+din = 32'b1;
+
+#10
+
+wr=0;
+c=4'b0010;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+
+#10
+wr=0;
+c=4'b0010;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+
+end
+always
+begin
+ #5 clk=~clk;
+end  
+
+ target dev1(clk,ad,c,f,t,i,d,r);
+
+endmodule
+
+
+
