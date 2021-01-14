@@ -8,11 +8,8 @@ from joblib import Parallel, delayed
 
 ##################3 please Change the domain name after Deployment (you can use freely ngrok server) ##########################
 domain_name='https://a331eae7648b.ngrok.io'
-<<<<<<< HEAD
 #domain_name='http://127.0.0.1:8000/'
-=======
 ###############################################################################################################################
->>>>>>> 6f3c43d021dea52158843cfab96066ec0fcecae6
 def single_request_home (domain_name):
     requests.get(domain_name)
     #print('one request sent')
