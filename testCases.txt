@@ -510,7 +510,7 @@ class TestMainViews (TestCase):
 	##url testing ##
 from django.test import SimpleTestCase
 from django.urls import resolve,reverse
-from main.views import return_html_category,return_html_home,verify_code,return_favourite,redirect_to_main,return_filter
+from main.views import return_html_category,return_html_home,verify_code,return_favourite,redirect_to_main,return_filter,return_how_to_use
 class TestMainUrls(SimpleTestCase):
     def test_home_url_resolves(self):
         url=reverse('home')
@@ -525,7 +525,9 @@ class TestMainUrls(SimpleTestCase):
         url=reverse('filter')
         self.assertEquals(resolve(url).func,return_filter)
 
-
+    def test_return_how_to_use(self):
+        url=reverse('how_to_use')
+        self.assertEquals(resolve(url).func,return_how_to_use)
     def test_shop_cat_url_resolves(self):
         url=reverse('category',args=['some_slug'])
         self.assertEquals(resolve(url).func,return_html_category)
@@ -589,6 +591,7 @@ class TestMainViews (TestCase):
         self.url_favourite=reverse('favourite')
         self.url_filter=reverse('filter')
         self.url_add=reverse('add_product')
+        self.url_how_to_use=reverse('how_to_use')
 
     def test_home_get(self):
         response=self.client.get(self.url_home)
@@ -613,7 +616,12 @@ class TestMainViews (TestCase):
         
 
 
-
+    def test_how_to_use(self):
+        response=self.client.get(self.url_how_to_use,{
+            'current_username':'tony'
+        })
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'how_to_use.html') 
 
     def test_filter(self):
         response=self.client.get(self.url_filter,{
@@ -630,7 +638,9 @@ class TestMainViews (TestCase):
         response=self.client.get(self.url_favourite)
         self.assertEquals(response.status_code,200)
         self.assertTemplateUsed(response,'favourite.html')    
-	##Integration testing##
+
+
+	##integration testing##
 from django.test import TestCase, Client
 from django.urls import reverse
 from main.models import Comment,Product,Person,Seller,Customer,mail_verification
@@ -650,6 +660,7 @@ class TestMainViews (TestCase):
         self.url_add=reverse('add_product')
         self.url_html_personal_shop=reverse('return_personal_shop')
         self.url_html_shop = reverse('return_html_shop',args=['tony'])
+        self.url_how_to_use=reverse('how_to_use')
         User.objects.create_user(
             id=1,
             username='tony',
@@ -717,6 +728,12 @@ class TestMainViews (TestCase):
         response=self.client.get(self.url_html_shop)
         self.assertEquals(response.status_code,200)
         self.assertTemplateUsed(response,'shop_personal.html')
+        response=self.client.get(self.url_how_to_use,{
+            'current_username':'tony'
+        })
+        self.assertEquals(response.status_code,200)
+        self.assertTemplateUsed(response,'how_to_use.html') 
+	
 ### PERSONAL_SHOP TESTING ###
 	## url testing ##
 from django.test import SimpleTestCase
