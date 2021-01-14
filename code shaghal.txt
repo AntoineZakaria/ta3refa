@@ -1,0 +1,196 @@
+module target(clk, AD, cBE, Frame, TRDY, IRDY, DEVSEL, RST);
+    
+
+input Frame, IRDY, RST ;
+input clk;
+input[3:0] cBE ;
+output reg TRDY, DEVSEL;
+inout [31:0] AD ;
+reg [31:0] buffer [0:3];
+reg [31:0] address ;
+reg oe;
+reg [2:0]ptr;
+reg [3:0] cBE_reg;
+reg read;
+reg write;
+
+
+ assign AD = oe ?  buffer [ptr] : 32'bz; 
+
+wire LastDataTransfer = Frame & ~IRDY & ~TRDY;
+
+
+
+
+
+//address & control
+
+always @(posedge clk)
+begin
+
+if(~Frame)
+begin
+
+if(DEVSEL )
+begin
+
+
+if((cBE == 2))
+begin
+ read = 1'b1;
+end
+
+
+else 
+begin
+ write = 1'b1;
+end
+
+
+if (( AD == 0 || AD == 1 || AD == 2 || AD ==3) && DEVSEL)
+begin
+
+        address <=AD;
+	
+
+
+
+	@(negedge clk)
+begin
+	
+DEVSEL <=0;
+
+
+if(read)
+begin
+#10
+TRDY <=0;
+ oe = 1 ;
+end
+
+else TRDY<=0;
+
+if(read)
+begin
+
+ptr <=address;
+       
+end
+
+
+else begin ptr <= address; end
+
+
+
+
+end
+end
+
+
+
+
+
+
+
+end
+
+
+
+
+end
+end
+//always
+
+
+
+
+
+
+
+
+
+always @(posedge clk)
+begin
+
+
+
+if(~RST)
+begin
+
+DEVSEL <=1;
+TRDY <=1;
+oe<=0;
+read <=0;
+write<=0;
+
+
+end
+
+
+
+
+//transaction
+/*if (~Frame)
+begin*/
+	
+	
+	    
+		//read
+		if(read &&  ~TRDY)
+			begin	
+					
+					
+					 if(~IRDY)
+					 begin
+					@(negedge clk)begin
+					    if(ptr == 3 ) ptr=0;
+					    else ptr = ptr+1;end
+					    
+					 end
+			end	
+
+			//write
+                  else if(write && ~TRDY)
+                      		
+         	 	begin
+       			
+       			 oe<=0;
+			      			
+      			if(~IRDY)
+			begin 
+       			 if (cBE[0]) buffer[ptr][7:0]=AD[7:0] ;
+       			 if (cBE[1]) buffer[ptr][15:8]=AD[15:8];
+   			 if (cBE[2]) buffer[ptr][23:16]=AD[23:16] ;
+  		         if (cBE[3]) buffer[ptr][31:25]=AD[31:25] ;
+						 
+			 if(ptr == 3 ) ptr=0;
+			 else ptr = ptr+1;
+   			 end 
+			
+			end
+
+	
+
+//end  frame
+if(LastDataTransfer)
+begin
+	read<=0;
+	write<=0;
+	@(negedge clk)
+	begin DEVSEL <= 1;
+	TRDY <= 1;
+	oe<=0;
+
+end
+	 
+
+
+
+end
+
+
+
+
+//alwaysend
+end
+endmodule
