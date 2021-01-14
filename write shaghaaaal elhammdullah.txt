@@ -1,0 +1,158 @@
+module target(clk, AD, cBE, Frame, TRDY, IRDY, DEVSEL, RST);
+    
+
+input Frame, IRDY, RST ;
+input clk;
+input[3:0] cBE ;
+output reg TRDY, DEVSEL;
+inout [31:0] AD ;
+reg [31:0] buffer [3:0];
+reg [31:0] address ;
+reg oe=0 ;
+reg ptr=0;
+reg [3:0] cBE_reg;
+assign AD = oe ? buffer [address+ptr] : 32'bz;
+wire LastDataTransfer = Frame & ~IRDY & ~TRDY;
+
+
+always @(posedge clk)
+begin
+
+
+ if(cBE == 0010 || cBE == 0011 )
+ begin 
+  cBE_reg <= cBE;
+ end
+
+
+assign address = AD ;
+
+
+
+if (~Frame)
+begin
+	
+	if ( address == 0 || address == 1 || address == 2 || address ==3)
+	begin
+	    
+		@(negedge clk)
+			
+			DEVSEL <= 0;
+			TRDY <= 0;
+			
+			if(cBE_reg == 0010 &&  ~TRDY)
+				begin
+					 oe <= 1 ;
+					 if(~IRDY)
+					 begin
+					    ptr = ptr+1;
+					    
+					 end
+			
+                       else if(cBE_reg == 0011 && ~TRDY)
+                      		
+         	 	begin
+       			 DEVSEL <= 0;
+			 TRDY <= 0;
+       			
+       			
+       			
+       			 if (cBE[0]) buffer[address][7:0]<=AD[7:0] ;
+       			 if (cBE[1]) buffer[address][15:8]<=AD[15:8];
+   			 if (cBE[2]) buffer[address][23:16]<=AD[23:16] ;
+  		         if (cBE[3]) buffer[address][31:25]<=AD[31:25] ;
+   			 end 
+				end
+	end
+
+end
+
+if(LastDataTransfer)
+begin
+	@(negedge clk)
+	DEVSEL <= 1;
+	TRDY <= 1;
+end
+
+
+end
+endmodule
+
+
+
+module testBench;
+
+
+reg f,i,r;
+reg [31:0] din;
+reg [3:0]c;
+wire t,d;
+reg clk;
+reg oe;
+wire [31:0] ad;
+assign ad = oe==1 ? din :32'bz;
+
+
+
+
+
+
+initial
+begin
+clk=0;
+#40
+oe=1;
+c=4'b0011;
+f=1'b0;
+i=1'bz;
+r=1'b1;
+din = 32'b1;
+
+
+#10
+oe=1;
+c=4'b0001;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+din = 44;
+
+#10
+oe=1;
+c=4'b0010;
+f=1'b0;
+i=1'b0;
+r=1'b1;
+din = 77;
+
+#10
+oe=1;
+c=4'b0100;
+f=1'b0;
+i=1'b1;
+r=1'b1;
+din = 77;
+
+#10
+oe=1;
+c=4'b0100;
+f=1'b1;
+i=1'b0;
+r=1'b1;
+din = 3;
+
+#10
+i = 1'b1;
+c=4'bzzzz;
+din = 32'bz;
+end
+
+
+always
+begin
+ #5 clk=~clk;
+end  
+
+ target dev1(clk,ad,c,f,t,i,d,r );
+
+endmodule
