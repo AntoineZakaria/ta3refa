@@ -1,0 +1,92 @@
+
+module target(clk, AD, cBE, Frame, TRDY, IRDY, DEVSEL, RST);
+    
+
+input[3:0] cBE, Frame, IRDY, RST,clk ;
+
+output reg TRDY, DEVSEL;
+inout [31:0] AD ;
+reg [31:0] buffer [3:0];
+reg [31:0] address ;
+reg oe=0 ;
+reg ptr=0;
+assign AD = oe ? buffer [address+ptr] : 32'bz;
+always @(posedge clk)
+begin
+assign address = AD ;
+if (~Frame)
+begin
+	
+	if ( address == 0 || address == 1 || address == 2 || address ==3)
+	begin
+	    #5
+		@(negedge clk) 
+			DEVSEL <= 0;
+			TRDY <= 0;
+			
+			if(cBE == 0010 &&  ~TRDY)
+				begin
+					 oe <= 1 ;
+					 if(~IRDY)
+					 begin
+					    ptr = ptr+1;
+					    
+					 end
+			
+                       else if(cBE == 0011 && ~TRDY)
+                      		
+         	 	begin
+       			if(cBE = 0010 || cBE = 0011 ) assign cBE_reg <= cBE; 
+       			
+       			
+       			
+       			 if (cBE[0]) buffer[address][7:0]<=AD[7:0] ;
+       			 if (cBE[1]) buffer[address][15:8]<=AD[15:8];
+   			 if (cBE[2]) buffer[address][23:16]<=AD[23:16] ;
+  		         if (cBE[3]) buffer[address][31:25]<=AD[31:25] ;
+   			 end 
+				end
+	end
+   else
+   begin
+    	@(negedge clk) 
+			DEVSEL <= 1;
+			TRDY <=1 ;
+   end
+end
+end
+endmodule
+
+
+
+module testBench;
+
+
+reg [3:0]c,f,i,r;
+wire t,d;
+wire clk;
+wire [31:0] ad;
+
+initial
+begin
+
+#10
+c=0011;
+f=0;
+i=0;
+r=1;
+ad = 1;
+ 
+ 
+
+
+end
+always
+begin
+ #5 clk = ~clk;
+end
+ target dev1(clk,ad,c,f,t,i,d,r );
+
+
+
+endmodule
